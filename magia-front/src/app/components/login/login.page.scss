@@ -1,0 +1,31 @@
+ion-content::part(scroll) {
+  box-shadow:
+    inset 0 0 15px rgba(138, 43, 226, 0.7),
+    inset 0 0 15px rgba(75, 0, 130, 0.5);
+}
+
+
+.logo{
+  height: 20vh;
+}
+
+.logo-bruxinha{
+  height: 35vh;
+  display: block;
+  margin: 20px auto;
+}
+
+.bounce {
+  animation: bounce 0.5s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+.custom-space{
+  margin-bottom: 30px;
+}
+
+
