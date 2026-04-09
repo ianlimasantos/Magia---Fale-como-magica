@@ -10,4 +10,16 @@
       <ion-title size="large">curiosidades</ion-title>
     </ion-toolbar>
   </ion-header>
+  @for(curiosidade of curiosidades; track curiosidade.id){
+    <ion-card (click)="openCuriosityDetail(curiosidade.id)">
+      <img  [src]="curiosidade.img_header" />
+      <ion-card-header>
+        <ion-card-title>{{curiosidade.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Here's a small text description for the card content. Nothing more, nothing less.
+      </ion-card-content>
+    </ion-card>
+  }
+
 </ion-content>

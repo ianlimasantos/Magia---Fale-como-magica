@@ -6,11 +6,12 @@ export class GetCuriosityCardDto {
   @Expose()
   @IsString()
   id: string;
-  
+
+  @Expose()
   @IsString()
   title: string;
 
   @Expose()
   @IsString()
-  textPart1: string;
+  img_header: string;
 }

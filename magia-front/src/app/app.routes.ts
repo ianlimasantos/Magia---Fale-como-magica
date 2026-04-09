@@ -24,7 +24,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/curiosidades/curiosidades.page').then( m => m.CuriosidadesPage)
       },
       {
-        path: 'curiosidade-detalhe',
+        path: 'curiosidade-detalhe/:id',
         loadComponent: () => import('./components/curiosidade-detalhe/curiosidade-detalhe.page').then( m => m.CuriosidadeDetalhePage)
       },
       {

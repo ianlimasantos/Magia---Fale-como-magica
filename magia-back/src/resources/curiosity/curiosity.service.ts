@@ -9,6 +9,7 @@ import { CuriosityEntity } from './curiosity-entity';
 import { Repository } from 'typeorm';
 import { GetCuriosityDto } from './dto/get-curiosity-dto';
 import { plainToInstance } from 'class-transformer';
+import { GetCuriosityCardDto } from './dto/get-curiosity-card-dto';
 
 @Injectable()
 export class CuriosityService {
@@ -33,6 +34,20 @@ export class CuriosityService {
     const curiositys = await this.curiosityRepository.find();
 
     return plainToInstance(GetCuriosityDto, curiositys, {
+      excludeExtraneousValues: true
+    })
+  }
+
+  async findAllForCards(): Promise<GetCuriosityCardDto[]>{
+    const curiositys = await this.curiosityRepository.find({
+      select: {
+        id: true,
+        title: true,
+        img_header: true,
+      }
+    });
+
+    return plainToInstance(GetCuriosityCardDto, curiositys, {
       excludeExtraneousValues: true
     })
   }
