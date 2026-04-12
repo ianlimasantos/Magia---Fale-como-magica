@@ -31,9 +31,28 @@ export const routes: Routes = [
         path: 'estudo-ia',
         loadComponent: () => import('./components/estudo-ia/estudo-ia.page').then( m => m.EstudoIAPage)
       },
+      {
+        path: 'perfil',
+        loadComponent: () => import('./components/perfil/perfil.page').then( m => m.PerfilPage)
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      }
     ]
   },
-
-
+  {
+    path: 'multipla-escolha',
+    loadComponent: () => import('./components/multipla-escolha/multipla-escolha.page').then( m => m.MultiplaEscolhaPage)
+  },
+  {
+    path: 'complete',
+    loadComponent: () => import('./components/complete/complete.page').then( m => m.CompletePage)
+  },
+  {
+    path: 'create-account',
+    loadComponent: () => import('./components/create-account/create-account.page').then( m => m.CreateAccountPage)
+  },
 
 ];

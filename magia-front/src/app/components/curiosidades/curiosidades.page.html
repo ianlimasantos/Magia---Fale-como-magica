@@ -1,18 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>curiosidades</ion-title>
+    <ion-title>Curiosidades</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">curiosidades</ion-title>
+      <ion-title size="large">Curiosidades</ion-title>
     </ion-toolbar>
   </ion-header>
   @for(curiosidade of curiosidades; track curiosidade.id){
     <ion-card (click)="openCuriosityDetail(curiosidade.id)">
-      <img  [src]="curiosidade.img_header" />
+      <ion-img  [src]="curiosidade.img_header" />
       <ion-card-header>
         <ion-card-title>{{curiosidade.title}}</ion-card-title>
       </ion-card-header>
@@ -21,5 +21,11 @@
       </ion-card-content>
     </ion-card>
   }
+  <div class="magic-overlay" *ngIf="loading">
+  <div class="magic-container">
+    <img src="../../assets/images/magia.png" class="magic-doll" />
+    <p>Invocando magia...</p>
+  </div>
+</div>
 
 </ion-content>

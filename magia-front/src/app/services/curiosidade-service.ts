@@ -17,7 +17,7 @@ export class CuriosidadeService {
     return this._httpClient.get<CuriosityCardModel[]>(this._apiService.apiUrl + '/curiosity/getCuriosityCards');
   }
 
-  findCuriosity(): Observable<CuriosityModel>{
-    return this._httpClient.get<CuriosityModel>(this._apiService.apiUrl + '/curiosity/findOneById');
+  findCuriosity(id: string): Observable<CuriosityModel>{
+    return this._httpClient.get<CuriosityModel>(this._apiService.apiUrl + `/curiosity/${id}`);
   }
 }

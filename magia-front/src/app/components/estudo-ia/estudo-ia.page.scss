@@ -1,0 +1,114 @@
+ion-toolbar {
+  --background: linear-gradient(135deg,#7d6ffb, #ff6363);
+  --color: white;
+}
+
+ion-header {
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+// p{
+//   text-align: center;
+// }
+
+
+// .multiplaEscolha {
+//   background: linear-gradient(135deg, #b61fd1, #b60404);
+//   color: white;
+//   border: none;
+//   padding: 10px 16px;
+//   border-radius: 8px;
+// }
+
+// .boneca-magica {
+//   position: fixed;
+//   bottom: 100px;
+//   right: 0;
+//   width: 80px;
+
+//   animation: andar 10s linear infinite;
+// }
+
+// @keyframes andar {
+//   0% {
+//     transform: translateX(100vw);
+//   }
+
+//   100% {
+//     transform: translateX(-150vw);
+//   }
+// }
+
+ion-content {
+  --background: #f5f6ff;
+}
+
+/* container central */
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 0 16px;
+}
+
+/* título */
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* subtítulo */
+.subtitulo {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* botões */
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* estilo dos botões */
+.btn {
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* estilo mágico */
+.magia {
+  background: linear-gradient(135deg, #6C63FF, #8A7CFF);
+  color: white;
+  box-shadow: 0 8px 20px rgba(21, 1, 1, 0.1);
+}
+
+/* hover */
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* clique */
+.btn:active {
+  transform: scale(0.97);
+}
+
+.doll-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.magic-doll {
+  width: 40vw;
+}

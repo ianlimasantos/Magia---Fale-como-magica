@@ -11,7 +11,7 @@ import { bulb, planetOutline, sparkles, personCircle } from 'ionicons/icons';
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule,]
 })
 export class TabsPage implements OnInit {
 

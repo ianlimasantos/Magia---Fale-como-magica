@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import {  IonButton, IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-estudo-ia',
-  templateUrl: './estudo-ia.page.html',
-  styleUrls: ['./estudo-ia.page.scss'],
+  selector: 'app-create-account',
+  templateUrl: './create-account.page.html',
+  styleUrls: ['./create-account.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class EstudoIAPage implements OnInit {
+export class CreateAccountPage implements OnInit {
 
   constructor() { }
 

@@ -6,11 +6,11 @@ ion-content::part(scroll) {
 
 
 .logo{
-  height: 20vh;
+  height: 15vh;
 }
 
 .logo-bruxinha{
-  height: 35vh;
+  height: 30vh;
   display: block;
   margin: 20px auto;
 }
@@ -29,3 +29,7 @@ ion-content::part(scroll) {
 }
 
 
+p{
+  text-align: center;
+  color:rgb(58, 61, 231)
+}

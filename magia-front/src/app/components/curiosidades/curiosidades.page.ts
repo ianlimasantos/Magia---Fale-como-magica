@@ -2,7 +2,7 @@ import { CuriosidadeService } from './../../services/curiosidade-service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle  } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonSpinner  } from '@ionic/angular/standalone';
 import { CuriosityCardModel } from 'src/app/models/curiosidade/curiosity-card-model';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
   templateUrl: './curiosidades.page.html',
   styleUrls: ['./curiosidades.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar,  CommonModule, FormsModule,  IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar,  CommonModule, 
+    FormsModule,  IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, 
+    IonCardTitle, IonImg, IonSpinner]
 })
 export class CuriosidadesPage implements OnInit {
 
@@ -38,7 +40,19 @@ export class CuriosidadesPage implements OnInit {
   }
 
   openCuriosityDetail(id: string){
-    this.router.navigate(['/curiosidade-detalhe/:id', id]);
+    this.router.navigate([`/tabs/curiosidade-detalhe/${id}`]);
   }
+
+
+  loading = true;
+
+async carregar() {
+  this.loading = true;
+
+  // simulação
+  setTimeout(() => {
+    this.loading = false;
+  }, 2000);
+}
 
 }
