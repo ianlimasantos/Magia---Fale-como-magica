@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
   templateUrl: './curiosidades.page.html',
   styleUrls: ['./curiosidades.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar,  CommonModule, 
-    FormsModule,  IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, 
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar,  CommonModule,
+    FormsModule,  IonCard, IonCardContent, IonCardHeader, IonCardSubtitle,
     IonCardTitle, IonImg, IonSpinner]
 })
 export class CuriosidadesPage implements OnInit {
@@ -44,7 +44,7 @@ export class CuriosidadesPage implements OnInit {
   }
 
 
-  loading = true;
+  loading = false;
 
 async carregar() {
   this.loading = true;

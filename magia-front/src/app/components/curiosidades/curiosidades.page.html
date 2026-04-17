@@ -1,15 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Curiosidades</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-header >
     <ion-toolbar>
       <ion-title size="large">Curiosidades</ion-title>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
+<ion-content>
+  <div class="marginForHeader"></div>
   @for(curiosidade of curiosidades; track curiosidade.id){
     <ion-card (click)="openCuriosityDetail(curiosidade.id)">
       <ion-img  [src]="curiosidade.img_header" />

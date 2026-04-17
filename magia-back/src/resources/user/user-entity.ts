@@ -14,6 +14,12 @@ export class UserEntity {
   @Column({ type: 'text' })
   name: string;
 
+  @Column({ type: 'text', unique: true })
+  email: string;
+
+  @Column({ type: 'text' })
+  password: string;
+
   @Column({ default: true })
   isActive: boolean;
 

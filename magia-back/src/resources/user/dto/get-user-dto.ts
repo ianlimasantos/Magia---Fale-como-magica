@@ -21,4 +21,11 @@ export class GetUserDto {
   @Expose()
   @IsDateString()
   updated_at: Date;
+
+  @Expose()
+  @IsString()
+  email: string;
+
+  @IsString()
+  password: string;
 }
