@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,9 +14,14 @@ import {  IonButton, IonicModule } from '@ionic/angular';
 })
 export class EstudoIAPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  goToConfig(tipo: string) {
+    console.log('Tipo selecionado:', tipo);
+    this.router.navigate(['/config-ia'], {queryParams: {tipo}});
   }
 
 }

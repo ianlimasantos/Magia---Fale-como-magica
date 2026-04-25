@@ -35,8 +35,9 @@ export class UserService {
     
     userEntity.name = createUserDto.name;
     userEntity.isActive = true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    userEntity.password = await bcrypt.hash(createUserDto.password, 10);
+    userEntity.dateOfBirth = new Date(createUserDto.dateOfBirth);
+    userEntity.email = createUserDto.email;
+    userEntity.password = await bcrypt.hash(createUserDto.password, 12);
     await this.userRepository.save(userEntity);
 
     return plainToInstance<GetUserDto, UserEntity>(GetUserDto, userEntity, {

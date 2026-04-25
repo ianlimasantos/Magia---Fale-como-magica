@@ -1,0 +1,73 @@
+/* fundo geral */
+.register-page {
+  --background: linear-gradient(160deg, #7d6ffb, #9f8cff, #f5f6ff);
+}
+
+/* topo */
+.top-area {
+  padding: 60px 20px 20px;
+  color: white;
+}
+
+.top-area h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.top-area p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* container do form */
+.form-container {
+  background: white;
+  margin: 20px;
+  padding: 24px;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* inputs */
+.input-item {
+  --background: #f5f6ff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  padding-left: 10px;
+}
+
+/* botão mágico */
+.magic-button {
+  margin-top: 10px;
+
+  --background: linear-gradient(135deg, #7d6ffb, #ff6363);
+  --border-radius: 12px;
+
+  font-weight: 600;
+  height: 48px;
+
+  box-shadow: 0 6px 15px rgba(125, 111, 251, 0.4);
+}
+
+/* efeito ao clicar */
+.magic-button:active {
+  transform: scale(0.97);
+}
+
+/* animação leve */
+.form-container {
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

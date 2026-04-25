@@ -1,15 +1,36 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>createAccount</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="register-page" [fullscreen]="true">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">createAccount</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="top-area">
+    <h1>Criar conta &#10024;</h1>
+    <p>Comece sua jornada no espanhol</p>
+  </div>
+
+  <form [formGroup]="newUserForm" (ngSubmit)="createAccount()" class="form-container" >
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" for="name">Nome</ion-label>
+      <ion-input type="name" id="name" formControlName="name" placeholder="Digite seu nome"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" for="dateOfBirth">Data de Nascimento</ion-label>
+      <ion-input type="date" id="dateOfBirth" formControlName="dateOfBirth"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" for="email">Email</ion-label>
+      <ion-input type="email" id="email" formControlName="email" placeholder="Digite seu email"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" for="password">Senha</ion-label>
+      <ion-input type="password" id="password" formControlName="password" placeholder="Digite sua senha"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" class="magic-button" [disabled]="!newUserForm.valid">
+      Criar conta
+    </ion-button>
+
+  </form>
+
 </ion-content>
-
-

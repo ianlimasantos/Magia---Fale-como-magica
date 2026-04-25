@@ -1,0 +1,60 @@
+<ion-content>
+
+  <div class="container">
+
+    <!-- topo mágico -->
+    <div class="magic-header">
+      <h2>{{tipoLabel[tipo]}}</h2>
+      <p>Escolha como deseja aprender hoje</p>
+    </div>
+
+    <!-- card principal -->
+    <div class="magic-card">
+
+      <!-- nível -->
+      <div class="field">
+        <label>🧠 Nível</label>
+        <select [(ngModel)]="nivel">
+          <option *ngFor="let n of niveis" [value]="n">{{n}}</option>
+        </select>
+      </div>
+
+      <!-- tema -->
+      <div class="field">
+        <label>🌍 Tema</label>
+        <input
+          type="text"
+          [(ngModel)]="tema"
+          placeholder="Ex: viagem, trabalho..." />
+      </div>
+
+      <!-- quantidade -->
+      <div class="field">
+        <label>🔢 Quantidade</label>
+        <div class="chips">
+          <button
+            *ngFor="let q of [5,10,15]"
+            [class.active]="quantidade === q"
+            (click)="quantidade = q">
+            {{q}}
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- botão -->
+    <div class="div-button">
+      <button class="btn magia iniciar" (click)="start()">
+        ✨ Gerar Atividade
+      </button>
+    </div>
+
+    <!-- boneca -->
+    <div class="doll-container">
+      <img src="../../assets/images/magia.png" class="magic-doll" />
+    </div>
+
+  </div>
+
+</ion-content>

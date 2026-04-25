@@ -23,6 +23,9 @@ export class UserEntity {
   @Column({ default: true })
   isActive: boolean;
 
+  @Column()
+  dateOfBirth: Date;
+
   @CreateDateColumn({ default: () => 'CURRENT_TIME' })
   created_at: Date;
 

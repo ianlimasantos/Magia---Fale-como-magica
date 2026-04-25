@@ -1,0 +1,90 @@
+ion-toolbar {
+  --background: linear-gradient(135deg,#7d6ffb, #ff6363);
+  --color: white;
+}
+
+ion-content {
+  --background: radial-gradient(circle at top, #eceaff, #f7f7ff);
+}
+
+/* topo */
+.profile-header {
+  text-align: center;
+  padding: 40px 16px 20px;
+}
+
+/* avatar */
+.avatar img {
+  width: 30vw;
+  height: 30vw;
+  border-radius: 50%;
+
+  border: 4px solid white;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.1),
+    0 0 20px rgba(108, 99, 255, 0.2);
+}
+
+.profile-header h2 {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.email {
+  color: #777;
+  font-size: 14px;
+}
+
+/* card */
+.info-card {
+  background: white;
+  margin: 20px 16px;
+  padding: 18px;
+  border-radius: 18px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* item */
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+/* ações */
+.actions {
+  margin: 30px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* botões */
+.btn {
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* principal */
+.magia {
+  background: linear-gradient(135deg, #6C63FF, #8A7CFF);
+  color: white;
+
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+}
+
+/* secundário */
+.logout {
+  background: #eee;
+  color: #444;
+}

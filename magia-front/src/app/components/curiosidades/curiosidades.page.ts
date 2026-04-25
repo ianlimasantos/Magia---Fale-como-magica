@@ -22,11 +22,11 @@ export class CuriosidadesPage implements OnInit {
   constructor(private curiosidadeService: CuriosidadeService, private router: Router) { }
 
   ngOnInit() {
-    this.findCuriositys();
+    this.findCuriosities();
   }
 
-  findCuriositys(){
-    this.curiosidadeService.findCuriositys().subscribe({
+  findCuriosities(){
+    this.curiosidadeService.findCuriosities().subscribe({
       next: (curiosidades: CuriosityCardModel[]) => {
         this.curiosidades = curiosidades;
       },

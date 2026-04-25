@@ -1,19 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>MultiplaEscolha</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">MultiplaEscolha</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <p>{{multiplaEscolha.question}}</p>
-  @for(option of multiplaEscolha.options; track $index){
-    <button (click)="checkAnswer(option)">{{option}}</button>
-    <br>
-  }
+  <div class="container" *ngIf="multiplaEscolha">
+
+    <!-- progresso -->
+    <div class="topo">
+      <div class="progress-container">
+        <div
+          class="progress-bar"
+          [style.width.%]="(contador + 1) / multiplaEscolhaArray.length * 100">
+        </div>
+      </div>
+
+      <p class="contador">
+        Pergunta {{ contador + 1 }} de {{ multiplaEscolhaArray.length }}
+      </p>
+    </div>
+
+    <!-- pergunta -->
+    <div class="question-card">
+      <p class="question">{{ multiplaEscolha.question }}</p>
+    </div>
+
+    <!-- opções -->
+    <div class="botoes">
+      @for(option of multiplaEscolha.options; track $index){
+        <button
+          class="btn magia"
+          [ngClass]="{
+            'correto': selectedOption === option && isCorrect,
+            'errado': selectedOption === option && isCorrect === false
+          }"
+          (click)="checkAnswer(option)">
+          {{ option }}
+        </button>
+      }
+    </div>
+
+    <!-- explicação -->
+    <div *ngIf="selectedOption" class="explicacao-box">
+      {{ multiplaEscolha.explanation }}
+    </div>
+
+  </div>
 
 </ion-content>

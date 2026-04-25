@@ -1,0 +1,152 @@
+ion-content {
+  --background: radial-gradient(circle at top, #dcd9ff, #f5f6ff);
+}
+
+/* topo */
+.magic-header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #5a00ed;
+;}
+
+.magic-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.magic-header p {
+  color: #5a00ed;;
+}
+
+/* card */
+.magic-card {
+  background: white;
+  padding: 22px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  margin: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* campo */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* input/select */
+input, select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+
+  background: #f5f6ff;
+  font-size: 14px;
+
+  transition: all 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 2px #6C63FF;
+}
+
+/* chips */
+.chips {
+  display: flex;
+  gap: 10px;
+}
+
+.chips button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.chips button.active {
+  background: linear-gradient(135deg, #6C63FF, #8A7CFF);
+  color: white;
+}
+
+/* botão grande */
+.grande {
+  width: 100%;
+  padding: 18px;
+  font-size: 17px;
+}
+
+/* boneca */
+.doll-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.magic-doll {
+  width: 35vw;
+  opacity: 0.9;
+}
+
+.iniciar {
+  width: 80%;
+  padding: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: none;
+
+  background: linear-gradient(135deg, #7d6ffb, #ff6363);
+  color: white;
+
+  box-shadow: 0 10px 25px rgba(125, 111, 251, 0.3);
+
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.25s ease;
+}
+
+/* hover */
+.iniciar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(125, 111, 251, 0.4);
+}
+
+/* clique */
+.iniciar:active {
+  transform: scale(0.96);
+}
+
+/* brilho mágico */
+.iniciar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.3);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+
+.iniciar:hover::after {
+  left: 120%;
+}
+
+.div-button{
+  text-align: center;
+}

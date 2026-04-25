@@ -1,4 +1,5 @@
 export enum TipoAtividade {
-  Multipla_Escolha = 'multipla_escolha',
-  Completar = 'completar'
+  Multipla_Escolha = 'Multipla_Escolha',
+  Completar = 'Completar',
+  Flashcards = 'Flashcards',
 }

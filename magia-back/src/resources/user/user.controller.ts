@@ -12,7 +12,7 @@ export class UserController {
     return await this.userService.findOne(id);
   }
 
-  @Post()
+  @Post('saveUser')
   async saveUser(@Body() createUserDto: CreateUserDto): Promise<GetUserDto> {
     return this.userService.saveUser(createUserDto);
   }

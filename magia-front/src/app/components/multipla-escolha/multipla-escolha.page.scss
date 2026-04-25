@@ -1,0 +1,135 @@
+ion-content {
+  --background: linear-gradient(180deg, #f5f6ff, #ecebff, #e4e2ff);
+}
+
+/* container */
+.container {
+  max-width: 520px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+/* topo */
+.topo {
+  margin-bottom: 25px;
+}
+
+/* barra de progresso (AGORA VISÍVEL) */
+.progress-container {
+  width: 100%;
+  height: 30px; /* 👈 bem mais grossa */
+  background: #ffe5e8; /* base clara rosada */
+  border-radius: 20px;
+  overflow: hidden;
+
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(135deg, #6c03eb, #26069a); 
+
+  transition: width 0.4s ease;
+
+  /* glow suave */
+  box-shadow: 0 4px 12px rgba(255, 99, 99, 0.4);
+}
+
+/* contador */
+.contador {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* card da pergunta */
+.question-card {
+  background: white;
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.question {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* botões */
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* botão base */
+.btn {
+  padding: 18px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* estilo principal */
+.magia {
+  background: linear-gradient(135deg, #6C63FF, #8A7CFF);
+  color: white;
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.25);
+}
+
+/* hover mais forte */
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+/* clique */
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* correto */
+.correto {
+  background: linear-gradient(135deg, #4CAF50, #81C784);
+  transform: scale(1.04);
+}
+
+/* errado */
+.errado {
+  background: linear-gradient(135deg, #E53935, #EF5350);
+  animation: shake 0.3s;
+}
+
+/* animação erro */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+/* explicação destacada */
+.explicacao-box {
+  margin-top: 25px;
+  padding: 16px;
+  background: #eef0ff;
+  border-radius: 14px;
+  color: #444;
+  font-size: 14px;
+
+  border-left: 5px solid #6C63FF;
+
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}

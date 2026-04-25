@@ -1,15 +1,58 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>complete</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">complete</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <p>{{partes[0]}}<input type="text">{{partes[1]}}</p>
-  <button (click)="checkAnswer()">Conferir Resposta</button>
+  <div class="container" *ngIf="completeActivity">
+
+    <!-- progresso -->
+    <div class="progress-container">
+      <div
+        class="progress-bar"
+        [style.width.%]="(counter + 1) / completeActivityArray.length * 100">
+      </div>
+    </div>
+
+    <p class="contador">
+      {{ counter + 1 }} / {{ completeActivityArray.length }}
+    </p>
+
+    <!-- frase -->
+    <div class="card-frase">
+      <p class="frase">
+        {{ partes[0] }}
+
+        <input
+          type="text"
+          [(ngModel)]="userAnswer"
+          [ngClass]="{
+            'correto': isCorrect,
+            'errado': isCorrect === false
+          }"
+          placeholder="..." />
+
+        {{ partes[1] }}
+      </p>
+    </div>
+
+    <!-- botão -->
+    <button class="btn magia" (click)="checkAnswer()">
+      Conferir ✨
+    </button>
+
+    <div *ngIf="isCorrect !== null" class="feedback-box" [ngClass]="isCorrect ? 'ok' : 'erro'">
+  <span class="emoji">
+    {{ isCorrect ? '✨' : '❌' }}
+  </span>
+
+  <p class="mensagem">
+    {{ isCorrect ? 'Acertou!' : 'Ops! Não foi dessa vez' }}
+  </p>
+</div>
+
+    <!-- explicação -->
+    <div *ngIf="isCorrect !== null" class="explicacao-box">
+      {{ completeActivity.explanation }}
+    </div>
+
+  </div>
+
+
 </ion-content>

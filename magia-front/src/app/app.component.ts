@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { initializeApp } from "firebase/app";
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,19 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 })
 export class AppComponent {
   constructor() {}
+
+  // ngOnInit(){
+  //   const firebaseConfig = {
+  //     apiKey: "AIzaSyCBGFbGzxayYtHpSiNQVtl8I-XMWO5Vf0s",
+  //     authDomain: "magia-45856.firebaseapp.com",
+  //     projectId: "magia-45856",
+  //     storageBucket: "magia-45856.firebasestorage.app",
+  //     messagingSenderId: "746195881729",
+  //     appId: "1:746195881729:web:6dd9326b7fc37ee8c71500"
+  //   };
+
+  // // Initialize Firebase
+  // const app = initializeApp(firebaseConfig);
+  // }
 }
+

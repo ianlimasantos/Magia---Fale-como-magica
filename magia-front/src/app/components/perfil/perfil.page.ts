@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { GetAccountModel } from 'src/app/models/account/get-account-model';
 
 @Component({
   selector: 'app-perfil',
@@ -17,4 +18,10 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
   }
 
+  user: GetAccountModel = {
+    id: '12345',
+    name: 'Ian Bernardo',
+    email: 'ian@email.com',
+    dateOfBirth: '2000-05-15'
+  };
 }

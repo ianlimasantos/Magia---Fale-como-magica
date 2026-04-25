@@ -11,14 +11,10 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async appAuthentication(email: string, password: string): Promise<any>{
+  async appAuthentication(email: string, password: string): Promise<string>{
     const user = await this.userService.findOneByEmail(email);
 
-    if (!user) {
-      throw new UnauthorizedException('Credenciais inválidas!');
-    }
-
-    if (!user.password) {
+    if (!user || !user.password) {
       throw new UnauthorizedException('Credenciais inválidas!');
     }
 

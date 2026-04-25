@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Flashcards</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container">
+
+    <!-- progresso -->
+    <div class="top">
+      <p class="contador">
+        {{ index + 1 }} / {{ flashcards.length }}
+      </p>
+      <p class="hint">Toque na carta ✨</p>
+    </div>
+
+    <!-- card -->
+    <div class="card-container" (click)="flipCard()">
+
+      <div class="card" [class.flipped]="isFlipped">
+
+        <!-- frente -->
+        <div class="face front">
+          <span class="label">Pergunta</span>
+          <p>{{ currentCard.front }}</p>
+        </div>
+
+        <!-- verso -->
+        <div class="face back">
+          <span class="label">Resposta</span>
+          <p>{{ currentCard.back }}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ações -->
+    <div class="actions">
+
+      <button class="circle prev" (click)="prev()">
+        ⬅
+      </button>
+
+      <button class="circle flip" (click)="flipCard()">
+        ✨
+      </button>
+
+      <button class="circle next" (click)="next()">
+        ➡
+      </button>
+
+    </div>
+
+  </div>
+
+</ion-content>

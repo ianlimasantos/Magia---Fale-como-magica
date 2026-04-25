@@ -2,14 +2,15 @@ ion-tab-bar {
   --background: white;
 }
 
-ion-tab-button:nth-child(1) {
-  color: #00d4ff; /* azul planeta */
-}
 
-ion-tab-button:nth-child(2) {
+
+ion-tab-button:nth-child(1) {
   color: #8A2BE2; /* roxo magia */
 }
 
+ion-tab-button:nth-child(2) {
+  color: #00d4ff; /* azul planeta */
+}
 ion-tab-button:nth-child(3) {
   color: #ffb703; /* dourado curiosidade */
   text-shadow: 0 0 8px rgba(255, 183, 3, 0.6);

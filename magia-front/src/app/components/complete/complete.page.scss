@@ -1,0 +1,129 @@
+ion-content {
+  --background: radial-gradient(circle at top, #dcd9ff, #f5f6ff);
+}
+
+/* container */
+.container {
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 0 16px;
+  text-align: center;
+}
+
+/* progresso */
+.progress-container {
+  width: 100%;
+  height: 30px;
+  background: #ffe5e8;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(135deg, #6c03eb, #26069a);
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+/* contador */
+.contador {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* card */
+.card-frase {
+  background: white;
+  padding: 28px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* frase */
+.frase {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* input mágico */
+input {
+  border: none;
+  border-bottom: 3px solid #6C63FF;
+  text-align: center;
+  font-size: 18px;
+  width: 90px;
+  margin: 0 8px;
+  background: transparent;
+
+  transition: all 0.2s;
+}
+
+/* foco */
+input:focus {
+  outline: none;
+  border-bottom: 3px solid #ff6363;
+}
+
+/* correto */
+input.correto {
+  border-bottom: 3px solid #4CAF50;
+}
+
+/* errado */
+input.errado {
+  border-bottom: 3px solid #E53935;
+  animation: shake 0.3s;
+}
+
+/* botão */
+.btn {
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.magia {
+  background: linear-gradient(135deg, #6C63FF, #8A7CFF);
+  color: white;
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.25);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* explicação */
+.explicacao-box {
+  margin-top: 20px;
+  padding: 14px;
+  background: #eef0ff;
+  border-radius: 14px;
+  color: #444;
+  font-size: 14px;
+
+  border-left: 5px solid #6C63FF;
+}
+
+/* animação erro */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}

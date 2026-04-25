@@ -37,7 +37,7 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'estudo-ia',
         pathMatch: 'full'
       }
     ]
@@ -53,6 +53,14 @@ export const routes: Routes = [
   {
     path: 'create-account',
     loadComponent: () => import('./components/create-account/create-account.page').then( m => m.CreateAccountPage)
+  },
+  {
+    path: 'config-ia',
+    loadComponent: () => import('./components/config-ia/config-ia.page').then( m => m.ConfigIaPage)
+  },
+  {
+    path: 'flashcards',
+    loadComponent: () => import('./components/flashcards/flashcards.page').then( m => m.FlashcardsPage)
   },
 
 ];
