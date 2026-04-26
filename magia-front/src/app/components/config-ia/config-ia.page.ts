@@ -16,10 +16,16 @@ export class ConfigIaPage implements OnInit {
 
   tipo!: TipoAtividade;
   tipoLabel: Record<TipoAtividade, string> = {
-    'Multipla_Escolha': '🧠 Múltipla Escolha',
-    'Completar': '✍️ Completar Frases',
-    'Flashcards': '🃏 Flashcards'
+    'Multipla_Escolha': '\u{1F9E0} Múltipla Escolha',
+    'Completar': '\u{270D}\uFE0F Completar Frases',
+    'Flashcards': '\u{1F0CF} Flashcards'
   };
+
+  nivel: string = 'A1';
+  tema: string = '';
+  quantidade: number = 5;
+
+  niveis = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
   constructor(private router: ActivatedRoute) {
 
@@ -30,13 +36,6 @@ export class ConfigIaPage implements OnInit {
     console.log('Tipo recebido na configuração:', this.tipo);
 
   }
-
-
-  nivel: string = 'A1';
-  tema: string = '';
-  quantidade: number = 5;
-
-  niveis = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
   start() {
     console.log({

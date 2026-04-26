@@ -1,5 +1,17 @@
 ion-content {
   --background: radial-gradient(circle at top, #dcd9ff, #f5f6ff);
+  position: relative;
+}
+
+ion-toolbar {
+  --background: linear-gradient(135deg,#7d6ffb, #ff6363);
+  --color: white;
+}
+
+ion-header {
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* container */
@@ -127,3 +139,4 @@ input.errado {
   75% { transform: translateX(-5px); }
   100% { transform: translateX(0); }
 }
+

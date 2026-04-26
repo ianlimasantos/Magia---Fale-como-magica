@@ -1,3 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    <label (click)="openModal()">X</label>
+    <ion-title>Multipla Escolha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
 
   <div class="container" *ngIf="completeActivity">
@@ -6,7 +13,7 @@
     <div class="progress-container">
       <div
         class="progress-bar"
-        [style.width.%]="(counter + 1) / completeActivityArray.length * 100">
+        [style.width.%]="((counter + 1) / completeActivityArray.length) * 100">
       </div>
     </div>
 
@@ -26,33 +33,42 @@
             'correto': isCorrect,
             'errado': isCorrect === false
           }"
-          placeholder="..." />
+          placeholder="..."
+        />
 
         {{ partes[1] }}
       </p>
     </div>
 
-    <!-- botão -->
     <button class="btn magia" (click)="checkAnswer()">
       Conferir ✨
     </button>
 
-    <div *ngIf="isCorrect !== null" class="feedback-box" [ngClass]="isCorrect ? 'ok' : 'erro'">
-  <span class="emoji">
-    {{ isCorrect ? '✨' : '❌' }}
-  </span>
+    @if(isCorrect !== null){
+      <div class="feedback-box" [ngClass]="isCorrect ? 'ok' : 'erro'">
+        <p class="mensagem">
+          <span class="emoji">
+            {{ isCorrect ? '✨' : '❌' }}
+          </span>
+          {{ isCorrect ? 'Acertou!' : 'Ops! Não foi dessa vez' }}
+        </p>
+      </div>
+    }
 
-  <p class="mensagem">
-    {{ isCorrect ? 'Acertou!' : 'Ops! Não foi dessa vez' }}
-  </p>
+
+    @if(isCorrect !== null){
+      <div class="explicacao-box">
+        {{ completeActivity.explanation }}
+      </div>
+    }
 </div>
 
-    <!-- explicação -->
-    <div *ngIf="isCorrect !== null" class="explicacao-box">
-      {{ completeActivity.explanation }}
-    </div>
-
-  </div>
-
+<app-modal
+  [isOpen]="isModalOpen",
+  title="Deseja sair da atividade?",
+  message="Você irá perder o progresso!",
+  (confirm)="sairDaAtividade()",
+  (cancel)="closeModal()"
+></app-modal>
 
 </ion-content>

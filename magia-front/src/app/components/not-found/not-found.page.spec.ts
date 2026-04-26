@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EstudoIAPage } from './estudo-ia.page';
+import { NotFoundPage } from './not-found.page';
 
-describe('EstudoIAPage', () => {
-  let component: EstudoIAPage;
-  let fixture: ComponentFixture<EstudoIAPage>;
+describe('NotFoundPage', () => {
+  let component: NotFoundPage;
+  let fixture: ComponentFixture<NotFoundPage>;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EstudoIAPage);
+    fixture = TestBed.createComponent(NotFoundPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

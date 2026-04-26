@@ -1,0 +1,39 @@
+.container {
+  --background: linear-gradient(180deg, #f4f3ff, #e9e6ff);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.card {
+  background: white;
+  padding: 32px;
+  border-radius: 24px;
+  text-align: center;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(125, 111, 251, 0.2);
+
+  max-width: 400px;
+  width: 90%;
+}
+
+h1 {
+  font-size: 64px;
+  color: #7d6ffb;
+  margin: 0;
+}
+
+h2 {
+  margin: 10px 0;
+  color: #333;
+}
+
+p {
+  color: #666;
+  margin-bottom: 20px;
+}

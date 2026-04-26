@@ -62,5 +62,9 @@ export const routes: Routes = [
     path: 'flashcards',
     loadComponent: () => import('./components/flashcards/flashcards.page').then( m => m.FlashcardsPage)
   },
+  {
+    path: '**',
+    loadComponent: () => import('./components/not-found/not-found.page').then( m => m.NotFoundPage)
+  },
 
 ];

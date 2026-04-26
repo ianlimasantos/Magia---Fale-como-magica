@@ -25,7 +25,7 @@ export class FlashcardsPage implements OnInit {
     { front: '¿Qué es NIE?', back: 'Número de Identidad de Extranjero' }
   ];
 
-  get currentCard() {
+  get currentCard(){
     return this.flashcards[this.index];
   }
 
@@ -33,17 +33,18 @@ export class FlashcardsPage implements OnInit {
     this.isFlipped = !this.isFlipped;
   }
 
-  next() {
-    if (this.index < this.flashcards.length - 1) {
+  next(){
+    if(this.index < this.flashcards.length - 1){
       this.index++;
       this.isFlipped = false;
     }
   }
 
-  prev() {
-    if (this.index > 0) {
+  prev(){
+    if( this.index > 0){
       this.index--;
       this.isFlipped = false;
     }
   }
+
 }

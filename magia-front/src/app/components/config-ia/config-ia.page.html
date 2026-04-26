@@ -13,15 +13,17 @@
 
       <!-- nível -->
       <div class="field">
-        <label>🧠 Nível</label>
+        <label>&#x1F9E0; Nível</label>
         <select [(ngModel)]="nivel">
-          <option *ngFor="let n of niveis" [value]="n">{{n}}</option>
+          @for(nivel of niveis; track $index){
+            <option value="{{nivel}}">{{nivel}}</option>
+          }
         </select>
       </div>
 
       <!-- tema -->
       <div class="field">
-        <label>🌍 Tema</label>
+        <label>&#x1F30D; Tema</label>
         <input
           type="text"
           [(ngModel)]="tema"
@@ -30,7 +32,7 @@
 
       <!-- quantidade -->
       <div class="field">
-        <label>🔢 Quantidade</label>
+        <label>&#x1F522; Quantidade</label>
         <div class="chips">
           <button
             *ngFor="let q of [5,10,15]"

@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { CompleteActivityModel } from 'src/app/models/completeActivity/complete-activity-model';
 import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
+import { Router } from '@angular/router';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
   selector: 'app-complete',
   templateUrl: './complete.page.html',
   styleUrls: ['./complete.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent]
 })
 export class CompletePage implements OnInit {
 
@@ -21,6 +23,7 @@ export class CompletePage implements OnInit {
 
   userAnswer: string = '';
   isCorrect: boolean | null = null;
+  isModalOpen: boolean = false;
 
   completeActivityArray: CompleteActivityModel[] = [
     {
@@ -67,19 +70,17 @@ export class CompletePage implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.loadQuestion();
   }
 
-  /* 🔄 carregar pergunta */
   loadQuestion() {
     this.completeActivity = this.completeActivityArray[this.counter];
     this.partes = this.completeActivity.question.split('______');
   }
 
-  /* ✅ validar resposta */
   checkAnswer() {
 
     const resposta = this.userAnswer.trim().toLowerCase();
@@ -91,10 +92,9 @@ export class CompletePage implements OnInit {
 
     setTimeout(() => {
       this.next();
-    }, 1200);
+    }, 3000);
   }
 
-  /* ➡ próxima pergunta */
   next() {
     this.userAnswer = '';
     this.isCorrect = null;
@@ -106,5 +106,19 @@ export class CompletePage implements OnInit {
       console.log('acabou o quiz 🎉');
       // aqui você pode redirecionar ou mostrar resultado final
     }
+  }
+
+  openModal(){
+    (document.activeElement as HTMLElement)?.blur();
+    this.isModalOpen = true;
+  }
+
+  closeModal(){
+    this.isModalOpen = false;
+  }
+
+  sairDaAtividade(){
+    (document.activeElement as HTMLElement)?.blur();
+    this.router.navigate(['/tabs']);
   }
 }
