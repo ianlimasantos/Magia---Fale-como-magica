@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import {  IonButton, IonicModule } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-estudo-ia',
   templateUrl: './estudo-ia.page.html',

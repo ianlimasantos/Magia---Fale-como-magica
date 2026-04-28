@@ -4,11 +4,11 @@ export class CreateCuriosityDto {
   
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @IsString()
   @IsNotEmpty()
-  textPart1: string;
+  textPart1!: string;
 
   @IsString()
   @IsOptional()
@@ -16,7 +16,7 @@ export class CreateCuriosityDto {
 
   @IsString()
   @IsNotEmpty()
-  img_header: string;
+  img_header!: string;
 
   @IsString()
   @IsOptional()
