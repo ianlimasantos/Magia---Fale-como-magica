@@ -3,5 +3,5 @@ import { CreateFlashcardDto } from "./create-flashcard.dto";
 
 export class CreateFlashcardOpenAiDto {
   createGeneratedActivityDto!: CreateGeneratedActivityDto;
-  CreateFlashcardDto!: CreateFlashcardDto[];
+  createFlashcardDto!: CreateFlashcardDto[];
 }

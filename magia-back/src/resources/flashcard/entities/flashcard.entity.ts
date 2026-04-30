@@ -7,13 +7,13 @@ export class FlashcardEntity {
   id: string;
 
   @Column()
-  generatedActivityId: string;
-
-  @Column()
   word: string;
 
   @Column()
-  definition: string;
+  definition_pt: string;
+
+  @Column()
+  definition_es: string;
 
   @Column()
   example: string;

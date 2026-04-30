@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { FlashcardService } from './flashcard.service';
 import { CreateFlashcardDto } from './dto/create-flashcard.dto';
 import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
@@ -14,9 +14,9 @@ export class FlashcardController {
   }
   
 
-  @Post()
-  async createByOpenAI(@Body() createFlashcardOpenAiDto: CreateFlashcardOpenAiDto) {
-    return this.flashcardService.createByOpenAI(createFlashcardOpenAiDto);
+  @Get('create-by-openai')
+  async createByOpenAI(@Query('theme') theme: string, @Query('level') level: string, @Query('quantity') quantity: number) {
+    return this.flashcardService.createByOpenAI(theme, level, quantity);
   }
 
   @Get()

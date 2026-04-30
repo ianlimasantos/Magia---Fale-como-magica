@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { OpenAiModule } from 'src/resources/open-ai/open-ai.module';
 import { UserEntity } from './user-entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { OpenAiModule } from 'src/shared/open-ai/open-ai.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), OpenAiModule],
+  imports: [TypeOrmModule.forFeature([UserEntity])],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],
