@@ -19,7 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
       global: true,
       secret: 'lanfear&moraine',
       signOptions: { expiresIn: '1d' },
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

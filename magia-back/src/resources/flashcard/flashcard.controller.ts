@@ -26,16 +26,16 @@ export class FlashcardController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.flashcardService.findOne(+id);
+    return this.flashcardService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFlashcardDto: UpdateFlashcardDto) {
-    return this.flashcardService.update(+id, updateFlashcardDto);
+    return this.flashcardService.update(id, updateFlashcardDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.flashcardService.remove(+id);
+    return this.flashcardService.remove(id);
   }
 }

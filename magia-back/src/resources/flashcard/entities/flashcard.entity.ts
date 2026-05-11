@@ -1,21 +1,21 @@
 import { GeneratedActivityEntity } from "src/resources/generated-activities/entities/generated-activity.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('flashcard')
 export class FlashcardEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'text' })
   word: string;
 
-  @Column()
+  @Column({ type: 'text' })
   definition_pt: string;
 
-  @Column()
+  @Column({ type: 'text' })
   definition_es: string;
 
-  @Column()
+  @Column({ type: 'text' })
   example: string;
 
   @ManyToOne(() => GeneratedActivityEntity, (generatedActivity) => generatedActivity.flashcards)

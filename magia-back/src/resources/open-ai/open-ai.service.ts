@@ -7,7 +7,7 @@ import { plainToInstance } from 'class-transformer';
 @Injectable()
 export class OpenAiService {
 
-  openAi: OpenAI;
+  private readonly openAi: OpenAI;
 
   constructor(){
     this.openAi = new OpenAI({
@@ -15,25 +15,13 @@ export class OpenAiService {
     });
   }
 
-  async makeRequest(prompt: string): Promise<CreateFlashcardOpenAiDto> {
+  async makeRequest(prompt: string): Promise<any> {
     const response = await this.openAi.responses.create({
       model: 'gpt-5.4-mini',
       store: false,
       input: prompt,
     });
-
-    const parsed = JSON.parse(response.output_text);
-
-    console.log('OpenAI response:', parsed);
-
-    const mapped = {
-      createGeneratedActivityDto: {
-        theme: parsed.theme,
-        level: parsed.level,
-      },
-      createFlashcardDto: parsed.flashcards
-    };
-
-    return plainToInstance(CreateFlashcardOpenAiDto, mapped);
+    const parsed: any = JSON.parse(response.output_text);
+    return parsed;
   }
 }

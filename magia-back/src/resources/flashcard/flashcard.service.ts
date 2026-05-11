@@ -3,13 +3,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateFlashcardDto } from './dto/create-flashcard.dto';
 import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
 import { CreateFlashcardOpenAiDto } from './dto/create-flashcard-openai.dto';
-import { DataSource } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { GeneratedActivityEntity } from '../generated-activities/entities/generated-activity.entity';
 import { FlashcardEntity } from './entities/flashcard.entity';
+import { plainToInstance } from 'class-transformer';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class FlashcardService {
   constructor(
+    @InjectRepository(FlashcardEntity)
+    private flashcardRepository: Repository<FlashcardEntity>,
     private readonly dataSource: DataSource,
     private openAiService: OpenAiService,
   ) {}
@@ -21,7 +25,20 @@ export class FlashcardService {
   async createByOpenAI(theme: string, level: string, quantity: number) {
     const prompt = this.returnPrompt(theme, level, quantity);
 
-    const response = await this.openAiService.makeRequest(prompt);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const result = await this.openAiService.makeRequest(prompt);
+    const mapped = {
+      createGeneratedActivityDto: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        theme: result.theme,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        level: result.level,
+      },
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      createFlashcardDto: result.flashcards
+    };
+    
+    const response = plainToInstance(CreateFlashcardOpenAiDto, mapped);
 
     const queryRunner = this.dataSource.createQueryRunner();
 
@@ -29,8 +46,8 @@ export class FlashcardService {
       await queryRunner.connect();
       await queryRunner.startTransaction();
       const generatedActivityEntity = new GeneratedActivityEntity();
-      generatedActivityEntity.theme = response.createGeneratedActivityDto.theme;
       generatedActivityEntity.level = response.createGeneratedActivityDto.level;
+      generatedActivityEntity.theme = response.createGeneratedActivityDto.theme;
       generatedActivityEntity.userId = '9a5711c8-666f-4bc1-b92e-4863c40506b4';
       generatedActivityEntity.type = 'flashcard';
       await queryRunner.manager.save(generatedActivityEntity);
@@ -45,27 +62,28 @@ export class FlashcardService {
       await queryRunner.manager.save(flashcards);
       await queryRunner.commitTransaction();
       
-    } catch (error){
+    } catch (error) {
       await queryRunner.rollbackTransaction();
       console.error('Error creating flashcards via OpenAI:', error);
-    } finally{
+    } finally {
       await queryRunner.release();
     }
+    return response;
   }
 
   findAll() {
-    return `This action returns all flashcard`;
+    return this.flashcardRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} flashcard`;
+  findOne(id: string) {
+    return this.flashcardRepository.findOneBy({ id });
   }
 
-  update(id: number, updateFlashcardDto: UpdateFlashcardDto) {
+  update(id: string, updateFlashcardDto: UpdateFlashcardDto) {
     return `This action updates a #${id} flashcard`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} flashcard`;
   }
 

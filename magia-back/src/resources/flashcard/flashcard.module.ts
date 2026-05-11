@@ -9,6 +9,10 @@ import { GeneratedActivitiesModule } from '../generated-activities/generated-act
 @Module({
   controllers: [FlashcardController],
   providers: [FlashcardService],
-  imports: [TypeOrmModule.forFeature([FlashcardEntity]), OpenAiModule, GeneratedActivitiesModule],
+  imports: [
+    TypeOrmModule.forFeature([FlashcardEntity]),
+    OpenAiModule,
+    GeneratedActivitiesModule,
+  ],
 })
 export class FlashcardModule {}

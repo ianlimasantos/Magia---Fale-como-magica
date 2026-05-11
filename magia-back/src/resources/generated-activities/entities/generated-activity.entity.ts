@@ -1,8 +1,11 @@
 
+import { on } from "events";
+import { CompleteEntity } from "src/resources/complete/entities/complete.entity";
 import { FlashcardEntity } from "src/resources/flashcard/entities/flashcard.entity";
+import { MultipleChoiceEntity } from "src/resources/multiple-choice/entities/multiple-choice.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('generated_activity')
 export class GeneratedActivityEntity {
 
   @PrimaryGeneratedColumn('uuid')
@@ -22,4 +25,10 @@ export class GeneratedActivityEntity {
 
   @OneToMany(()=>FlashcardEntity, (flashcard) => flashcard.generatedActivity)
   flashcards: FlashcardEntity[];
+
+  @OneToMany(() => CompleteEntity, (complete)=> complete.generatedActivity)
+  completes: CompleteEntity[];
+
+  @OneToMany(() => MultipleChoiceEntity, (multipleChoice) => multipleChoice.generatedActivity)
+  multipleChoices: MultipleChoiceEntity[];
 }
