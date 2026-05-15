@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StatusBar } from '@capacitor/status-bar';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { initializeApp } from "firebase/app";
 
@@ -9,6 +10,11 @@ import { initializeApp } from "firebase/app";
 })
 export class AppComponent {
   constructor() {}
+
+  ngOnInit() {
+    StatusBar.setOverlaysWebView({ overlay: false });
+    StatusBar.setBackgroundColor({ color: '#000000' });
+  }
 
   // ngOnInit(){
   //   const firebaseConfig = {

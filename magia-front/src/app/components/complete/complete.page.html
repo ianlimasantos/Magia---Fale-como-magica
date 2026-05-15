@@ -64,10 +64,10 @@
 </div>
 
 <app-modal
-  [isOpen]="isModalOpen",
-  title="Deseja sair da atividade?",
-  message="Você irá perder o progresso!",
-  (confirm)="sairDaAtividade()",
+  [isOpen]="isModalOpen"
+  title="Deseja sair da atividade?"
+  message="Você irá perder o progresso!"
+  (confirm)="sairDaAtividade()"
   (cancel)="closeModal()"
 ></app-modal>
 
