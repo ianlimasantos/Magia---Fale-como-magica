@@ -12,9 +12,13 @@ export class AuthService {
   ) {}
 
   async appAuthentication(email: string, password: string): Promise<string>{
+
+    if (!email || !password) {
+      throw new UnauthorizedException('Credenciais inválidas!');
+    }
     const user = await this.userService.findOneByEmail(email);
 
-    if (!user || !user.password) {
+    if (!user) {
       throw new UnauthorizedException('Credenciais inválidas!');
     }
 

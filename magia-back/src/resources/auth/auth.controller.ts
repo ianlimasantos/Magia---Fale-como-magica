@@ -19,7 +19,7 @@ export class AuthController {
       response.cookie("token", token, {
       httpOnly: true,
       secure: false,
-      sameSite: 'none',
+      sameSite: 'lax',
     });
 
     return {message: `Login bem sucedido ${token}`}
@@ -31,7 +31,8 @@ export class AuthController {
     return req.user;
   }
 
-  @Post('logout')
+  @Get('logout')
+  @UseGuards(AuthGuard('jwt'))
   logout(@Res({ passthrough: true }) response: Response,){
     response.clearCookie('token');
     return {message: 'Logout efetuado'};

@@ -7,6 +7,8 @@ import { FlashcardEntity } from 'src/resources/flashcard/entities/flashcard.enti
 import { MultipleChoiceEntity } from 'src/resources/multiple-choice/entities/multiple-choice.entity';
 import { CompleteEntity } from 'src/resources/complete/entities/complete.entity';
 import { MultipleChoiceOptionEntity } from 'src/resources/multiple-choice/entities/multiple-choice-option.entity';
+import { UserActivityProgressEntity } from 'src/resources/user_activity_progress/entities/user_activity_progress.entity';
+import { ActivityAttemptEntity } from 'src/resources/activity_attempt/entities/activity_attempt.entity';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { MultipleChoiceOptionEntity } from 'src/resources/multiple-choice/entiti
         MultipleChoiceEntity,
         MultipleChoiceOptionEntity,
         CompleteEntity,
+        UserActivityProgressEntity, 
+        ActivityAttemptEntity
       ],
       synchronize: true,
     }),

@@ -17,8 +17,6 @@ export class CuriosityController {
   async findById(@Param('id', new ParseUUIDPipe()) id: string): Promise<GetCuriosityDto> {
     return await this.curiosityService.findOneById(id);
   }
-  
-  
 
   @Get()
   async getAll(): Promise<GetCuriosityDto[]>{

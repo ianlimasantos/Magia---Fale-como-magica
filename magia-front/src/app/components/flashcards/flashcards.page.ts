@@ -47,4 +47,50 @@ export class FlashcardsPage implements OnInit {
     }
   }
 
+  speak() {
+    const utterance = new SpeechSynthesisUtterance('curro');
+
+    utterance.lang = 'es-ES'; // espanhol
+    utterance.rate = 0.9;
+
+    speechSynthesis.speak(utterance);
+  }
+
+  startRecognition(expectedWord: string) {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert('Reconhecimento de voz não suportado neste navegador.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = 'es-ES';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = (event: any) => {
+      const spokenWord = event.results[0][0].transcript
+        .trim()
+        .toLowerCase();
+
+      console.log('Você falou:', spokenWord);
+
+      if (spokenWord === expectedWord.toLowerCase()) {
+        alert('Pronúncia correta!');
+      } else {
+        alert(`Você falou: ${spokenWord}`);
+      }
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error(event.error);
+      alert('Erro no reconhecimento de voz.');
+    };
+  }
 }

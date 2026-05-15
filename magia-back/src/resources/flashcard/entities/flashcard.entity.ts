@@ -1,5 +1,5 @@
 import { GeneratedActivityEntity } from "src/resources/generated-activities/entities/generated-activity.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
 
 @Entity('flashcard')
 export class FlashcardEntity {
@@ -20,4 +20,6 @@ export class FlashcardEntity {
 
   @ManyToOne(() => GeneratedActivityEntity, (generatedActivity) => generatedActivity.flashcards)
   generatedActivity: GeneratedActivityEntity;
+
+  
 }

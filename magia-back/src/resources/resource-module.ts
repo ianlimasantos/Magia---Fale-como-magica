@@ -7,6 +7,8 @@ import { FlashcardModule } from './flashcard/flashcard.module';
 import { GeneratedActivitiesModule } from './generated-activities/generated-activities.module';
 import { MultipleChoiceModule } from './multiple-choice/multiple-choice.module';
 import { CompleteModule } from './complete/complete.module';
+import { UserActivityProgressModule } from './user_activity_progress/user_activity_progress.module';
+import { ActivityAttemptModule } from './activity_attempt/activity_attempt.module';
 
 const modules = [
   AuthModule,
@@ -16,7 +18,9 @@ const modules = [
   FlashcardModule,
   GeneratedActivitiesModule,
   MultipleChoiceModule,
-  CompleteModule
+  CompleteModule,
+  UserActivityProgressModule,
+  ActivityAttemptModule
 ];
 
 @Module({

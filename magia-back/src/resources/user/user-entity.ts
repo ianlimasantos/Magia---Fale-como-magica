@@ -1,12 +1,15 @@
+import { UserActivityProgressEntity } from '../user_activity_progress/entities/user_activity_progress.entity';
+import { ActivityAttemptEntity } from '../activity_attempt/entities/activity_attempt.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('user')
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -31,4 +34,10 @@ export class UserEntity {
 
   @UpdateDateColumn({ default: () => 'CURRENT_TIME' })
   updated_at: Date;
+
+  @OneToMany(() => UserActivityProgressEntity, (userActivityProgress) => userActivityProgress.user)
+  userActivityProgresses: UserActivityProgressEntity[];
+
+  @OneToMany(() => ActivityAttemptEntity, (activityAttempt) => activityAttempt.user)
+  activityAttempts: ActivityAttemptEntity[];
 }

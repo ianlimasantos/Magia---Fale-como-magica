@@ -22,7 +22,7 @@ export class FlashcardService {
     return 'This action adds a new flashcard';
   }
 
-  async createByOpenAI(theme: string, level: string, quantity: number) {
+  async createByOpenAI(theme: string, level: string, quantity: number, userId: string) {
     const prompt = this.returnPrompt(theme, level, quantity);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
@@ -48,7 +48,7 @@ export class FlashcardService {
       const generatedActivityEntity = new GeneratedActivityEntity();
       generatedActivityEntity.level = response.createGeneratedActivityDto.level;
       generatedActivityEntity.theme = response.createGeneratedActivityDto.theme;
-      generatedActivityEntity.userId = '9a5711c8-666f-4bc1-b92e-4863c40506b4';
+      generatedActivityEntity.userId = userId;
       generatedActivityEntity.type = 'flashcard';
       await queryRunner.manager.save(generatedActivityEntity);
 
