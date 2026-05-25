@@ -1,8 +1,7 @@
-<div class="overlay" [ngStyle]="{display : isOpen ? 'flex' : 'none'}">
+<div class="overlay" (click)="cancel.emit()" [ngStyle]="{display : isOpen ? 'flex' : 'none'}">
   <div class="modal" (click)="$event.stopPropagation()">
     <h2>{{ title }}</h2>
     <p>{{ message }}</p>
-
     <button (click)="confirm.emit()">{{confirmText}}</button>
     <button (click)="cancel.emit()">{{cancelText}}</button>
   </div>

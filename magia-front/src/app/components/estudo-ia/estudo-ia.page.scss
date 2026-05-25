@@ -1,6 +1,11 @@
 ion-toolbar {
   --background: linear-gradient(135deg,#7d6ffb, #ff6363);
   --color: white;
+
+}
+
+.toolbar-header{
+   padding-top: 5px;
 }
 
 ion-header {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import { ActivatedRoute, Router } from '@angular/router';
+import { IonContent, IonToolbar } from '@ionic/angular/standalone';
+import { ActivatedRoute } from '@angular/router';
 import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
 
 @Component({
@@ -10,7 +10,7 @@ import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
   templateUrl: './config-ia.page.html',
   styleUrls: ['./config-ia.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonToolbar, CommonModule, FormsModule]
 })
 export class ConfigIaPage implements OnInit {
 

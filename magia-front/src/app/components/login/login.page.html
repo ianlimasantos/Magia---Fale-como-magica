@@ -2,25 +2,32 @@
   <div class="container">
     <ion-img src="../../assets/images/magia_logo.png" alt="magia-logo" class="logo ion-margin-bottom"></ion-img>
     <ion-img src="../../assets/images/magia.png" alt="Imagem de exemplo" class="logo-bruxinha bounce"/>
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"></ion-input>
-    </ion-item>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
 
-    <ion-item class="custom-space">
-      <ion-input
-        label="Senha"
-        labelPlacement="floating"
-        type="password">
-      </ion-input>
-    </ion-item>
+      <ion-item class="custom-space">
+        <ion-input
+          label="Senha"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password">
+        </ion-input>
+      </ion-item>
 
-    <ion-button expand="block" color="tertiary" class="ion-margin-bottom">
-      Entrar
-    </ion-button>
+      <ion-button type="submit" expand="block" color="tertiary" class="ion-margin-bottom" [disabled]="!loginForm.valid">
+        Entrar
+      </ion-button>
+    </form>
     <!-- <ion-button class="login-google" color="medium" expand="block">
       Logar com Google
     </ion-button> -->
+    @if(credencialInvalida){
+      <p [ngStyle]="{'color': 'red'}"> Credenciais inválidas!</p>
+    }
+
     <p>
       <a [routerLink]="'/create-account'">Não tem conta? Clique aqui para criar!</a>
     </p>

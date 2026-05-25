@@ -1,11 +1,13 @@
 <ion-header >
-    <ion-toolbar>
+    <ion-toolbar class="toolbar-header">
       <ion-title size="large">Curiosidades</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
   <div class="marginForHeader"></div>
-  @for(curiosidade of curiosidades; track curiosidade.id){
+
+  <img class="curiosidades-img" src="../../assets/images/curiosidadesMenor.PNG" />
+  <!-- @for(curiosidade of curiosidades; track curiosidade.id){
     <ion-card (click)="openCuriosityDetail(curiosidade.id)">
       <ion-img  [src]="curiosidade.img_header" />
       <ion-card-header>
@@ -15,12 +17,6 @@
         Here's a small text description for the card content. Nothing more, nothing less.
       </ion-card-content>
     </ion-card>
-  }
-  <div class="magic-overlay" *ngIf="loading">
-  <div class="magic-container">
-    <img src="../../assets/images/magia.png" class="magic-doll" />
-    <p>Invocando magia...</p>
-  </div>
-</div>
+  } -->
 
 </ion-content>

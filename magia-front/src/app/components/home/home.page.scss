@@ -6,7 +6,9 @@ ion-toolbar {
 ion-content {
   --background: radial-gradient(circle at top, #eceaff, #f7f7ff);
 }
-
+.toolbar-header{
+   padding-top: 5px;
+}
 /* container */
 .container {
   max-width: 500px;

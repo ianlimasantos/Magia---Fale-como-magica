@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   IonContent,
   IonImg,
@@ -10,6 +10,7 @@ import {
   IonButton
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { LoginService } from 'src/app/services/login-service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     RouterLink,
     IonContent,
     IonImg,
@@ -29,10 +30,41 @@ import { RouterLink } from '@angular/router';
 
 export class LoginPage implements OnInit {
 
-  constructor() {
+  credencialInvalida: boolean = false;
+
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
   }
 
+  loginForm = new FormGroup({
+    email: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email]}),
+    password: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    })
+  })
+
+  onLogin() {
+    const email = this.loginForm.value.email ?? '';
+    const password = this.loginForm.value.password ?? '';
+
+    console.log(this.loginForm.value);
+
+    this.loginService.authenticate(email, password).subscribe({
+      next: (response: any) => {
+        console.log('Login bem-sucedido:', response);
+      },
+      error: (error: any) => {
+        console.error('Erro ao autenticar:', error);
+        this.credencialInvalida = true;
+      },
+      complete: () => {
+        console.log('Requisição de login concluída.');
+      }
+    });
+  }
 }

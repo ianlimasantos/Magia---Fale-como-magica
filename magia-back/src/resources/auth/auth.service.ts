@@ -11,7 +11,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async appAuthentication(email: string, password: string): Promise<string>{
+  async appAuthentication(email: string, password: string){
 
     if (!email || !password) {
       throw new UnauthorizedException('Credenciais inválidas!');
@@ -32,6 +32,6 @@ export class AuthService {
       email: user.email,
     });
 
-    return token;
+    return { token };
   }
 }

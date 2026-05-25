@@ -6,6 +6,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg, IonCard, IonCardCo
 import { CuriosityCardModel } from 'src/app/models/curiosidade/curiosity-card-model';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-curiosidades',
   templateUrl: './curiosidades.page.html',
@@ -13,11 +14,12 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar,  CommonModule,
     FormsModule,  IonCard, IonCardContent, IonCardHeader, IonCardSubtitle,
-    IonCardTitle, IonImg, IonSpinner]
+    IonCardTitle, IonImg, IonSpinner ]
 })
 export class CuriosidadesPage implements OnInit {
 
   curiosidades: CuriosityCardModel[] = [];
+  loading: boolean = false;
 
   constructor(private curiosidadeService: CuriosidadeService, private router: Router) { }
 
@@ -43,16 +45,8 @@ export class CuriosidadesPage implements OnInit {
     this.router.navigate([`/tabs/curiosidade-detalhe/${id}`]);
   }
 
-
-  loading = false;
-
-async carregar() {
-  this.loading = true;
-
-  // simulação
-  setTimeout(() => {
-    this.loading = false;
-  }, 2000);
-}
+  onButtonClicked(){
+    this.loading = !this.loading;
+  }
 
 }

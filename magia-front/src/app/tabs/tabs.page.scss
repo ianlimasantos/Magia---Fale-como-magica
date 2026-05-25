@@ -1,25 +1,106 @@
-ion-tab-bar {
-  --background: white;
+.router-outlet{
+  margin-bottom: 60px;
+}
+.navigation-tabs {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60px;
+  background-color: #fff;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  bottom: 0;
 }
 
 
+.tab-link{
+  display: flex;
 
-ion-tab-button:nth-child(1) {
+  flex-direction: column;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.estudo-ia {
   color: #8A2BE2; /* roxo magia */
 }
 
-ion-tab-button:nth-child(2) {
+.historico {
   color: #00d4ff; /* azul planeta */
 }
-ion-tab-button:nth-child(3) {
+.curiosidades {
   color: #ffb703; /* dourado curiosidade */
   text-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
 }
 
-ion-tab-button:nth-child(4) {
+.perfil {
   color: #ff6b6b; /* vermelho perfil */
 }
 
-.spacing{
-  margin-top: 30px;
-}
+
+// ion-tab-bar {
+//   --background: white;
+// }
+
+// ion-tab-button {
+//   --padding-bottom: 8px;
+//   --padding-top: 8px;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// /* Ajuste de tamanho caso o texto seja muito grande */
+// ion-label {
+//   font-size: 12px !important;
+//   margin-top: 4px;
+// }
+
+// /* Importante: O Ionic às vezes esconde o texto de abas não selecionadas no Android */
+// /* Use isso para mostrar sempre o texto: */
+// ion-tab-bar {
+//   display: flex;
+//   height: 65px; /* Aumentar um pouco a altura ajuda a não "quebrar" */
+//   padding-bottom: env(safe-area-inset-bottom); /* Respeita a barra de navegação do iPhone/Android */
+// }
+
+// ion-tab-button:nth-child(1) {
+//   color: #8A2BE2; /* roxo magia */
+// }
+
+// ion-tab-button:nth-child(2) {
+//   color: #00d4ff; /* azul planeta */
+// }
+// ion-tab-button:nth-child(3) {
+//   color: #ffb703; /* dourado curiosidade */
+//   text-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+// }
+
+// ion-tab-button:nth-child(4) {
+//   color: #ff6b6b; /* vermelho perfil */
+// }
+
+// label.label-1 {
+//   color: #8A2BE2; /* roxo magia */
+// }
+
+// label.label-2 {
+//   color: #00d4ff; /* azul planeta */
+// }
+// label.label-3 {
+//   color: #ffb703; /* dourado curiosidade */
+// }
+
+// label.label-4 {
+//   color: #ff6b6b; /* vermelho perfil */
+// }
+
+// .spacing{
+//   margin-top: 30px;
+// }
+
+// .tab-bar{
+//   padding-bottom: 2px;
+// }

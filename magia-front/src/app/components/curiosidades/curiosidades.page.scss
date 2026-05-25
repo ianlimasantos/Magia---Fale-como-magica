@@ -3,12 +3,9 @@
   display: inline-block;
 }
 
-// @media (min-width: 768px) {
-//   ion-card {
-//     max-width: 700px;
-//     margin: 16px auto;
-//   }
-// }
+.toolbar-header{
+   padding-top: 5px;
+}
 
 ion-toolbar {
   --background: linear-gradient(135deg,#7d6ffb, #ff6363);
@@ -49,42 +46,10 @@ ion-card-content {
   font-size: 16px;
 }
 
-
-.magic-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+.curiosidades-img{
   width: 100%;
-  height: 100%;
-
-  background: rgba(20, 10, 50, 0.85);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 9999;
-}
-
-/* container */
-.magic-container {
-  text-align: center;
-  color: white;
-}
-
-/* boneca */
-.magic-doll {
-  width: 120px;
-  margin-bottom: 16px;
-
-  animation: pulsar 2s ease-in-out infinite;
-}
-
-/* texto */
-.magic-container p {
-  font-size: 16px;
-  opacity: 0.9;
-  animation: brilhoTexto 1.5s infinite;
+  height: 200px;
+  object-fit: cover;
 }
 
 /* pulsar */
@@ -124,5 +89,6 @@ ion-header{
 
 
 .marginForHeader{
-  margin-top: 80px !important;
+ margin-top: 40px !important;
 }
+

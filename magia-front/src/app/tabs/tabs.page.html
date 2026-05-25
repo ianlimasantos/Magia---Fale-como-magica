@@ -1,27 +1,20 @@
-<ion-router-outlet></ion-router-outlet>
-<div class="spacing"></div>
-<ion-tabs>
+<ion-router-outlet class="router-outlet"></ion-router-outlet>
 
-  <ion-tab-bar slot="bottom">
-
-    <ion-tab-button tab="estudo-ia">
-      <ion-icon name="sparkles"></ion-icon>
-      <ion-label>Magia</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="home">
-      <ion-icon name="planet-outline"></ion-icon>
-      <ion-label>Histórico</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="curiosidades">
-      <ion-icon name="bulb"></ion-icon>
-      <ion-label>Curiosidades</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="perfil">
-      <ion-icon name="person-circle"></ion-icon>
-      <ion-label>Perfil</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+<div class="navigation-tabs">
+  <a href="/tabs/estudo-ia" class="tab-link">
+    <ion-icon name="sparkles" class="estudo-ia"></ion-icon>
+    <label class="label-1 estudo-ia">Magia</label>
+  </a>
+  <a href="/tabs/home" class="tab-link">
+    <ion-icon name="planet-outline" class="historico"></ion-icon>
+    <label class="label-2 historico">Histórico</label>
+  </a>
+  <a href="/tabs/curiosidades" class="tab-link">
+    <ion-icon name="bulb" class="curiosidades"></ion-icon>
+    <label class="label-3 curiosidades">Curiosidades</label>
+  </a>
+  <a href="/tabs/perfil" class="tab-link">
+    <ion-icon name="person-circle" class="perfil"></ion-icon>
+    <label class="label-4 perfil">Perfil</label>
+  </a>
+</div>
