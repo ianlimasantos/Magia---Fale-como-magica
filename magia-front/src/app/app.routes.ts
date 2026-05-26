@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -44,11 +45,13 @@ export const routes: Routes = [
   },
   {
     path: 'multipla-escolha',
-    loadComponent: () => import('./components/multipla-escolha/multipla-escolha.page').then( m => m.MultiplaEscolhaPage)
+    loadComponent: () => import('./components/multipla-escolha/multipla-escolha.page').then( m => m.MultiplaEscolhaPage),
+    canActivate: [authGuard]
   },
   {
     path: 'complete',
-    loadComponent: () => import('./components/complete/complete.page').then( m => m.CompletePage)
+    loadComponent: () => import('./components/complete/complete.page').then( m => m.CompletePage),
+    canActivate: [authGuard]
   },
   {
     path: 'create-account',
@@ -56,11 +59,13 @@ export const routes: Routes = [
   },
   {
     path: 'config-ia',
-    loadComponent: () => import('./components/config-ia/config-ia.page').then( m => m.ConfigIaPage)
+    loadComponent: () => import('./components/config-ia/config-ia.page').then( m => m.ConfigIaPage),
+    canActivate: [authGuard]
   },
   {
     path: 'flashcards',
-    loadComponent: () => import('./components/flashcards/flashcards.page').then( m => m.FlashcardsPage)
+    loadComponent: () => import('./components/flashcards/flashcards.page').then( m => m.FlashcardsPage),
+    canActivate: [authGuard]
   },
   {
     path: '**',

@@ -9,8 +9,9 @@ import {
   IonInput,
   IonButton
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from 'src/app/services/login-service';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +33,10 @@ export class LoginPage implements OnInit {
 
   credencialInvalida: boolean = false;
 
-  constructor(private loginService: LoginService) {
-  }
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
   }
@@ -52,11 +55,17 @@ export class LoginPage implements OnInit {
     const email = this.loginForm.value.email ?? '';
     const password = this.loginForm.value.password ?? '';
 
-    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
 
     this.loginService.authenticate(email, password).subscribe({
-      next: (response: any) => {
-        console.log('Login bem-sucedido:', response);
+      next: async(response: any) => {
+        await Preferences.set({
+          key: 'token',
+          value: response.token
+        })
+        this.router.navigate(['/tabs']);
       },
       error: (error: any) => {
         console.error('Erro ao autenticar:', error);
@@ -67,4 +76,11 @@ export class LoginPage implements OnInit {
       }
     });
   }
+  async logout(){
+    await Preferences.remove({
+      key: 'token'
+    });
+    this.router.navigate(['/login']);
+  }
+
 }
