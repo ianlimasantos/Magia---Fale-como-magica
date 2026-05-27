@@ -28,12 +28,12 @@
       <p [ngStyle]="{'color': 'red'}"> Credenciais inválidas!</p>
     }
 
+    @if(isloading){
+      <app-loading [loading]="isloading"></app-loading>
+    }
+
     <p>
       <a [routerLink]="'/create-account'">Não tem conta? Clique aqui para criar!</a>
     </p>
-
-      <button (click)="logout()" expand="block" color="danger" class="ion-margin-top">
-        Sair
-      </button>
   </div>
 </ion-content>

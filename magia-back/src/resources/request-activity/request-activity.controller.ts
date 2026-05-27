@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { RequestActivityService } from './request-activity.service';
 import { CreateRequestActivityDto } from './dto/create-request-activity.dto';
 import { UpdateRequestActivityDto } from './dto/update-request-activity.dto';

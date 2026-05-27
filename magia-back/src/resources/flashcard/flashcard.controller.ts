@@ -3,8 +3,10 @@ import { FlashcardService } from './flashcard.service';
 import { CreateFlashcardDto } from './dto/create-flashcard.dto';
 import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
 import { CreateFlashcardOpenAiDto } from './dto/create-flashcard-openai.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user/current-user.decorator';
 
+@UseGuards(AuthGuard)
 @Controller('flashcard')
 export class FlashcardController {
   constructor(private readonly flashcardService: FlashcardService) {}
@@ -13,12 +15,10 @@ export class FlashcardController {
   create(@Body() createFlashcardDto: CreateFlashcardDto) {
     return this.flashcardService.create(createFlashcardDto);
   }
-  
-
 
   @Get('create-by-openai')
-  async createByOpenAI(@Req() req, @Query('theme') theme: string, @Query('level') level: string, @Query('quantity') quantity: number) {
-    return this.flashcardService.createByOpenAI(theme, level, quantity, req.user.id);
+  async createByOpenAI(@Query('theme') theme: string, @Query('level') level: string, @Query('quantity') quantity: number, @CurrentUser() user: any) {
+    return this.flashcardService.createByOpenAI(theme, level, quantity, user.id);
   }
 
   @Get()

@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { CompleteService } from './complete.service';
 import { CreateCompleteDto } from './dto/create-complete.dto';
 import { UpdateCompleteDto } from './dto/update-complete.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('complete')
 export class CompleteController {
   constructor(private readonly completeService: CompleteService) {}

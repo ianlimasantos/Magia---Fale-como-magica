@@ -12,6 +12,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from 'src/app/services/login-service';
 import { Preferences } from '@capacitor/preferences';
+import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-login',
@@ -26,12 +27,14 @@ import { Preferences } from '@capacitor/preferences';
     IonItem,
     IonLabel,
     IonInput,
-    IonButton]
+    IonButton,
+    LoadingComponent]
 })
 
 export class LoginPage implements OnInit {
 
   credencialInvalida: boolean = false;
+  isloading: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -59,28 +62,25 @@ export class LoginPage implements OnInit {
       return;
     }
 
+    this.isloading = true;
     this.loginService.authenticate(email, password).subscribe({
       next: async(response: any) => {
         await Preferences.set({
           key: 'token',
           value: response.token
         })
+        this.isloading = false;
         this.router.navigate(['/tabs']);
       },
       error: (error: any) => {
         console.error('Erro ao autenticar:', error);
         this.credencialInvalida = true;
+        this.isloading = false;
       },
       complete: () => {
         console.log('Requisição de login concluída.');
+        this.isloading = false;
       }
     });
   }
-  async logout(){
-    await Preferences.remove({
-      key: 'token'
-    });
-    this.router.navigate(['/login']);
-  }
-
 }

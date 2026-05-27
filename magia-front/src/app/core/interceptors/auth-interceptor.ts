@@ -4,7 +4,7 @@ import { from, switchMap } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
-  debugger;
+  
   return from(
     Preferences.get({ key: 'token' })
   ).pipe(

@@ -5,10 +5,16 @@ import { OpenAiModule } from '../open-ai/open-ai.module';
 import { GeneratedActivitiesModule } from '../generated-activities/generated-activities.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompleteEntity } from './entities/complete.entity';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   controllers: [CompleteController],
   providers: [CompleteService],
-  imports: [TypeOrmModule.forFeature([CompleteEntity]), OpenAiModule, GeneratedActivitiesModule],
+  imports: [
+    TypeOrmModule.forFeature([CompleteEntity]),
+    OpenAiModule,
+    GeneratedActivitiesModule,
+    AuthModule
+  ],
 })
 export class CompleteModule {}

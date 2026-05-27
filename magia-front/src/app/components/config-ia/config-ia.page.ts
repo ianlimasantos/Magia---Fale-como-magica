@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonToolbar } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-config-ia',
@@ -14,6 +16,7 @@ import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
 })
 export class ConfigIaPage implements OnInit {
 
+  routerToNavigate = inject(Router);
   tipo!: TipoAtividade;
   tipoLabel: Record<TipoAtividade, string> = {
     'Multipla_Escolha': '\u{1F9E0} Múltipla Escolha',
@@ -27,9 +30,7 @@ export class ConfigIaPage implements OnInit {
 
   niveis = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-  constructor(private router: ActivatedRoute) {
-
-  }
+  constructor(private router: ActivatedRoute) {}
 
   ngOnInit() {
     this.tipo = this.router.snapshot.queryParamMap.get('tipo') as TipoAtividade;
@@ -38,11 +39,14 @@ export class ConfigIaPage implements OnInit {
   }
 
   start() {
-    console.log({
-      nivel: this.nivel,
-      tema: this.tema,
-      quantidade: this.quantidade
-    });
+
+    if(this.tipo == TipoAtividade.Multipla_Escolha) {
+
+    } else if(this.tipo == TipoAtividade.Completar) {
+
+    } else if(this.tipo == TipoAtividade.Flashcards) {
+      this.routerToNavigate.navigate(['/flashcards'], {queryParams: { nivel: this.nivel, tema: this.tema, quantidade: this.quantidade}});
+    }
   }
 
 }

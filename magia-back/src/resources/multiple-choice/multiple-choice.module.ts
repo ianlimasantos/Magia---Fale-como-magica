@@ -5,6 +5,7 @@ import { OpenAiModule } from '../open-ai/open-ai.module';
 import { MultipleChoiceEntity } from './entities/multiple-choice.entity';
 import { GeneratedActivitiesModule } from '../generated-activities/generated-activities.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   controllers: [MultipleChoiceController],
@@ -13,6 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forFeature([MultipleChoiceEntity]),
     OpenAiModule,
     GeneratedActivitiesModule,
+    AuthModule
   ],
 })
 export class MultipleChoiceModule {}

@@ -27,6 +27,7 @@
         <input
           type="text"
           [(ngModel)]="tema"
+          maxlength="100"
           placeholder="Ex: viagem, trabalho..." />
       </div>
 
@@ -34,12 +35,13 @@
       <div class="field">
         <label>&#x1F522; Quantidade</label>
         <div class="chips">
-          <button
-            *ngFor="let q of [5,10,15]"
-            [class.active]="quantidade === q"
-            (click)="quantidade = q">
-            {{q}}
-          </button>
+          @for(q of [5,10,15]; track q){
+            <button
+              [class.active]="quantidade === q"
+              (click)="quantidade = q">
+              {{q}}
+            </button>
+          }
         </div>
       </div>
 

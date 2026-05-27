@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res, UseGuards 
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-dto/login-dto';
 import type { Response } from 'express';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from './auth.guard';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -18,7 +18,7 @@ export class AuthController {
   }
 
   @Get('logout')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   logout(){
    
   }

@@ -3,6 +3,7 @@ import { UserActivityProgressService } from './user_activity_progress.service';
 import { CreateUserActivityProgressDto } from './dto/create-user_activity_progress.dto';
 import { UpdateUserActivityProgressDto } from './dto/update-user_activity_progress.dto';
 
+
 @Controller('user-activity-progress')
 export class UserActivityProgressController {
   constructor(private readonly userActivityProgressService: UserActivityProgressService) {}

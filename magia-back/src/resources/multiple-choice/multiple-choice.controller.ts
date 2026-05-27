@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { MultipleChoiceService } from './multiple-choice.service';
 import { CreateMultipleChoiceDto } from './dto/create-multiple-choice.dto';
 import { UpdateMultipleChoiceDto } from './dto/update-multiple-choice.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('multiple-choice')
 export class MultipleChoiceController {
   constructor(private readonly multipleChoiceService: MultipleChoiceService) {}
