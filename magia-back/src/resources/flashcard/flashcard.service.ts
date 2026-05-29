@@ -28,14 +28,20 @@ export class FlashcardService {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const result = await this.openAiService.makeRequest(prompt);
     const mapped = {
-      createGeneratedActivityDto: {
+      generatedActivity: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        id: result.id,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         theme: result.theme,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         level: result.level,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        quantity: quantity,
+
+        userId: userId
       },
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      createFlashcardDto: result.flashcards
+      flashcards: result.flashcards
     };
     
     const response = plainToInstance(CreateFlashcardOpenAiDto, mapped);
@@ -46,13 +52,16 @@ export class FlashcardService {
       await queryRunner.connect();
       await queryRunner.startTransaction();
       const generatedActivityEntity = new GeneratedActivityEntity();
-      generatedActivityEntity.level = response.createGeneratedActivityDto.level;
-      generatedActivityEntity.theme = response.createGeneratedActivityDto.theme;
+      generatedActivityEntity.level = response.generatedActivity.level;
+      generatedActivityEntity.theme = response.generatedActivity.theme;
+      generatedActivityEntity.quantity = quantity;
       generatedActivityEntity.userId = userId;
       generatedActivityEntity.type = 'flashcard';
       await queryRunner.manager.save(generatedActivityEntity);
 
-      const flashcards = response.createFlashcardDto.map((flashcard) => {
+      response.generatedActivity.id = generatedActivityEntity.id;
+
+      const flashcards = response.flashcards.map((flashcard) => {
         return queryRunner.manager.create(FlashcardEntity, {
           ...flashcard,
           generatedActivity: generatedActivityEntity,

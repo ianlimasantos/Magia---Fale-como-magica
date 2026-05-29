@@ -1,4 +1,4 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-title>Flashcards</ion-title>
   </ion-toolbar>
@@ -19,36 +19,44 @@
       <div class="card" [class.flipped]="isFlipped">
         <div class="face front">
           <span class="label">Pergunta</span>
-          <p>{{ currentCard.front }}</p>
+          <p>{{ currentCard?.word }}</p>
+          <div class="pronunciation-container"(click)="speak(currentCard?.word); $event.stopPropagation()">
+            <button class="pronunciation-btn">
+              <span class="icon">&#x1F3A4;</span>
+              <span>Ouvir pronúncia</span>
+            </button>
+          </div>
         </div>
         <div class="face back">
           <span class="label">Resposta</span>
-          <p>{{ currentCard.back }}</p>
+          <p>{{ currentCard?.definition_pt }}</p>
         </div>
-
       </div>
-
     </div>
 
     <div class="actions">
-
-      <button class="circle next" (click)="prev()">
-        ⬅
+      <button
+        class="action-btn forgot-btn"
+        (click)="esqueci()">
+        <span>&#x1F635;</span>
+        <span>Esqueci</span>
       </button>
 
-      <button class="circle flip" (click)="flipCard()">
-        ✨
+      <button
+        class="action-btn remembered-btn"
+        (click)="lembrei()">
+        <span>&#x2728;</span>
+        <span>Lembrei</span>
       </button>
-
-      <button class="circle next" (click)="next()">
-        ➡
-      </button>
-      <button (click)="speak()">documentación</button>
-      <button (click)="startRecognition('Yo vivo en Barcelona')">voz</button>
     </div>
-
   </div>
 
-</ion-content> -->
+  <app-modal-acertos
+    [open]="isModalAcertosOpen"
+    [correctAnswers]="acertos"
+    [totalQuestions]="quantidade"
+  ></app-modal-acertos>
+  <app-loading [loading]="isloading"></app-loading>
+  <app-erro [error]="error"></app-erro>
+</ion-content>
 
-<button (click)="speak()">documentación</button>

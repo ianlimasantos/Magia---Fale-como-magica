@@ -8,14 +8,22 @@ export class UserActivityProgressEntity {
   id: string; 
 
   @Column()
-  best_score: number; 
+  generatedActivityId: string;
 
   @Column()
-  last_score: number;
+  rights: number;
 
   @Column()
-  times_completed: number;
+  quantity: number;
+
+  @Column()
+  score: number; 
+
+  @Column()
+  percentage: number; 
+
 
   @ManyToOne(() => UserEntity, (user) => user.userActivityProgresses)
   user: UserEntity;
+
 }

@@ -45,6 +45,7 @@ export class ConfigIaPage implements OnInit {
     } else if(this.tipo == TipoAtividade.Completar) {
 
     } else if(this.tipo == TipoAtividade.Flashcards) {
+      console.log('Iniciando atividade de Flashcards com os seguintes parâmetros:');
       this.routerToNavigate.navigate(['/flashcards'], {queryParams: { nivel: this.nivel, tema: this.tema, quantidade: this.quantidade}});
     }
   }

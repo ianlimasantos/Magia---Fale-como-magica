@@ -24,6 +24,9 @@ export class GeneratedActivityEntity {
   @Column()
   type: string;
 
+  @Column()
+  quantity!: number;
+
   @OneToMany(()=>FlashcardEntity, (flashcard) => flashcard.generatedActivity)
   flashcards: FlashcardEntity[];
 

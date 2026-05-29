@@ -1,0 +1,44 @@
+<div class="result-container" [style.display]="open ? 'flex' : 'none'">
+
+  <div class="magic-circle"></div>
+
+  <h1>Resultado</h1>
+
+  <div class="score-card">
+
+    <p class="label">Acertos</p>
+
+    <h2>
+      {{ correctAnswers }} / {{ totalQuestions }}
+    </h2>
+
+  </div>
+
+  <div class="score-card secondary">
+
+    <p class="label">Pontuação</p>
+
+    <h2>
+      {{ correctAnswers * 10 }} XP
+    </h2>
+
+  </div>
+
+  <div class="percentage-container">
+
+    <div class="percentage-bar">
+      <div
+        class="percentage-fill"
+        [style.width.%]="(correctAnswers / totalQuestions) * 100"
+      ></div>
+    </div>
+
+    <span>{{ (correctAnswers / totalQuestions) * 100 }}%</span>
+
+  </div>
+
+  <!-- <button (click)="closeModal()">
+    Continuar
+  </button> -->
+
+</div>

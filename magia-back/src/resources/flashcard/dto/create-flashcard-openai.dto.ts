@@ -2,6 +2,6 @@ import { CreateGeneratedActivityDto } from "src/resources/generated-activities/d
 import { CreateFlashcardDto } from "./create-flashcard.dto";
 
 export class CreateFlashcardOpenAiDto {
-  createGeneratedActivityDto!: CreateGeneratedActivityDto;
-  createFlashcardDto!: CreateFlashcardDto[];
+  generatedActivity: CreateGeneratedActivityDto;
+  flashcards: CreateFlashcardDto[];
 }

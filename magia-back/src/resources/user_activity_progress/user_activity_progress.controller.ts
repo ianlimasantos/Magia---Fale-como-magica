@@ -8,7 +8,7 @@ import { UpdateUserActivityProgressDto } from './dto/update-user_activity_progre
 export class UserActivityProgressController {
   constructor(private readonly userActivityProgressService: UserActivityProgressService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createUserActivityProgressDto: CreateUserActivityProgressDto) {
     return this.userActivityProgressService.create(createUserActivityProgressDto);
   }
@@ -20,7 +20,7 @@ export class UserActivityProgressController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userActivityProgressService.findOne(+id);
+    return this.userActivityProgressService.findOne(id);
   }
 
   @Patch(':id')

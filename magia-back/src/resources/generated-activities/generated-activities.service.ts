@@ -25,15 +25,8 @@ export class GeneratedActivitiesService {
     return this.generatedActivityRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} generatedActivity`;
+  findOne(id: string) {
+    return this.generatedActivityRepository.findOneBy({ id }) ;
   }
 
-  update(id: number, updateGeneratedActivityDto: UpdateGeneratedActivityDto) {
-    return `This action updates a #${id} generatedActivity`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} generatedActivity`;
-  }
 }

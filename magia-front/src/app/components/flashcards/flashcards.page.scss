@@ -127,32 +127,7 @@ ion-content::before {
   font-weight: 600;
 }
 
-/* ações */
-.actions {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
 
-/* botões circulares */
-.circle {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  border: none;
-
-  font-size: 22px;
-  cursor: pointer;
-
-  transition: all 0.2s ease;
-}
-
-/* anterior */
-.prev {
-  background: white;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
 
 /* virar */
 .flip {
@@ -175,4 +150,142 @@ ion-content::before {
 /* hover geral */
 .circle:hover {
   transform: translateY(-4px) scale(1.05);
+}
+
+
+.pronunciation-container {
+
+  margin-top: 20px;
+
+  display: flex;
+
+  justify-content: center;
+}
+
+.pronunciation-btn {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  padding: 12px 18px;
+
+  background: linear-gradient(
+    135deg,
+    #7b2ff7,
+    #b245ff
+  );
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    0 4px 14px rgba(123, 47, 247, 0.35);
+}
+
+.pronunciation-btn:active {
+
+  transform: scale(0.96);
+}
+
+.pronunciation-btn:hover {
+
+  opacity: 0.92;
+}
+
+.icon {
+
+  font-size: 18px;
+}
+
+.actions {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  margin-top: 28px;
+}
+
+.action-btn {
+
+  flex: 1;
+
+  max-width: 180px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  padding: 14px 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,0.15);
+}
+
+.action-btn:active {
+
+  transform: scale(0.96);
+}
+
+.action-btn:hover {
+
+  opacity: 0.94;
+}
+
+.forgot-btn {
+
+  background: linear-gradient(
+    135deg,
+    #ff6a88,
+    #ff3d71
+  );
+}
+
+.remembered-btn {
+
+  background: linear-gradient(
+    135deg,
+    #7b2ff7,
+    #b245ff
+  );
 }

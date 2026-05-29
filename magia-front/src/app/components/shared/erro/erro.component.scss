@@ -1,0 +1,184 @@
+.error-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top, rgba(255, 0, 140, 0.12), transparent 35%),
+    radial-gradient(circle at bottom, rgba(140, 0, 255, 0.15), transparent 35%),
+    linear-gradient(180deg, #120018 0%, #1a0827 45%, #07000c 100%);
+
+  backdrop-filter: blur(8px);
+
+  animation: fadeIn 0.4s ease;
+}
+
+.error-aura {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 0, 140, 0.25),
+      rgba(140, 0, 255, 0.15),
+      transparent 70%
+    );
+
+  filter: blur(35px);
+
+  animation: pulseError 3s infinite ease-in-out;
+}
+
+.error-card {
+  position: relative;
+  z-index: 2;
+
+  width: 420px;
+  max-width: 90%;
+
+  padding: 42px 32px;
+
+  border-radius: 30px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 40px rgba(180, 0, 255, 0.18),
+    0 0 80px rgba(255, 0, 140, 0.12);
+
+  text-align: center;
+
+  animation: cardAppear 0.5s ease;
+}
+
+.error-icon {
+  margin-bottom: 18px;
+
+  font-size: 4rem;
+
+  color: #ff7ad9;
+
+  text-shadow:
+    0 0 12px rgba(255, 0, 140, 0.8),
+    0 0 30px rgba(180, 0, 255, 0.5);
+
+  animation: floating 2s infinite ease-in-out;
+}
+
+.error-card h1 {
+  margin-bottom: 16px;
+
+  font-size: 2rem;
+  font-weight: 800;
+
+  color: white;
+}
+
+.error-card p {
+  margin-bottom: 28px;
+
+  color: #e9d5ff;
+
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.error-card button {
+  padding: 14px 30px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    #9333ea,
+    #ec4899
+  );
+
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  box-shadow:
+    0 0 18px rgba(192, 132, 252, 0.5);
+}
+
+.error-card button:hover {
+  transform: scale(1.05);
+
+  box-shadow:
+    0 0 30px rgba(236, 72, 153, 0.45);
+}
+
+@keyframes pulseError {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}

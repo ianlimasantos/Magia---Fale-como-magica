@@ -3,11 +3,17 @@ import { Expose } from "class-transformer";
 export class CreateGeneratedActivityDto {
 
   @Expose()
-  userId!: string;
-  
-  @Expose()
-  theme!: string;
+  id: string;
 
   @Expose()
-  level!: string;
+  userId: string;
+  
+  @Expose()
+  theme: string;
+
+  @Expose()
+  level: string;
+
+  @Expose()
+  quantity: number;
 }
