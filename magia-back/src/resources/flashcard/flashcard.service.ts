@@ -1,5 +1,5 @@
 import { OpenAiService } from 'src/resources/open-ai/open-ai.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateFlashcardDto } from './dto/create-flashcard.dto';
 import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
 import { CreateFlashcardOpenAiDto } from './dto/create-flashcard-openai.dto';
@@ -8,6 +8,7 @@ import { GeneratedActivityEntity } from '../generated-activities/entities/genera
 import { FlashcardEntity } from './entities/flashcard.entity';
 import { plainToInstance } from 'class-transformer';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateFlashcardOpenAiSchema } from 'src/shared/zod/create-flashcard-openai.schema';
 
 @Injectable()
 export class FlashcardService {
@@ -27,6 +28,13 @@ export class FlashcardService {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const result = await this.openAiService.makeRequest(prompt);
+
+    try {
+      CreateFlashcardOpenAiSchema.parse(result);
+    } catch (error) {
+      throw new InternalServerErrorException('Resposta da IA não está no formato esperado.');
+    }
+
     const mapped = {
       generatedActivity: {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
@@ -43,11 +51,10 @@ export class FlashcardService {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       flashcards: result.flashcards
     };
-    
+
     const response = plainToInstance(CreateFlashcardOpenAiDto, mapped);
 
     const queryRunner = this.dataSource.createQueryRunner();
-
     try{
       await queryRunner.connect();
       await queryRunner.startTransaction();
@@ -70,10 +77,9 @@ export class FlashcardService {
 
       await queryRunner.manager.save(flashcards);
       await queryRunner.commitTransaction();
-      
     } catch (error) {
       await queryRunner.rollbackTransaction();
-      console.error('Error creating flashcards via OpenAI:', error);
+      throw new InternalServerErrorException('Erro ao salvar os flashcards gerados.');
     } finally {
       await queryRunner.release();
     }

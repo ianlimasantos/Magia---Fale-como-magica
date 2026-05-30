@@ -9,7 +9,7 @@ export class ErroComponent  implements OnInit {
 
   @Input()
   error: boolean = false;
-
+  errorMessage: string = 'As runas mágicas perderam conexão com a IA.';
   constructor() { }
 
   ngOnInit() {}

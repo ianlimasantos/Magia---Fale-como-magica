@@ -36,6 +36,7 @@ export class FlashcardsPage implements OnInit {
   isloading: boolean = false;
   isModalAcertosOpen = false;
   error: boolean = false;
+
   constructor(private route: ActivatedRoute,
     private flashcardService: FlashcardService,
     private generatedActivityService: GeneratedActivityService,
@@ -61,6 +62,10 @@ export class FlashcardsPage implements OnInit {
       error: (error: any) => {
         this.isloading = false;
         this.error = true;
+        setTimeout(() => {
+          this.error = false;
+          this.router.navigate(['/tabs/config-ia']);
+        }, 7000);
       },
       complete: () => {
         this.isloading = false;
