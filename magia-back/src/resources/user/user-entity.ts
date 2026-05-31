@@ -27,6 +27,12 @@ export class UserEntity {
   isActive: boolean;
 
   @Column()
+  genero: string;
+
+  @Column()
+  score: number;
+
+  @Column()
   dateOfBirth: Date;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIME' })
