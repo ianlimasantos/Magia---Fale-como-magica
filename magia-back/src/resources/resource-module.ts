@@ -9,6 +9,7 @@ import { MultipleChoiceModule } from './multiple-choice/multiple-choice.module';
 import { CompleteModule } from './complete/complete.module';
 import { UserActivityProgressModule } from './user_activity_progress/user_activity_progress.module';
 import { ActivityAttemptModule } from './activity_attempt/activity_attempt.module';
+import { UserUsageModule } from './user-usage/user-usage.module';
 
 const modules = [
   AuthModule,
@@ -20,7 +21,8 @@ const modules = [
   MultipleChoiceModule,
   CompleteModule,
   UserActivityProgressModule,
-  ActivityAttemptModule
+  ActivityAttemptModule,
+  UserUsageModule
 ];
 
 @Module({

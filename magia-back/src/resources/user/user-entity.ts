@@ -35,6 +35,9 @@ export class UserEntity {
   @Column()
   dateOfBirth: Date;
 
+  @Column()
+  trialEndsAt: Date;
+
   @CreateDateColumn({ default: () => 'CURRENT_TIME' })
   created_at: Date;
 

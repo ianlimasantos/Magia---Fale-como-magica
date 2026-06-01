@@ -38,6 +38,9 @@ export class UserService {
     userEntity.dateOfBirth = new Date(createUserDto.dateOfBirth);
     userEntity.email = createUserDto.email;
     userEntity.password = await bcrypt.hash(createUserDto.password, 12);
+    userEntity.score = 0;
+    userEntity.genero = 'Não informado';
+    userEntity.trialEndsAt = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
     await this.userRepository.save(userEntity);
 
     return plainToInstance<GetUserDto, UserEntity>(GetUserDto, userEntity, {

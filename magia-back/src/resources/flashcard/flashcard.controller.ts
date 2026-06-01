@@ -5,8 +5,9 @@ import { UpdateFlashcardDto } from './dto/update-flashcard.dto';
 import { CreateFlashcardOpenAiDto } from './dto/create-flashcard-openai.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user/current-user.decorator';
+import { TrialGuard } from '../auth/trial/trial.guard';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, TrialGuard)
 @Controller('flashcard')
 export class FlashcardController {
   constructor(private readonly flashcardService: FlashcardService) {}

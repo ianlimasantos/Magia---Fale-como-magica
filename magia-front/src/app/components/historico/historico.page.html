@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar class="toolbar-header">
+    <ion-title>Histórico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container">
+
+    <h2>Suas atividades</h2>
+    <p class="sub">Revise ou refaça quando quiser ✨</p>
+
+    <!-- filtros -->
+    <div class="filtros">
+
+      <button
+        class="filtro"
+        [class.active]="tipoSelecionado === 'MULTIPLA_ESCOLHA'"
+        (click)="filtrar('MULTIPLA_ESCOLHA')">
+        🧠
+      </button>
+
+      <button
+        class="filtro"
+        [class.active]="tipoSelecionado === 'COMPLETAR'"
+        (click)="filtrar('COMPLETAR')">
+        ✍️
+      </button>
+
+      <button
+        class="filtro"
+        [class.active]="tipoSelecionado === 'FLASHCARDS'"
+        (click)="filtrar('FLASHCARDS')">
+        🃏
+      </button>
+
+    </div>
+
+    <!-- lista -->
+    <div class="lista">
+
+      <div
+        class="card"
+        *ngFor="let atividade of atividadesFiltradas"
+        (click)="abrirAtividade(atividade)">
+
+        <div class="card-header">
+          <span class="tipo">
+            {{ atividade.tipo }}
+          </span>
+          <span class="data">
+            {{ atividade.data }}
+          </span>
+        </div>
+
+        <p class="tema">
+          {{ atividade.tema }}
+        </p>
+
+        <div class="footer">
+          <span>🔁 Refazer</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <app-activity-result></app-activity-result>
+
+</ion-content>

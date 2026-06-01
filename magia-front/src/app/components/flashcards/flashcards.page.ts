@@ -44,10 +44,22 @@ export class FlashcardsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+
+    const activityId =this.route.snapshot.paramMap.get('id');
+
+    if(activityId){
+      this.loadActivity(activityId);
+      return;
+    }
+
     this.nivel =  this.route.snapshot.queryParamMap.get('nivel') ?? 'A1';
     this.tema =  this.route.snapshot.queryParamMap.get('tema') ?? '';
     this.quantidade = Number(this.route.snapshot.queryParamMap.get('quantidade')) || 5;
     this.createFlashcard(this.tema, this.nivel, this.quantidade);
+  }
+
+  loadActivity(activityId: string) {
+
   }
 
   createFlashcard(tema: string, nivel: string, quantidade: number) {

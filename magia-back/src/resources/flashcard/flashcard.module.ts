@@ -6,6 +6,7 @@ import { FlashcardEntity } from './entities/flashcard.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GeneratedActivitiesModule } from '../generated-activities/generated-activities.module';
 import { AuthModule } from '../auth/auth.module';
+import { UserUsageModule } from '../user-usage/user-usage.module';
 
 @Module({
   controllers: [FlashcardController],
@@ -14,7 +15,8 @@ import { AuthModule } from '../auth/auth.module';
     TypeOrmModule.forFeature([FlashcardEntity]),
     OpenAiModule,
     GeneratedActivitiesModule,
-    AuthModule
+    AuthModule,
+    UserUsageModule
   ],
 })
 export class FlashcardModule {}

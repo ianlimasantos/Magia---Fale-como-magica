@@ -18,8 +18,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'home',
-        loadComponent: () => import('./components/home/home.page').then((m) => m.HomePage),
+        path: 'historico',
+        loadComponent: () => import('./components/historico/historico.page').then( m => m.HistoricoPage)
       },
       {
         path: 'curiosidades',
@@ -69,8 +69,14 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'flashcards/:id',
+    loadComponent: () => import('./components/flashcards/flashcards.page').then( m => m.FlashcardsPage),
+    canActivate: [authGuard]
+  },
+  {
     path: '**',
     loadComponent: () => import('./components/not-found/not-found.page').then( m => m.NotFoundPage)
   },
+
 
 ];
