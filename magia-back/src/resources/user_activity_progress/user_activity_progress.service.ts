@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeneratedActivitiesService } from '../generated-activities/generated-activities.service';
 import { UserEntity } from '../user/user-entity';
+import { UserActivityProgressHistoryDto } from './dto/user_activity_progress_historic.dto';
 
 @Injectable()
 export class UserActivityProgressService {
@@ -29,8 +30,27 @@ export class UserActivityProgressService {
     return this.userActivityProgressRepository.save(userActivityProgressEntity);
   }
 
-  findAll() {
-    return `This action returns all userActivityProgress`;
+  async findAllByUserAndType(userId: string, type:string) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const result: UserActivityProgressHistoryDto[] =
+      await this.userActivityProgressRepository.query(
+        `
+      SELECT GA.id as generatedActivityId, GA.theme, UAP.score, UAP.percentage, UAP.rights, UAP.quantity
+      FROM generated_activity AS GA
+      INNER JOIN user_activity_progress AS UAP
+        ON GA.id = UAP.generatedActivityId
+      WHERE GA.type = ?
+        AND GA.userId = ?
+        AND UAP.id = (
+          SELECT id
+          FROM user_activity_progress AS UAP2
+          WHERE UAP2.generatedActivityId = GA.id
+          ORDER BY score DESC
+          LIMIT 1
+    )`,
+      [type, userId],
+    ) ;
+    return result;
   }
 
   findOne(id: string) {

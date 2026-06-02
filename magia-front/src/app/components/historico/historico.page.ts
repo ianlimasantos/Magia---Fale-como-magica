@@ -3,38 +3,52 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { ActivityResultComponent } from '../activity-result/activity-result.component';
+import { UserActivityProgressHistoricService } from 'src/app/services/user-activity-progress-historic-service';
+import { UserActivityProgressHistoryModel } from 'src/app/models/userActivityProgress/user-activity-progress-history-model';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { isRTL } from 'ionicons/dist/types/components/icon/utils';
 
 @Component({
   selector: 'app-historico',
   templateUrl: './historico.page.html',
   styleUrls: ['./historico.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ActivityResultComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ActivityResultComponent, LoadingComponent]
 })
-export class HistoricoPage  {
+export class HistoricoPage implements OnInit {
 
-  constructor() {}
 
-  tipoSelecionado: string = 'MULTIPLA_ESCOLHA';
+  tipoSelecionado: string = '';
+  userActivityProgress: UserActivityProgressHistoryModel[] = [];
+  isLoading: boolean = false;
 
-  atividades = [
-    { tipo: 'MULTIPLA_ESCOLHA', tema: 'Viagem', data: '20/04' },
-    { tipo: 'COMPLETAR', tema: 'Trabalho', data: '19/04' },
-    { tipo: 'FLASHCARDS', tema: 'Comida', data: '18/04' },
-  ];
+  constructor(private userActivityProgressHistoricService: UserActivityProgressHistoricService) {}
 
-  atividadesFiltradas = this.atividades;
+  ngOnInit(){
 
-  filtrar(tipo: string) {
-    this.tipoSelecionado = tipo;
-
-    this.atividadesFiltradas = this.atividades.filter(
-      a => a.tipo === tipo
-    );
   }
+
+
 
   abrirAtividade(atividade: any) {
     console.log(atividade);
+  }
+
+  getHistoricByType(type: string) {
+    this.isLoading = true;
+    this.userActivityProgressHistoricService.getHistoricByType(type).subscribe({
+      next: (result) => {
+        this.userActivityProgress = result;
+        console.log(result);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {
+        this.isLoading = false;
+        console.log('Request completed');
+      }
+    })
   }
 
 }

@@ -3,30 +3,27 @@
   <div class="result-card">
 
     <div class="result-header">
-      <h3>Present Perfect</h3>
+      <h3>{{ userActivityProgress?.theme }}</h3>
     </div>
 
     <div class="result-stats">
 
       <div class="stat">
-        <span class="value">87%</span>
+        <span class="value">{{ userActivityProgress?.percentage }}%</span>
         <span class="label">Taxa de acerto</span>
       </div>
 
       <div class="stat">
-        <span class="value">35 / 40</span>
+        <span class="value">{{ userActivityProgress?.score }}</span>
         <span class="label">Score</span>
       </div>
-
     </div>
 
     <div class="progress-bar">
       <div
         class="progress-fill"
-        style="width: 87%">
+        [style.width.%]="userActivityProgress?.percentage">
       </div>
     </div>
-
   </div>
-
 </div>

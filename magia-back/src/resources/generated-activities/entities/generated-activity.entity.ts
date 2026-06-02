@@ -4,6 +4,7 @@ import { ActivityAttemptEntity } from "src/resources/activity_attempt/entities/a
 import { CompleteEntity } from "src/resources/complete/entities/complete.entity";
 import { FlashcardEntity } from "src/resources/flashcard/entities/flashcard.entity";
 import { MultipleChoiceEntity } from "src/resources/multiple-choice/entities/multiple-choice.entity";
+import { UserActivityProgressEntity } from "src/resources/user_activity_progress/entities/user_activity_progress.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('generated_activity')
@@ -39,5 +40,7 @@ export class GeneratedActivityEntity {
   @OneToMany(() => ActivityAttemptEntity, (activityAttempt) => activityAttempt.generatedActivity)
   activityAttempts: ActivityAttemptEntity[];
 
-  
+  @OneToMany(() => UserActivityProgressEntity, (userActivityProgress) => userActivityProgress.generatedActivity)
+  userActivityProgresses: UserActivityProgressEntity[];
+
 }

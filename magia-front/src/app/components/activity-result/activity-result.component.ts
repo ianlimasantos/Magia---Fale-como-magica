@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserActivityProgressHistoryModel } from 'src/app/models/userActivityProgress/user-activity-progress-history-model';
 
 @Component({
   selector: 'app-activity-result',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivityResultComponent  implements OnInit {
 
-  constructor() { }
+
+  @Input()
+  userActivityProgress?: UserActivityProgressHistoryModel;
+
+  constructor( ) { }
 
   ngOnInit() {}
 

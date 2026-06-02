@@ -1,5 +1,6 @@
+import { GeneratedActivityEntity } from "src/resources/generated-activities/entities/generated-activity.entity";
 import { UserEntity } from "src/resources/user/user-entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user_activity_progress')
 export class UserActivityProgressEntity {
@@ -9,6 +10,9 @@ export class UserActivityProgressEntity {
 
   @Column()
   generatedActivityId: string;
+
+  @Column()
+  userId: string;
 
   @Column()
   rights: number;
@@ -22,8 +26,12 @@ export class UserActivityProgressEntity {
   @Column()
   percentage: number; 
 
-
   @ManyToOne(() => UserEntity, (user) => user.userActivityProgresses)
+  @JoinColumn({ name: 'userId' })
   user: UserEntity;
+
+  @ManyToOne(() => GeneratedActivityEntity, (generatedActivity) => generatedActivity.userActivityProgresses)
+  @JoinColumn({ name: 'generatedActivityId' })
+  generatedActivity: GeneratedActivityEntity;
 
 }
