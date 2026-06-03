@@ -45,6 +45,7 @@ export class FlashcardsPage implements OnInit {
 
   ngOnInit() {
 
+    console.log('FLASHCARD CONSTRUCTOR');
     const activityId =this.route.snapshot.paramMap.get('id');
 
     if(activityId){
@@ -58,8 +59,23 @@ export class FlashcardsPage implements OnInit {
     this.createFlashcard(this.tema, this.nivel, this.quantidade);
   }
 
-  loadActivity(activityId: string) {
 
+
+  loadActivity(activityId: string) {
+    this.generatedActivityService.getGeneratedActivity(activityId).subscribe({
+      next: (generatedActivity: GeneratedActivityModel) => {
+        this.generatedActivity = generatedActivity;
+        this.quantidade = generatedActivity.quantity;
+        this.flashcards = generatedActivity.flashcards || [];
+        this.currentCard = this.flashcards[this.index];
+      },
+      error: (error) => {
+        console.error('Erro ao carregar atividade gerada:', error);
+      },
+      complete: () => {
+        console.log('Atividade gerada carregada com sucesso');
+      }
+    });
   }
 
   createFlashcard(tema: string, nivel: string, quantidade: number) {
@@ -86,12 +102,28 @@ export class FlashcardsPage implements OnInit {
     });
   }
 
+  getFlashcard(id: string) {
+    this.flashcardService.getFlashcard(id).subscribe({
+      next: (flashcards: FlashcardModel[]) => {
+        this.currentCard = flashcards[this.index];
+      },
+      error: (error: any) => {
+        console.error('Erro ao buscar flashcard:', error);
+      },
+      complete: () => {
+        console.log('Busca de flashcard concluída');
+      }
+    });
+  }
+
   flipCard() {
     this.isFlipped = !this.isFlipped;
   }
 
   next(){
 
+    console.log("teste");
+    console.log(this.generatedActivity);
     if ((this.index + 1) == this.flashcards.length ){
       console.log(`Registrando progresso: ${this.flashcards.length}`);
       this.generatedActivityService.registerProgress(

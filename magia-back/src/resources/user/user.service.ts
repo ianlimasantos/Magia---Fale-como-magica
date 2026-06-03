@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './user-entity';
 import { Repository } from 'typeorm';
@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/create-user-dto';
 import { plainToInstance } from 'class-transformer';
 import { GetUserDto } from './dto/get-user-dto';
 import * as bcrypt from 'bcrypt';
+import { NotFoundError } from 'rxjs';
 @Injectable()
 export class UserService {
 
@@ -18,8 +19,17 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(id: string): Promise<UserEntity | null> {
-    return this.userRepository.findOneBy({ id });
+  async findOne(id: string): Promise<GetUserDto | null> {
+    const userEntity = await this.userRepository.findOneBy({ id });
+    if (!userEntity) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    const userDto =  plainToInstance<GetUserDto, UserEntity>(GetUserDto, userEntity, {
+      excludeExtraneousValues: true,
+    });
+
+    console.log('userDTO', userDto);
+    return userDto;
   }
 
   findOneByEmail(email: string): Promise<UserEntity | null> {

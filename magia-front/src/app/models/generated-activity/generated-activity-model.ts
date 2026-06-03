@@ -1,3 +1,5 @@
+import { FlashcardModel } from "../flashcard/flashcard-model";
+
 export interface GeneratedActivityModel {
   id: string;
   userId: string;
@@ -5,4 +7,5 @@ export interface GeneratedActivityModel {
   quantity: number;
   theme: string;
   level: string;
+  flashcards?: FlashcardModel[];
 }

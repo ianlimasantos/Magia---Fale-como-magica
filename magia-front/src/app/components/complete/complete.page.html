@@ -45,30 +45,65 @@
     </button>
 
     @if(isCorrect !== null){
-      <div class="feedback-box" [ngClass]="isCorrect ? 'ok' : 'erro'">
-        <p class="mensagem">
-          <span class="emoji">
-            {{ isCorrect ? '✨' : '❌' }}
-          </span>
-          {{ isCorrect ? 'Acertou!' : 'Ops! Não foi dessa vez' }}
-        </p>
-      </div>
-    }
 
+  <div
+    class="magic-feedback"
+    [ngClass]="isCorrect ? 'success' : 'error'">
 
-    @if(isCorrect !== null){
-      <div class="explicacao-box">
-        {{ completeActivity.explanation }}
+    <div class="feedback-glow"></div>
+
+    <div class="feedback-header">
+
+      <div class="feedback-icon">
+        {{ isCorrect ? '✨' : '🔮' }}
       </div>
-    }
+
+      <div>
+
+        <h3>
+          {{ isCorrect
+            ? 'Feitiço lançado com sucesso!'
+            : 'A magia não funcionou...' }}
+        </h3>
+
+        <span>
+          {{ isCorrect
+            ? 'Você acertou a resposta.'
+            : 'Confira a explicação abaixo.' }}
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="feedback-explanation">
+      {{ completeActivity.explanation }}
+    </div>
+
+    <button
+      class="feedback-button">
+      <!-- (click)="nextQuestion()"> -->
+
+      {{
+        counter + 1 === completeActivityArray.length
+          ? 'Finalizar'
+          : 'Continuar'
+      }}
+
+    </button>
+
+  </div>
+
+}
+
 </div>
 
-<app-modal
+<!-- <app-modal
   [isOpen]="isModalOpen"
   title="Deseja sair da atividade?"
   message="Você irá perder o progresso!"
   (confirm)="sairDaAtividade()"
   (cancel)="closeModal()"
-></app-modal>
+></app-modal> -->
 
 </ion-content>

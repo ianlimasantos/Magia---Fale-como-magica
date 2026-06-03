@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsBoolean, IsDate, IsDateString, IsString, IsUUID } from 'class-validator';
+import { IsBoolean, IsDate, IsDateString, IsNumber, IsString, IsUUID } from 'class-validator';
 
 export class GetUserDto {
   @Expose()
@@ -14,6 +14,7 @@ export class GetUserDto {
   @IsBoolean()
   isActive: boolean;
 
+  @Expose()
   @IsDate()
   dateOfBirth: Date;
 
@@ -29,6 +30,15 @@ export class GetUserDto {
   @IsString()
   email: string;
 
+  @Expose()
   @IsString()
-  password: string;
+  genero: string;
+  
+  @Expose()
+  @IsNumber()
+  score: number;
+  
+  @Expose()
+  @IsDate()
+  trialEndsAt: Date;
 }

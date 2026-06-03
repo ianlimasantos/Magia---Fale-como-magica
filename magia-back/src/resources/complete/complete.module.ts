@@ -6,6 +6,7 @@ import { GeneratedActivitiesModule } from '../generated-activities/generated-act
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CompleteEntity } from './entities/complete.entity';
 import { AuthModule } from '../auth/auth.module';
+import { UserUsageModule } from '../user-usage/user-usage.module';
 
 @Module({
   controllers: [CompleteController],
@@ -14,7 +15,8 @@ import { AuthModule } from '../auth/auth.module';
     TypeOrmModule.forFeature([CompleteEntity]),
     OpenAiModule,
     GeneratedActivitiesModule,
-    AuthModule
+    AuthModule,
+    UserUsageModule
   ],
 })
 export class CompleteModule {}

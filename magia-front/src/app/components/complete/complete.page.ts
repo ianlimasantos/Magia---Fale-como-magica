@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { CompleteActivityModel } from 'src/app/models/completeActivity/complete-activity-model';
 import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from '../shared/modal/modal.component';
+import { CreateCompleteOpenAiDto } from 'src/app/models/completeActivity/create-complete-openAi-model';
+import { CompleteService } from 'src/app/services/complete-service';
 
 @Component({
   selector: 'app-complete',
@@ -16,64 +18,58 @@ import { ModalComponent } from '../shared/modal/modal.component';
 })
 export class CompletePage implements OnInit {
 
+
+  nivel!: string;
+  tema!: string;
+  quantidade!: number;
+
   counter: number = 0;
 
+  createCompleteOpenAiDto!: CreateCompleteOpenAiDto;
   completeActivity!: CompleteActivityModel;
   partes: string[] = [];
 
   userAnswer: string = '';
-  isCorrect: boolean | null = null;
+  isCorrect: boolean | null = true;
   isModalOpen: boolean = false;
 
-  completeActivityArray: CompleteActivityModel[] = [
-    {
-      id: 1,
-      question: "Ana ______ a la calle ayer. (salir)",
-      type: TipoAtividade.Completar,
-      correct_answer: "salió",
-      explanation: "Ayer indica pretérito indefinido, por eso usamos 'salió'."
-    },
-    {
-      id: 2,
-      question: "Voy ______ trabajar en metro.",
-      type: TipoAtividade.Completar,
-      correct_answer: "a",
-      explanation: "El verbo 'ir' usa la preposición 'a' para indicar destino."
-    },
-    {
-      id: 3,
-      question: "Busco ______ piso en el centro.",
-      type: TipoAtividade.Completar,
-      correct_answer: "un",
-      explanation: "Se usa 'un' porque es algo no específico y 'piso' es masculino."
-    },
-    {
-      id: 4,
-      question: "Madrid ______ una ciudad muy grande.",
-      type: TipoAtividade.Completar,
-      correct_answer: "es",
-      explanation: "Se usa 'ser' para características permanentes."
-    },
-    {
-      id: 5,
-      question: "Trabajo ______ ganar dinero.",
-      type: TipoAtividade.Completar,
-      correct_answer: "para",
-      explanation: "'Para' indica finalidad (objetivo)."
-    },
-    {
-      id: 6,
-      question: "Ayer ______ tapas con mis amigos. (comer)",
-      type: TipoAtividade.Completar,
-      correct_answer: "comí",
-      explanation: "Ayer indica acción terminada en el pasado (pretérito indefinido)."
-    }
-  ];
+  acertos = 0;
+  isloading: boolean = false;
+  isModalAcertosOpen = false;
+  error: boolean = false;
 
-  constructor(private router: Router) {}
+
+  completeActivityArray: CompleteActivityModel[] = [];
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private completeService: CompleteService
+  ) {}
 
   ngOnInit() {
-    this.loadQuestion();
+    this.nivel =  this.activatedRoute.snapshot.queryParamMap.get('nivel') ?? 'A1';
+    this.tema =  this.activatedRoute.snapshot.queryParamMap.get('tema') ?? '';
+    this.quantidade = Number(this.activatedRoute.snapshot.queryParamMap.get('quantidade')) || 5;
+    this.loadCompleteActivityFromApi(this.tema, this.nivel, this.quantidade);
+  }
+
+  loadCompleteActivityFromApi(tema: string, nivel: string, quantidade: number) {
+    this.completeService.createCompleteActivities(tema, nivel, quantidade).subscribe({
+      next: (response: CreateCompleteOpenAiDto) => {
+        console.log(response);
+        this.createCompleteOpenAiDto = response;
+        this.completeActivityArray = response.createCompleteDto;
+        this.loadQuestion();
+      },
+      error: (error) => {
+        console.error('Error fetching complete activities:', error);
+      },
+      complete: () => {
+        console.log('Complete activities loaded successfully');
+        //this.loadQuestion();
+      }
+    });
   }
 
   loadQuestion() {
@@ -90,9 +86,9 @@ export class CompletePage implements OnInit {
 
     this.isCorrect = resposta === correta;
 
-    setTimeout(() => {
-      this.next();
-    }, 3000);
+    if(this.isCorrect) {
+      this.acertos++;
+    }
   }
 
   next() {

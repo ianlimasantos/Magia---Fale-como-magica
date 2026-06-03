@@ -7,6 +7,7 @@ import { UserActivityProgressHistoricService } from 'src/app/services/user-activ
 import { UserActivityProgressHistoryModel } from 'src/app/models/userActivityProgress/user-activity-progress-history-model';
 import { LoadingComponent } from '../shared/loading/loading.component';
 import { isRTL } from 'ionicons/dist/types/components/icon/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historico',
@@ -22,19 +23,29 @@ export class HistoricoPage implements OnInit {
   userActivityProgress: UserActivityProgressHistoryModel[] = [];
   isLoading: boolean = false;
 
-  constructor(private userActivityProgressHistoricService: UserActivityProgressHistoricService) {}
+  constructor(
+    private userActivityProgressHistoricService: UserActivityProgressHistoricService,
+    private router: Router
+  ) {}
 
   ngOnInit(){
 
   }
 
-
-
-  abrirAtividade(atividade: any) {
-    console.log(atividade);
+  abrirAtividade(generatedActivityId: string) {
+    if(this.tipoSelecionado === 'flashcard'){
+      this.router.navigate(['flashcards', generatedActivityId]);
+    }
+    if(this.tipoSelecionado === 'multiple-choice'){
+      this.router.navigate(['multipla-escolha', generatedActivityId]);
+    }
+    if(this.tipoSelecionado === 'complete'){
+      this.router.navigate(['complete', generatedActivityId]);
+    }
   }
 
   getHistoricByType(type: string) {
+    this.tipoSelecionado = type;
     this.isLoading = true;
     this.userActivityProgressHistoricService.getHistoricByType(type).subscribe({
       next: (result) => {

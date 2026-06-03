@@ -7,20 +7,20 @@ import { UpdateGeneratedActivityDto } from './dto/update-generated-activity.dto'
 export class GeneratedActivitiesController {
   constructor(private readonly generatedActivitiesService: GeneratedActivitiesService) {}
 
-  // @Post()
-  // create(@Body() createGeneratedActivityDto: CreateGeneratedActivityDto) {
-  //   return this.generatedActivitiesService.create(createGeneratedActivityDto);
-  // }
+  @Post()
+  create(@Body() createGeneratedActivityDto: CreateGeneratedActivityDto) {
+    return this.generatedActivitiesService.create(createGeneratedActivityDto);
+  }
 
   // @Get()
   // findAll() {
   //   return this.generatedActivitiesService.findAll();
   // }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.generatedActivitiesService.findOne(+id);
-  // }
+  @Get('flashcard/:id')
+  findGeneratedActivityOfFlashcard(@Param('id') id: string) {
+    return this.generatedActivitiesService.findGeneratedActivityOfFlashcard(id);
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateGeneratedActivityDto: UpdateGeneratedActivityDto) {

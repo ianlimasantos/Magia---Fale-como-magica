@@ -29,4 +29,11 @@ export class GeneratedActivitiesService {
     return this.generatedActivityRepository.findOneBy({ id }) ;
   }
 
+  findGeneratedActivityOfFlashcard(id: string) {
+    return this.generatedActivityRepository.findOne({
+      where: { id },
+      relations: { flashcards: true }
+    });
+  }
+
 }

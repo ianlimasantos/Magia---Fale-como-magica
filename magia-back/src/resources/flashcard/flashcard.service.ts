@@ -91,7 +91,10 @@ export class FlashcardService {
   }
 
   findOne(id: string) {
-    return this.flashcardRepository.findOneBy({ id });
+    return this.flashcardRepository.findOne({ 
+      where: { id },
+      relations: { generatedActivity: true }
+     });
   }
 
   update(id: string, updateFlashcardDto: UpdateFlashcardDto) {

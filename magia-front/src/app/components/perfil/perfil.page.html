@@ -6,15 +6,37 @@
 
 <ion-content>
 
-  <!-- topo -->
   <div class="profile-header">
 
     <div class="avatar">
       <img src="../../assets/images/magico.png" />
     </div>
 
-    <h2>{{ user.name }}</h2>
-    <p class="email">{{ user.email }}</p>
+    <h2>{{ user?.name }}</h2>
+
+    <div class="rank-badge">
+      ✨ {{currentRank.title}} ✨
+    </div>
+
+  </div>
+  <!-- progresso mágico -->
+  <div class="level-card">
+
+    <div class="level-header">
+      <span>Nível {{currentLevel}}</span>
+      <span>{{user?.score}} / {{nextRank.xp}} XP</span>
+    </div>
+
+    <div class="xp-bar">
+      <div
+        class="xp-fill"
+        [style.width.%]="progressPercentage">
+      </div>
+    </div>
+
+    <div class="next-level">
+      Próximo título: <strong>{{nextRank.title}}</strong>
+    </div>
 
   </div>
 
@@ -23,12 +45,12 @@
 
     <div class="item">
       <span>📧 Email</span>
-      <span>{{ user.email }}</span>
+      <span>{{ user?.email }}</span>
     </div>
 
     <div class="item">
       <span>🎂 Nascimento</span>
-      <span>{{ user.dateOfBirth | date:'dd/MM/yyyy' }}</span>
+      <span>{{ user?.dateOfBirth | date:'dd/MM/yyyy' }}</span>
     </div>
 
   </div>
@@ -36,9 +58,9 @@
   <!-- ações -->
   <div class="actions">
 
-    <button class="btn magia">
+    <!-- <button class="btn magia">
       ✏️ Editar perfil
-    </button>
+    </button> -->
 
     <button class="btn logout" (click)="logout()">
       🚪 Sair

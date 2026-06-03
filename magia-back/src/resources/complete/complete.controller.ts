@@ -3,6 +3,8 @@ import { CompleteService } from './complete.service';
 import { CreateCompleteDto } from './dto/create-complete.dto';
 import { UpdateCompleteDto } from './dto/update-complete.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user/current-user.decorator';
+import { TrialGuard } from '../auth/trial/trial.guard';
 
 @UseGuards(AuthGuard)
 @Controller('complete')
@@ -14,9 +16,10 @@ export class CompleteController {
     return this.completeService.create(createCompleteDto);
   }
 
+  @UseGuards(TrialGuard)
   @Get('create-by-openai')
-  createByOpenAI(@Query('theme') theme: string, @Query('level') level: string, @Query('quantity') quantity: number) {
-    return this.completeService.createByOpenAI(theme, level, quantity);
+  createByOpenAI(@Query('theme') theme: string, @Query('level') level: string, @Query('quantity') quantity: number, @CurrentUser() user: any) {
+    return this.completeService.createByOpenAI(theme, level, quantity, user.id);
   }
 
   @Get()

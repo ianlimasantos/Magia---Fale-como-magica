@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
+import { GeneratedActivityModel } from '../models/generated-activity/generated-activity-model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,4 +19,9 @@ export class GeneratedActivityService {
       quantity
     });
   }
+
+  getGeneratedActivity(generatedActivityId: string) {
+    return this.httpClient.get<GeneratedActivityModel>(`${this.apiUrl}/generated-activities/flashcard/${generatedActivityId}`);
+  }
 }
+

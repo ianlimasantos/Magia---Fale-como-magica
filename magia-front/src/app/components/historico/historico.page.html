@@ -42,7 +42,7 @@
 
   </div>
   @for(atividade of userActivityProgress; track $index){
-    <app-activity-result [userActivityProgress]="atividade"></app-activity-result>
+    <app-activity-result [userActivityProgress]="atividade" (click)="abrirAtividade(atividade.generatedActivityId)"></app-activity-result>
   }
 
   <app-loading [loading]="isLoading"></app-loading>

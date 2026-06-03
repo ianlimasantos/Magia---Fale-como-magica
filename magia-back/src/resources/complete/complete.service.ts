@@ -22,7 +22,7 @@ export class CompleteService {
     return 'This action adds a new complete';
   }
 
-  async createByOpenAI(theme: string, level: string, quantity: number) {
+  async createByOpenAI(theme: string, level: string, quantity: number, userId: string) {
     const prompt = this.returnPrompt(theme, level, quantity);
     const response = await this.openAiService.makeRequest(prompt);
     const queryRunner  = this.dataSource.createQueryRunner();
@@ -44,7 +44,8 @@ export class CompleteService {
       const generatedActivityEntity = new GeneratedActivityEntity();
       generatedActivityEntity.level = result.createGeneratedActivityDto.level;
       generatedActivityEntity.theme = result.createGeneratedActivityDto.theme;
-      generatedActivityEntity.userId = '9a5711c8-666f-4bc1-b92e-4863c40506b4';
+      generatedActivityEntity.userId = userId;
+      generatedActivityEntity.quantity = quantity;
       generatedActivityEntity.type = 'complete';
       await queryRunner.manager.save(generatedActivityEntity);
       const completeEntities = result.createCompleteDto.map((complete) => {
@@ -61,7 +62,7 @@ export class CompleteService {
     } finally{
       await queryRunner.release();
     }
-    return response;
+    return result;
   }
 
   findAll() {
@@ -81,46 +82,98 @@ export class CompleteService {
   }
 
   returnPrompt(theme: string, level: string, quantity: number): string {
-    return `You generate language learning exercises.
+    return `
+    You are a Spanish language teacher specialized in creating language-learning exercises.
 
-    Input:
-    - Theme: ${theme}
-    - Level: ${level}
+    Theme: ${theme}
+    Level: ${level}
 
     Task:
-    Create exactly ${quantity} fill-in-the-blank exercises.
+    Generate exactly ${quantity} fill-in-the-blank exercises.
 
-    Each exercise must:
-    - Contain a sentence with a blank (______).
-    - Include the base word in parentheses when needed (e.g., infinitive verb).
-    - Require the user to type the answer (no multiple choice).
+    Requirements:
+
+    - Each exercise must contain exactly ONE blank represented by:
+    ______
+
+    - The missing word must be exactly ONE Spanish word.
+
+    - Immediately after the blank, include a hint inside parentheses.
+
+    - The hint is mandatory and may be:
+    - a synonym
+    - a translation
+    - a grammatical clue
+    - an infinitive verb
+    - a contextual clue
+
+    Examples:
+
+    "La ______ (fruita amarilla) está madura."
+    Answer: "banana"
+
+    "Yo ______ (comer) una manzana."
+    Answer: "como"
+
+    "Necesito mi ______ (documento para viajar)."
+    Answer: "pasaporte"
+
+    Rules:
+
+    - The sentence must be entirely in Spanish.
+    - The answer must be exactly one word.
+    - Do not create answers with multiple words.
+    - Do not create answers with punctuation.
+    - Do not create multiple blanks.
+    - Do not create questions with more than one valid answer.
+    - The hint must always appear immediately after the blank.
+    - Use vocabulary related to the theme.
+    - Adapt the difficulty to the specified level.
+    - Avoid repetition.
+    - Make the exercises natural and realistic.
+
+    Languages:
+
+    question: Spanish
+    correct_answer_es: Spanish
+    explanation_es: Spanish
+    explanation_pt: Portuguese
 
     Output:
+
     Return ONLY valid JSON.
 
     Schema:
+
     {
-      "theme": "string",
-      "level": "string",
-      "exercises": [
-        {
-          "question": "string",
-          "correct_answer_es": "string",
-          "explanation_es": "string",
-          "explanation_pt": "string"
-        }
-      ]
+    "theme": "string",
+    "level": "string",
+    "exercises": [
+      {
+        "question": "string",
+        "correct_answer_es": "string",
+        "explanation_es": "string",
+        "explanation_pt": "string"
+      }
+    ]
     }
 
-    Rules:
-    - Exactly ${quantity} exercises
-    - One correct answer per exercise
-    - Keep explanations short (max 15 words)
-    - Clear, level-appropriate language
-    - Avoid repetition
-    - No extra fields
-    - No text outside JSON
+    Validation Rules:
 
+    - Exactly ${quantity} exercises.
+    - Every question must contain exactly one occurrence of "______".
+    - Every question must contain exactly one hint in parentheses.
+    - The hint must be immediately after the blank.
+    - correct_answer_es must be exactly the word that replaces the blank.
+    - correct_answer_es must contain only one word.
+    - explanation_es maximum 15 words.
+    - explanation_pt maximum 15 words.
+    - No markdown.
+    - No comments.
+    - No extra fields.
+    - No text before or after the JSON.
+
+    Return ONLY the JSON.
     `;
   }
 }

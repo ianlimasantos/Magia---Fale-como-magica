@@ -22,4 +22,8 @@ export class FlashcardService {
       }
     });
   }
+
+  getFlashcard(id: string) : Observable<FlashcardModel[]> {
+    return this.httpClient.get<FlashcardModel[]>(`${this.apiUrl}/flashcard/${id}`);
+  }
 }
