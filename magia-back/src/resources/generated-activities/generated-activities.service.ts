@@ -36,4 +36,11 @@ export class GeneratedActivitiesService {
     });
   }
 
+  findGeneratedActivityOfComplete(id: string) {
+    return this.generatedActivityRepository.findOne({
+      where: { id },
+      relations: { completes: true }
+    });
+  }
+
 }

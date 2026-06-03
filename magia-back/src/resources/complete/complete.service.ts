@@ -29,8 +29,11 @@ export class CompleteService {
 
     const mapped = {
       createGeneratedActivityDto:{
+        id: response.id,
         theme: response.theme,
-        level: response.level
+        level: response.level,
+        quantity: quantity,
+        userId: userId
       },
       createCompleteDto: response.exercises
     }
@@ -48,6 +51,7 @@ export class CompleteService {
       generatedActivityEntity.quantity = quantity;
       generatedActivityEntity.type = 'complete';
       await queryRunner.manager.save(generatedActivityEntity);
+      result.createGeneratedActivityDto.id = generatedActivityEntity.id;
       const completeEntities = result.createCompleteDto.map((complete) => {
         return queryRunner.manager.create(CompleteEntity, {
           ...complete,

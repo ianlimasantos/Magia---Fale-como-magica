@@ -34,55 +34,48 @@
             'errado': isCorrect === false
           }"
           placeholder="..."
+          [disabled]="isDisabled"
         />
 
         {{ partes[1] }}
       </p>
     </div>
 
-    <button class="btn magia" (click)="checkAnswer()">
+    <button class="btn magia" (click)="checkAnswer()" [disabled]="isDisabled">
       Conferir ✨
     </button>
 
     @if(isCorrect !== null){
 
-  <div
-    class="magic-feedback"
-    [ngClass]="isCorrect ? 'success' : 'error'">
+    <div class="magic-feedback" [ngClass]="isCorrect ? 'success' : 'error'">
 
-    <div class="feedback-glow"></div>
+      <div class="feedback-glow"></div>
 
-    <div class="feedback-header">
+      <div class="feedback-header">
 
-      <div class="feedback-icon">
-        {{ isCorrect ? '✨' : '🔮' }}
-      </div>
-
-      <div>
-
-        <h3>
-          {{ isCorrect
-            ? 'Feitiço lançado com sucesso!'
-            : 'A magia não funcionou...' }}
-        </h3>
-
-        <span>
-          {{ isCorrect
-            ? 'Você acertou a resposta.'
-            : 'Confira a explicação abaixo.' }}
-        </span>
-
-      </div>
+        <div class="feedback-icon">
+          {{ isCorrect ? '✨' : '🔮' }}
+        </div>
+        <div>
+          <h3>
+            {{ isCorrect
+              ? 'Feitiço lançado com sucesso!'
+              : 'A magia não funcionou...' }}
+          </h3>
+          <span>
+            {{ isCorrect
+              ? 'Você acertou a resposta.'
+              : 'Confira a explicação abaixo.' }}
+          </span>
+        </div>
 
     </div>
 
     <div class="feedback-explanation">
-      {{ completeActivity.explanation }}
+      {{ completeActivity.explanation_pt }}
     </div>
 
-    <button
-      class="feedback-button">
-      <!-- (click)="nextQuestion()"> -->
+    <button class="feedback-button" (click)="next()">
 
       {{
         counter + 1 === completeActivityArray.length
@@ -97,6 +90,11 @@
 }
 
 </div>
+<app-modal-acertos
+    [open]="isModalAcertosOpen"
+    [correctAnswers]="acertos"
+    [totalQuestions]="quantidade"
+  ></app-modal-acertos>
 
 <!-- <app-modal
   [isOpen]="isModalOpen"

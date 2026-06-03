@@ -8,13 +8,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from '../shared/modal/modal.component';
 import { CreateCompleteOpenAiDto } from 'src/app/models/completeActivity/create-complete-openAi-model';
 import { CompleteService } from 'src/app/services/complete-service';
+import { GeneratedActivityService } from 'src/app/services/generated-activity-service';
+import { GeneratedActivityModel } from 'src/app/models/generated-activity/generated-activity-model';
+import { ModalAcertosComponent } from '../shared/modal-acertos/modal-acertos.component';
 
 @Component({
   selector: 'app-complete',
   templateUrl: './complete.page.html',
   styleUrls: ['./complete.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent, ModalAcertosComponent]
 })
 export class CompletePage implements OnInit {
 
@@ -26,13 +29,14 @@ export class CompletePage implements OnInit {
   counter: number = 0;
 
   createCompleteOpenAiDto!: CreateCompleteOpenAiDto;
+  generatedActivity!: GeneratedActivityModel;
   completeActivity!: CompleteActivityModel;
   partes: string[] = [];
 
   userAnswer: string = '';
-  isCorrect: boolean | null = true;
+  isCorrect: boolean | null = null;
   isModalOpen: boolean = false;
-
+  isDisabled: boolean = false;
   acertos = 0;
   isloading: boolean = false;
   isModalAcertosOpen = false;
@@ -42,24 +46,55 @@ export class CompletePage implements OnInit {
   completeActivityArray: CompleteActivityModel[] = [];
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private completeService: CompleteService
+    private completeService: CompleteService,
+    private generatedActivityService: GeneratedActivityService,
   ) {}
 
   ngOnInit() {
+
+    const activityId =this.route.snapshot.paramMap.get('id');
+
+    if(activityId){
+      this.loadActivity(activityId);
+      return;
+    }
+
     this.nivel =  this.activatedRoute.snapshot.queryParamMap.get('nivel') ?? 'A1';
     this.tema =  this.activatedRoute.snapshot.queryParamMap.get('tema') ?? '';
     this.quantidade = Number(this.activatedRoute.snapshot.queryParamMap.get('quantidade')) || 5;
     this.loadCompleteActivityFromApi(this.tema, this.nivel, this.quantidade);
   }
 
+
+  loadActivity(activityId: string) {
+    this.generatedActivityService.getCompleteGeneratedActivity(activityId).subscribe({
+      next: (generatedActivity: GeneratedActivityModel) => {
+        this.generatedActivity = generatedActivity;
+        console.log(this.generatedActivity);
+        this.quantidade = generatedActivity.quantity;
+        this.completeActivityArray = this.generatedActivity.completes || [];
+        this.loadQuestion();
+      },
+      error: (error) => {
+        console.error('Erro ao carregar atividade gerada:', error);
+      },
+      complete: () => {
+        console.log('Atividade gerada carregada com sucesso');
+      }
+    });
+  }
+
+
   loadCompleteActivityFromApi(tema: string, nivel: string, quantidade: number) {
     this.completeService.createCompleteActivities(tema, nivel, quantidade).subscribe({
       next: (response: CreateCompleteOpenAiDto) => {
-        console.log(response);
+        console.log('Complete activities fetched successfully:', response);
         this.createCompleteOpenAiDto = response;
         this.completeActivityArray = response.createCompleteDto;
+        this.generatedActivity = response.createGeneratedActivityDto;
         this.loadQuestion();
       },
       error: (error) => {
@@ -67,7 +102,7 @@ export class CompletePage implements OnInit {
       },
       complete: () => {
         console.log('Complete activities loaded successfully');
-        //this.loadQuestion();
+
       }
     });
   }
@@ -75,16 +110,18 @@ export class CompletePage implements OnInit {
   loadQuestion() {
     this.completeActivity = this.completeActivityArray[this.counter];
     this.partes = this.completeActivity.question.split('______');
+    console.log(this.completeActivity);
   }
 
   checkAnswer() {
 
     const resposta = this.userAnswer.trim().toLowerCase();
-    const correta = this.completeActivity.correct_answer.trim().toLowerCase();
+    const correta = this.completeActivity.correct_answer_es.trim().toLowerCase();
 
     if (!resposta) return;
 
     this.isCorrect = resposta === correta;
+    this.isDisabled = true;
 
     if(this.isCorrect) {
       this.acertos++;
@@ -94,13 +131,28 @@ export class CompletePage implements OnInit {
   next() {
     this.userAnswer = '';
     this.isCorrect = null;
+    this.isDisabled = false;
 
     if (this.counter < this.completeActivityArray.length - 1) {
       this.counter++;
       this.loadQuestion();
     } else {
-      console.log('acabou o quiz 🎉');
-      // aqui você pode redirecionar ou mostrar resultado final
+      this.generatedActivityService.registerProgress(
+        this.generatedActivity?.id || '',
+        this.generatedActivity?.userId|| '',
+        this.acertos,
+        this.quantidade
+      ).subscribe({
+          next: () => {console.log('Progresso registrado com sucesso')},
+          error: (error) => {console.log('Erro ao registrar progresso', error)},
+          complete: () => {console.log('Registro de progresso finalizado')}
+        }
+      );
+      this.isModalAcertosOpen = true;
+      setTimeout(() => {
+        this.isModalAcertosOpen = false;
+        this.router.navigate(['/tabs']);
+      }, 5000);
     }
   }
 

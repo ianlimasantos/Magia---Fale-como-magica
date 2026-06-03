@@ -55,6 +55,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'complete/:id',
+    loadComponent: () => import('./components/complete/complete.page').then( m => m.CompletePage),
+    canActivate: [authGuard]
+  },
+  {
     path: 'create-account',
     loadComponent: () => import('./components/create-account/create-account.page').then( m => m.CreateAccountPage)
   },

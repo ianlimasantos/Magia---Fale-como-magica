@@ -23,5 +23,10 @@ export class GeneratedActivityService {
   getGeneratedActivity(generatedActivityId: string) {
     return this.httpClient.get<GeneratedActivityModel>(`${this.apiUrl}/generated-activities/flashcard/${generatedActivityId}`);
   }
+
+  getCompleteGeneratedActivity(generatedActivityId: string) {
+      return this.httpClient.get<GeneratedActivityModel>(`${this.apiUrl}/generated-activities/complete/${generatedActivityId}`);
+    }
+
 }
 

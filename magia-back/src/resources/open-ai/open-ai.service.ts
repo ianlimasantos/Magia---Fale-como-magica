@@ -17,7 +17,7 @@ export class OpenAiService {
 
   async makeRequest(prompt: string): Promise<any> {
     const response = await this.openAi.responses.create({
-      model: 'gpt-5.4-nano',
+      model: 'gpt-5.4-mini',
       store: false,
       input: prompt,
     });

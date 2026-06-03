@@ -22,6 +22,11 @@ export class GeneratedActivitiesController {
     return this.generatedActivitiesService.findGeneratedActivityOfFlashcard(id);
   }
 
+  @Get('complete/:id')
+  findGeneratedActivityOfComplete(@Param('id') id: string) {
+    return this.generatedActivitiesService.findGeneratedActivityOfComplete(id);
+  }
+
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateGeneratedActivityDto: UpdateGeneratedActivityDto) {
   //   return this.generatedActivitiesService.update(+id, updateGeneratedActivityDto);

@@ -1,5 +1,5 @@
 import { GeneratedActivityEntity } from "src/resources/generated-activities/entities/generated-activity.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('complete')
 export class CompleteEntity {
@@ -17,7 +17,8 @@ export class CompleteEntity {
 
   @Column({ type: 'text' })
   explanation_es: string;
-  @OneToMany(
+
+  @ManyToOne(
     () => GeneratedActivityEntity,
     (generatedActivity) => generatedActivity.completes,
   )

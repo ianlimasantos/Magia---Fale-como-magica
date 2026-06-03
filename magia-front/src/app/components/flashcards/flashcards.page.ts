@@ -141,7 +141,7 @@ export class FlashcardsPage implements OnInit {
       setTimeout(() => {
         this.isModalAcertosOpen = false;
         this.router.navigate(['/tabs']);
-      }, 7000);
+      }, 5000);
     }
 
     if(this.index < this.flashcards.length - 1){
