@@ -12,11 +12,6 @@ export class GeneratedActivitiesController {
     return this.generatedActivitiesService.create(createGeneratedActivityDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.generatedActivitiesService.findAll();
-  // }
-
   @Get('flashcard/:id')
   findGeneratedActivityOfFlashcard(@Param('id') id: string) {
     return this.generatedActivitiesService.findGeneratedActivityOfFlashcard(id);
@@ -27,13 +22,9 @@ export class GeneratedActivitiesController {
     return this.generatedActivitiesService.findGeneratedActivityOfComplete(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateGeneratedActivityDto: UpdateGeneratedActivityDto) {
-  //   return this.generatedActivitiesService.update(+id, updateGeneratedActivityDto);
-  // }
+  @Get('multiple-choice/:id')
+  findGeneratedActivityOfMultipleChoice(@Param('id') id: string) {
+    return this.generatedActivitiesService.findGeneratedActivityOfMultipleChoice(id);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.generatedActivitiesService.remove(+id);
-  // }
 }

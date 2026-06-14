@@ -13,6 +13,7 @@ import { MultipleChoiceOptionEntity } from './entities/multiple-choice-option.en
 
 @Injectable()
 export class MultipleChoiceService {
+
   constructor(
     @InjectRepository(MultipleChoiceEntity)
     private readonly multipleChoiceRepository: Repository<MultipleChoiceEntity>,
@@ -24,39 +25,42 @@ export class MultipleChoiceService {
     return 'This action adds a new multipleChoice';
   }
 
-  async createByOpenAI(theme: string, level: string, quantity: number) {
+  async createByOpenAI(theme: string, level: string, quantity: number, userId: string) {
     const prompt = this.returnPrompt(theme, level, quantity);
     const response = await this.openAiService.makeRequest(prompt);
 
     const mapped = {
-      createGeneratedActivityDto: {
-        theme: response.theme,
-        level: response.level,
+      GeneratedActivityDto: {
+        theme: theme,
+        level: level,
+        quantity: quantity,
+        userId: userId
       },
-      createMultipleChoiceDto: response.exercises,
+      MultipleChoiceDto: response.exercises,
     };
 
     const createMultipleChoice = plainToInstance(CreateMultipleChoiceOpenAiDto, mapped);
 
-    createMultipleChoice.createMultipleChoiceDto.forEach(exercise => {
+    createMultipleChoice.MultipleChoiceDto.forEach(exercise => {
       exercise.options = ShuffleFisherYates.shuffle(exercise.options);
     });
     const queryRunner = this.dataSource.createQueryRunner();
 
-    console.log('createMultipleChoice', createMultipleChoice.createMultipleChoiceDto);
     try{
       await queryRunner.connect();
       await queryRunner.startTransaction();
 
       const generatedActivityEntity = queryRunner.manager.create(GeneratedActivityEntity, {
-          level: createMultipleChoice.createGeneratedActivityDto.level,
-          theme: createMultipleChoice.createGeneratedActivityDto.theme,
-          userId: '9a5711c8-666f-4bc1-b92e-4863c40506b4',
+          level: createMultipleChoice.GeneratedActivityDto.level,
+          theme: createMultipleChoice.GeneratedActivityDto.theme,
+          userId: userId,
           type: 'multiple-choice',
+          quantity: quantity
       });
       await queryRunner.manager.save(generatedActivityEntity);
+      createMultipleChoice.GeneratedActivityDto.id = generatedActivityEntity.id;
 
-      const multipleChoiceEntities = createMultipleChoice.createMultipleChoiceDto.map((exercise) => { 
+      const multipleChoiceEntities = createMultipleChoice.MultipleChoiceDto.map((exercise) => { 
         const multipleChoiceEntity = new MultipleChoiceEntity();
           multipleChoiceEntity.question = exercise.question;
           multipleChoiceEntity.correct_answer_es = exercise.correct_answer_es;
@@ -78,8 +82,7 @@ export class MultipleChoiceService {
         });
       await queryRunner.manager.save(multipleChoiceEntities);
       await queryRunner.commitTransaction();
-      console.log(multipleChoiceEntities);
-      return multipleChoiceEntities;
+      return createMultipleChoice;
     } catch (error) {
       console.log('error', error);
       await queryRunner.rollbackTransaction();

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@nestjs/common';
 import OpenAI from "openai";
 import { CreateFlashcardOpenAiDto } from '../flashcard/dto/create-flashcard-openai.dto';
@@ -6,10 +7,9 @@ import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class OpenAiService {
-
   private readonly openAi: OpenAI;
 
-  constructor(){
+  constructor() {
     this.openAi = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -25,3 +25,4 @@ export class OpenAiService {
     return parsed;
   }
 }
+

@@ -1,39 +1,53 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
-import { CuriosityService } from './curiosity.service';
-import { GetCuriosityDto } from './dto/get-curiosity-dto';
-import { CreateCuriosityDto } from './dto/create-curiosity-dto';
-import { GetCuriosityCardDto } from './dto/get-curiosity-card-dto';
+import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
-import { CurrentUser } from '../auth/current-user/current-user.decorator';
+import { OpenAiService } from '../open-ai/open-ai.service';
 
 
 @UseGuards(AuthGuard)
 @Controller('curiosity')
 export class CuriosityController {
-  constructor(private readonly curiosityService: CuriosityService) {}
+  constructor(private readonly openAiService: OpenAiService) {}
 
-  @Get('/getCuriosityCards')
-  async getAllForCards(
-    @CurrentUser() user: any,
-  ): Promise<GetCuriosityCardDto[]> {
-    console.log(user);
-    return await this.curiosityService.findAllForCards();
+  @Get('/createCuriosity/:country/:theme')
+  async createCuriosity(@Param('country') country: string, @Param('theme') theme: string) : Promise<string> {
+    const prompt = this.makePrompt(country, theme);
+    return (await this.openAiService.makeRequest(prompt)) as string;
   }
 
-  @Get(':id')
-  async findById(@Param('id', new ParseUUIDPipe()) id: string): Promise<GetCuriosityDto> {
-    return await this.curiosityService.findOneById(id);
-  }
+  makePrompt(country: string, theme: string): string {
+    return `You are a fact generator.
 
-  @Get()
-  async getAll(): Promise<GetCuriosityDto[]>{
-    return await this.curiosityService.findAll();
-  }
+      Input:
+      - Country: ${country}
+      - Theme: ${theme}
 
-  @Post()
-  async saveCuriosity(
-    @Body() createCuriosityDto: CreateCuriosityDto,
-  ): Promise<GetCuriosityDto> {
-    return await this.curiosityService.saveCuriosity(createCuriosityDto);
+      Task:
+      Generate exactly one educational fact related to the country and theme.
+
+      Requirements:
+      - The fact must be historically, geographically, culturally, scientifically, or economically accurate.
+      - The output text MUST be in Brazilian Portuguese.
+      - Never invent information.
+      - Prefer well-known and verifiable facts.
+      - If confidence is low, choose a safer and more famous fact.
+      - Mention the country naturally when relevant.
+      - Maximum 400 characters.
+
+      Output:
+      Return ONLY valid JSON.
+
+      Schema:
+      {
+        "curiosity": "string"
+      }
+
+      Rules:
+      - The JSON must contain exactly one property: curiosity.
+      - Do not wrap the JSON in markdown.
+      - Do not add explanations.
+      - Do not add comments.
+      - Do not add text before or after the JSON.
+      - The curiosity value must be a single sentence or short paragraph in Brazilian Portuguese.`;
   }
+  
 }

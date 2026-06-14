@@ -92,3 +92,295 @@ ion-header{
  margin-top: 40px !important;
 }
 
+.curiosity-form {
+  width: calc(100% - 32px);
+  max-width: 500px;
+
+  margin: 24px auto;
+  padding: 24px;
+
+  background: white;
+  border-radius: 24px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6d28d9;
+}
+
+.field input,
+.field select {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border: 2px solid #ece7ff;
+  border-radius: 14px;
+
+  font-size: 0.95rem;
+
+  background: #faf9ff;
+
+  transition: all .2s ease;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+
+  border-color: #7c3aed;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(124, 58, 237, 0.12);
+}
+
+.field input::placeholder {
+  color: #9ca3af;
+}
+
+.btn-magia {
+  margin-top: 8px;
+
+  height: 52px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #9333ea
+  );
+
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+}
+
+.btn-magia:hover {
+  transform: translateY(-2px);
+}
+
+.btn-magia:active {
+  transform: scale(.98);
+}
+
+.btn-magia:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.curiosity-form {
+  width: calc(100% - 32px);
+  margin: 20px auto;
+
+  padding: 24px;
+
+  background: white;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, .08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.field input,
+.field select {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+  border: 2px solid #ebe5ff;
+
+  background: #faf8ff;
+
+  font-size: .95rem;
+
+  transition: .2s;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+
+  border-color: #7c3aed;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(124, 58, 237, .12);
+}
+
+.btn-generate {
+  margin-top: 10px;
+
+  height: 52px;
+
+  border: none;
+  border-radius: 14px;
+
+  font-weight: 700;
+  font-size: 1rem;
+
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #9333ea
+  );
+
+  transition: .25s;
+}
+
+.btn-generate:active {
+  transform: scale(.98);
+}
+
+.btn-generate:disabled {
+  opacity: .5;
+}
+
+/* CARD DA CURIOSIDADE */
+
+.curiosity-card {
+  width: calc(100% - 32px);
+
+  margin: 24px auto 0;
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, .08);
+
+  border-left: 6px solid #7c3aed;
+}
+
+.curiosity-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.curiosity-header .icon {
+  font-size: 2rem;
+}
+
+.curiosity-header h3 {
+  margin: 0;
+
+  color: #5b21b6;
+  font-size: 1.2rem;
+}
+
+.curiosity-header p {
+  margin: 2px 0 0;
+
+  color: #8b8b8b;
+  font-size: .85rem;
+}
+
+.curiosity-content {
+  line-height: 1.8;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* SEÇÃO DE ATIVIDADES */
+
+.activity-section {
+  width: calc(100% - 32px);
+
+  margin: 20px auto 40px;
+}
+
+.activity-section h4 {
+  color: #5b21b6;
+  text-align: center;
+
+  margin-bottom: 16px;
+}
+
+.activity-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-btn {
+  height: 56px;
+
+  border: none;
+  border-radius: 16px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  background: white;
+
+  color: #5b21b6;
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,.08);
+
+  transition: .25s;
+}
+
+.activity-btn:active {
+  transform: scale(.97);
+}
+
+.flashcard {
+  border-left: 6px solid #8b5cf6;
+}
+
+.complete {
+  border-left: 6px solid #a855f7;
+}
+
+.multiple {
+  border-left: 6px solid #c084fc;
+}

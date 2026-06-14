@@ -1,5 +1,4 @@
 import { UserActivityProgressEntity } from '../user_activity_progress/entities/user_activity_progress.entity';
-import { ActivityAttemptEntity } from '../activity_attempt/entities/activity_attempt.entity';
 import {
   Column,
   CreateDateColumn,
@@ -47,6 +46,4 @@ export class UserEntity {
   @OneToMany(() => UserActivityProgressEntity, (userActivityProgress) => userActivityProgress.user)
   userActivityProgresses: UserActivityProgressEntity[];
 
-  @OneToMany(() => ActivityAttemptEntity, (activityAttempt) => activityAttempt.user)
-  activityAttempts: ActivityAttemptEntity[];
 }

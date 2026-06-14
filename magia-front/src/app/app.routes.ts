@@ -50,6 +50,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'multipla-escolha/:id',
+    loadComponent: () => import('./components/multipla-escolha/multipla-escolha.page').then( m => m.MultiplaEscolhaPage),
+    canActivate: [authGuard]
+  },
+  {
     path: 'complete',
     loadComponent: () => import('./components/complete/complete.page').then( m => m.CompletePage),
     canActivate: [authGuard]

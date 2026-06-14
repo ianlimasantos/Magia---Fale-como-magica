@@ -7,13 +7,16 @@ import { MultiplaEscolhaModel } from 'src/app/models/multiplaEscolha/multipla-es
 import { GeneratedActivityService } from 'src/app/services/generated-activity-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MultipleChoiceService } from 'src/app/services/multiple-choice-service';
+import { CreateMultiplaEscolhaOpenAiModel } from 'src/app/models/multiplaEscolha/create-multiple-choice-openAi';
+import { GeneratedActivityModel } from 'src/app/models/generated-activity/generated-activity-model';
+import { ModalAcertosComponent } from '../shared/modal-acertos/modal-acertos.component';
 
 @Component({
   selector: 'app-multipla-escolha',
   templateUrl: './multipla-escolha.page.html',
   styleUrls: ['./multipla-escolha.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalAcertosComponent]
 })
 export class MultiplaEscolhaPage implements OnInit {
 
@@ -21,19 +24,19 @@ export class MultiplaEscolhaPage implements OnInit {
   nivel!: string;
   tema!: string;
   quantidade!: number;
+  isCorrect: boolean | null = null;
+  isDisabled: boolean = false;
+  selectedOption: string | null = null;
 
-  contador: number = 0;
+  generatedActivity?: GeneratedActivityModel;
+  index = 0;
+  acertos = 0;
+  isloading: boolean = false;
+
+  counter: number = 0;
   multiplaEscolha!: MultiplaEscolhaModel;
-  multiplaEscolhaArray: MultiplaEscolhaModel[] = [
-    {
-      "id": 1,
-      "question": "¿Cuál es el significado de 'empadronarse' en España?",
-      "type": TipoAtividade.Multipla_Escolha,
-      "options": ["Registrarse en el ayuntamiento", "Buscar empleo", "Abrir una cuenta bancaria", "Alquilar una vivienda"],
-      "correct_answer": "Registrarse en el ayuntamiento",
-      "explanation": "Empadronarse significa registrarse oficialmente en el ayuntamiento donde resides."
-    }
-  ]
+  multiplaEscolhaArray: MultiplaEscolhaModel[] = [];
+  isModalAcertosOpen: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +46,13 @@ export class MultiplaEscolhaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.multiplaEscolha = this.multiplaEscolhaArray[this.contador];
+
+    const activityId =this.route.snapshot.paramMap.get('id');
+
+    if(activityId){
+      this.loadActivity(activityId);
+      return;
+    }
 
     this.nivel =  this.route.snapshot.queryParamMap.get('nivel') ?? 'A1';
     this.tema =  this.route.snapshot.queryParamMap.get('tema') ?? '';
@@ -51,65 +60,84 @@ export class MultiplaEscolhaPage implements OnInit {
     this.createMultipleChoice(this.tema, this.nivel, this.quantidade);
   }
 
-  createFlashcard(tema: string, nivel: string, quantidade: number) {
-      //this.isloading = true;
-      this.multipleChoiceService.createMultipleChoice(tema, nivel, quantidade).subscribe({
-        next: (generatedActivity: CreateFlashcardOpenAiModel) => {
-          console.log(generatedActivity);
-          this.generatedActivity = generatedActivity.generatedActivity;
-          this.flashcards = generatedActivity.flashcards;
-          this.currentCard = this.flashcards[this.index];
-        },
-        error: (error: any) => {
-          this.isloading = false;
-          this.error = true;
-          setTimeout(() => {
-            this.error = false;
-            this.router.navigate(['/tabs/config-ia']);
-          }, 7000);
-        },
-        complete: () => {
-          this.isloading = false;
-          console.log("Flashcards criados com sucesso");
-        }
-      });
+  loadActivity(activityId: string) {
+    this.generatedActivityService.getMultipleChoiceGeneratedActivity(activityId).subscribe({
+      next: (generatedActivity: GeneratedActivityModel) => {
+        console.log('Atividade gerada carregada:', generatedActivity);
+        this.generatedActivity = generatedActivity;
+        console.log(this.generatedActivity);
+        this.quantidade = generatedActivity.quantity;
+        this.multiplaEscolhaArray = generatedActivity.multipleChoices || [];
+        this.multiplaEscolha = this.multiplaEscolhaArray[this.counter];
+      },
+      error: (error) => {
+        console.error('Erro ao carregar atividade gerada:', error);
+      },
+      complete: () => {
+        console.log('Atividade gerada carregada com sucesso');
+      }
+    });
+  }
+
+  createMultipleChoice(tema: string, nivel: string, quantidade: number) {
+    this.isloading = true;
+    this.multipleChoiceService.createMultipleChoice(tema, nivel, quantidade).subscribe({
+      next: (createMultipleChoice: CreateMultiplaEscolhaOpenAiModel) => {
+        console.log(createMultipleChoice);
+        this.generatedActivity = createMultipleChoice.GeneratedActivityDto;
+        this.multiplaEscolhaArray = createMultipleChoice.MultipleChoiceDto;
+        this.multiplaEscolha = this.multiplaEscolhaArray[this.counter];
+      },
+      error: (error: any) => {
+        this.isloading = false;
+        //this.error = true;
+        setTimeout(() => {
+          // this.error = false;
+          this.router.navigate(['/tabs/config-ia']);
+        }, 5000);
+      },
+      complete: () => {
+        this.isloading = false;
+      }
+    });
+  }
+
+
+  checkAnswer(option: string) {
+    this.selectedOption = option;
+    this.isCorrect = option === this.multiplaEscolha.correct_answer_es;
+
+    if(this.isCorrect) {
+      this.acertos++;
     }
 
-  // checkAnswer(option: string){
-
-  //     if(this.multiplaEscolha.correct_answer == option){
-  //       console.log("babado")
-  //     }else{
-  //       //se tá errado
-  //     }
-
-
-  //   if(this.contador <= this.multiplaEscolhaArray.length - 2){
-  //     this.contador++;
-  //     this.multiplaEscolha = this.multiplaEscolhaArray[this.contador];
-  //   }
-  // }
-
-  selectedOption: string | null = null;
-isCorrect: boolean | null = null;
-
-checkAnswer(option: string) {
-  this.selectedOption = option;
-  this.isCorrect = option === this.multiplaEscolha.correct_answer;
-
-  setTimeout(() => {
-    this.nextQuestion();
-  }, 1200);
-}
-
-nextQuestion() {
-  this.selectedOption = null;
-  this.isCorrect = null;
-
-  if (this.contador <= this.multiplaEscolhaArray.length - 2) {
-    this.contador++;
-    this.multiplaEscolha = this.multiplaEscolhaArray[this.contador];
   }
-}
+
+  next() {
+    this.selectedOption = null;
+    this.isCorrect = null;
+
+    if (this.counter < this.multiplaEscolhaArray.length - 1) {
+      this.counter++;
+      this.multiplaEscolha = this.multiplaEscolhaArray[this.counter];
+    }else{
+      this.generatedActivityService.registerProgress(
+        this.generatedActivity?.id || '',
+        this.generatedActivity?.userId|| '',
+        this.acertos,
+        this.quantidade
+      ).subscribe({
+          next: () => {console.log('Progresso registrado com sucesso')},
+          error: (error) => {console.log('Erro ao registrar progresso', error)},
+          complete: () => {console.log('Registro de progresso finalizado')}
+        }
+      );
+      this.isModalAcertosOpen = true;
+      setTimeout(() => {
+        this.isModalAcertosOpen = false;
+        this.router.navigate(['/tabs']);
+      }, 5000);
+    }
+  }
 
 }

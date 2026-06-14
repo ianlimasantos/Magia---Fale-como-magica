@@ -1,5 +1,6 @@
 import { CompleteActivityModel } from "../completeActivity/complete-activity-model";
 import { FlashcardModel } from "../flashcard/flashcard-model";
+import { MultiplaEscolhaModel } from "../multiplaEscolha/multipla-escolha-model";
 
 export interface GeneratedActivityModel {
   id: string;
@@ -10,4 +11,5 @@ export interface GeneratedActivityModel {
   level: string;
   flashcards?: FlashcardModel[];
   completes?: CompleteActivityModel[];
+  multipleChoices?: MultiplaEscolhaModel[];
 }

@@ -5,18 +5,82 @@
 </ion-header>
 <ion-content>
   <div class="marginForHeader"></div>
-
   <img class="curiosidades-img" src="../../assets/images/curiosidadesMenor.PNG" />
-  <!-- @for(curiosidade of curiosidades; track curiosidade.id){
-    <ion-card (click)="openCuriosityDetail(curiosidade.id)">
-      <ion-img  [src]="curiosidade.img_header" />
-      <ion-card-header>
-        <ion-card-title>{{curiosidade.title}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Here's a small text description for the card content. Nothing more, nothing less.
-      </ion-card-content>
-    </ion-card>
-  } -->
 
+  <form [formGroup]="newCuriosity" class="curiosity-form" (submit)="generateCuriosity()">
+
+    <div class="field">
+      <label>🌎 País</label>
+
+      <select formControlName="country">
+        <option value="" disabled>
+          Selecione um país
+        </option>
+
+        @for(country of countries; track country){
+          <option [value]="country">
+            {{ country }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label>✨ Tema</label>
+
+      <input
+        type="text"
+        maxlength="100"
+        placeholder="Ex: viagem, gastronomia, história..."
+        formControlName="theme" />
+    </div>
+
+    <button
+      type="submit"
+      class="btn-magia"
+      [disabled]="newCuriosity.invalid">
+      Gerar curiosidade ✨
+    </button>
+</form>
+    @if(curiosity){
+
+      <div class="curiosity-card">
+
+        <div class="curiosity-header">
+          <span class="icon">🔮</span>
+
+          <div>
+            <h3>País: {{ newCuriosity.value.country }}</h3>
+             <h3>Tema: {{ newCuriosity.value.theme }}</h3>
+            <p>Curiosidade mágica</p>
+          </div>
+        </div>
+
+        <div class="curiosity-content">
+          {{ text }}
+        </div>
+
+      </div>
+
+      <div class="activity-section">
+
+        <h4>Transformar em atividade ✨</h4>
+
+        <div class="activity-buttons">
+
+          <button class="activity-btn flashcard" (click)="generateActivity('Flashcards')">
+            📚 Flashcards
+          </button>
+
+          <button class="activity-btn complete" (click)="generateActivity('Completar')">
+            ✍️ Completar
+          </button>
+
+          <button class="activity-btn multiple" (click)="generateActivity('Multipla_Escolha')">
+            🎯 Múltipla Escolha
+          </button>
+        </div>
+
+      </div>
+    }
 </ion-content>

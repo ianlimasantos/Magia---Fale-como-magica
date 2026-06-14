@@ -2,6 +2,6 @@ import { CreateGeneratedActivityDto } from "src/resources/generated-activities/d
 import { CreateMultipleChoiceDto } from "./create-multiple-choice.dto";
 
 export class CreateMultipleChoiceOpenAiDto {
-  createGeneratedActivityDto: CreateGeneratedActivityDto;
-  createMultipleChoiceDto: CreateMultipleChoiceDto[];
+  GeneratedActivityDto: CreateGeneratedActivityDto;
+  MultipleChoiceDto: CreateMultipleChoiceDto[];
 }

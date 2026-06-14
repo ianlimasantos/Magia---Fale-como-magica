@@ -25,8 +25,12 @@ export class GeneratedActivityService {
   }
 
   getCompleteGeneratedActivity(generatedActivityId: string) {
-      return this.httpClient.get<GeneratedActivityModel>(`${this.apiUrl}/generated-activities/complete/${generatedActivityId}`);
-    }
+    return this.httpClient.get<GeneratedActivityModel>(`${this.apiUrl}/generated-activities/complete/${generatedActivityId}`);
+  }
+
+  getMultipleChoiceGeneratedActivity(generatedActivityId: string) {
+    return this.httpClient.get<GeneratedActivityModel>(`${this.apiUrl}/generated-activities/multiple-choice/${generatedActivityId}`);
+  }
 
 }
 

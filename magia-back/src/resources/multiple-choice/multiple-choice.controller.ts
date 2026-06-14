@@ -3,8 +3,10 @@ import { MultipleChoiceService } from './multiple-choice.service';
 import { CreateMultipleChoiceDto } from './dto/create-multiple-choice.dto';
 import { UpdateMultipleChoiceDto } from './dto/update-multiple-choice.dto';
 import { AuthGuard } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user/current-user.decorator';
+import { TrialGuard } from '../auth/trial/trial.guard';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, TrialGuard)
 @Controller('multiple-choice')
 export class MultipleChoiceController {
   constructor(private readonly multipleChoiceService: MultipleChoiceService) {}
@@ -19,8 +21,9 @@ export class MultipleChoiceController {
     @Query('theme') theme: string,
     @Query('level') level: string,
     @Query('quantity') quantity: number,
+    @CurrentUser() user: any
   ) {
-    return this.multipleChoiceService.createByOpenAI(theme, level, quantity);
+    return this.multipleChoiceService.createByOpenAI(theme, level, quantity, user.id);
   }
 
   @Get()

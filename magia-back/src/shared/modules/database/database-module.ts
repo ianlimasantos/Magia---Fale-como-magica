@@ -8,7 +8,6 @@ import { MultipleChoiceEntity } from 'src/resources/multiple-choice/entities/mul
 import { CompleteEntity } from 'src/resources/complete/entities/complete.entity';
 import { MultipleChoiceOptionEntity } from 'src/resources/multiple-choice/entities/multiple-choice-option.entity';
 import { UserActivityProgressEntity } from 'src/resources/user_activity_progress/entities/user_activity_progress.entity';
-import { ActivityAttemptEntity } from 'src/resources/activity_attempt/entities/activity_attempt.entity';
 import { UserUsageEntity } from 'src/resources/user-usage/entities/user-usage.entity';
 
 @Module({
@@ -29,7 +28,6 @@ import { UserUsageEntity } from 'src/resources/user-usage/entities/user-usage.en
         MultipleChoiceOptionEntity,
         CompleteEntity,
         UserActivityProgressEntity, 
-        ActivityAttemptEntity,
         UserUsageEntity
       ],
       synchronize: true,

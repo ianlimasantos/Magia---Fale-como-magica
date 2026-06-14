@@ -41,7 +41,7 @@ export class ConfigIaPage implements OnInit {
   start() {
 
     if(this.tipo == TipoAtividade.Multipla_Escolha) {
-      this.routerToNavigate.navigate(['/flashcards'], {queryParams: { nivel: this.nivel, tema: this.tema, quantidade: this.quantidade}});
+      this.routerToNavigate.navigate(['/multipla-escolha'], {queryParams: { nivel: this.nivel, tema: this.tema, quantidade: this.quantidade}});
     } else if(this.tipo == TipoAtividade.Completar) {
       this.routerToNavigate.navigate(['/complete'], {queryParams: { nivel: this.nivel, tema: this.tema, quantidade: this.quantidade}});
     } else if(this.tipo == TipoAtividade.Flashcards) {

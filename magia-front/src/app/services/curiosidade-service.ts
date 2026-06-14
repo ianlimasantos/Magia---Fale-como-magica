@@ -14,11 +14,19 @@ export class CuriosidadeService {
   private apiUrl = environment.apiUrl;
   private readonly httpClient = inject(HttpClient);
 
-  findCuriosities(): Observable<CuriosityCardModel[]>{
-    return this.httpClient.get<CuriosityCardModel[]>(this.apiUrl + '/curiosity/getCuriosityCards');
+  createCuriosity(country: string, theme: string): Observable<any> {
+    return this.httpClient.get<string>(this.apiUrl + `/curiosity/createCuriosity/${country}/${theme}`);
   }
 
   findCuriosity(id: string): Observable<CuriosityModel>{
     return this.httpClient.get<CuriosityModel>(this.apiUrl + `/curiosity/${id}`);
   }
+
+  // createFlashcards(tema: string, nivel: string, quantidade: number) : Observable<CreateFlashcardOpenAiModel> {
+  //     return this.httpClient.get<CreateFlashcardOpenAiModel>(`${this.apiUrl}/flashcard/create-by-openai`, {
+  //       params: {
+  //         theme: tema
+  //       }
+  //     }
 }
+

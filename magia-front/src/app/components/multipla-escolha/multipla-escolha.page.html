@@ -7,26 +7,23 @@
 
   <div class="container" *ngIf="multiplaEscolha">
 
-    <!-- progresso -->
     <div class="topo">
       <div class="progress-container">
         <div
           class="progress-bar"
-          [style.width.%]="(contador + 1) / multiplaEscolhaArray.length * 100">
+          [style.width.%]="(counter + 1) / multiplaEscolhaArray.length * 100">
         </div>
       </div>
 
       <p class="contador">
-        Pergunta {{ contador + 1 }} de {{ multiplaEscolhaArray.length }}
+        Pergunta {{ counter + 1 }} de {{ multiplaEscolhaArray.length }}
       </p>
     </div>
 
-    <!-- pergunta -->
     <div class="question-card">
       <p class="question">{{ multiplaEscolha.question }}</p>
     </div>
 
-    <!-- opções -->
     <div class="botoes">
       @for(option of multiplaEscolha.options; track $index){
         <button
@@ -40,12 +37,55 @@
         </button>
       }
     </div>
+  </div>
 
-    <!-- explicação -->
-    <div *ngIf="selectedOption" class="explicacao-box">
-      {{ multiplaEscolha.explanation }}
+  @if(isCorrect !== null){
+
+    <div class="magic-feedback" [ngClass]="isCorrect ? 'success' : 'error'">
+
+      <div class="feedback-glow"></div>
+
+      <div class="feedback-header">
+
+        <div class="feedback-icon">
+          {{ isCorrect ? '✨' : '🔮' }}
+        </div>
+        <div>
+          <h3>
+            {{ isCorrect
+              ? 'Feitiço lançado com sucesso!'
+              : 'A magia não funcionou...' }}
+          </h3>
+          <span>
+            {{ isCorrect
+              ? 'Você acertou a resposta.'
+              : 'Confira a explicação abaixo.' }}
+          </span>
+        </div>
+
     </div>
+
+    <div class="feedback-explanation">
+      {{ multiplaEscolha.explanation_pt }}
+    </div>
+
+    <button class="feedback-button" (click)="next()">
+
+      {{
+        counter + 1 === multiplaEscolhaArray.length
+          ? 'Finalizar'
+          : 'Continuar'
+      }}
+
+    </button>
 
   </div>
 
+}
+
+<app-modal-acertos
+    [open]="isModalAcertosOpen"
+    [correctAnswers]="acertos"
+    [totalQuestions]="quantidade"
+  ></app-modal-acertos>
 </ion-content>
