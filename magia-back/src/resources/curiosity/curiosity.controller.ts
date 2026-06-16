@@ -31,7 +31,8 @@ export class CuriosityController {
       - Prefer well-known and verifiable facts.
       - If confidence is low, choose a safer and more famous fact.
       - Mention the country naturally when relevant.
-      - Maximum 400 characters.
+      - Minimun 500 characters
+      - Maximum 700 characters.
 
       Output:
       Return ONLY valid JSON.

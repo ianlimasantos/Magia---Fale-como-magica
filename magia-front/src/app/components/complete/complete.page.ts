@@ -11,13 +11,14 @@ import { CompleteService } from 'src/app/services/complete-service';
 import { GeneratedActivityService } from 'src/app/services/generated-activity-service';
 import { GeneratedActivityModel } from 'src/app/models/generated-activity/generated-activity-model';
 import { ModalAcertosComponent } from '../shared/modal-acertos/modal-acertos.component';
+import { ErroComponent } from '../shared/erro/erro.component';
 
 @Component({
   selector: 'app-complete',
   templateUrl: './complete.page.html',
   styleUrls: ['./complete.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent, ModalAcertosComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent, ModalAcertosComponent, ErroComponent]
 })
 export class CompletePage implements OnInit {
 
@@ -41,6 +42,7 @@ export class CompletePage implements OnInit {
   isloading: boolean = false;
   isModalAcertosOpen = false;
   error: boolean = false;
+  mensagemDeErro: string = '';
 
 
   completeActivityArray: CompleteActivityModel[] = [];
@@ -70,39 +72,52 @@ export class CompletePage implements OnInit {
 
 
   loadActivity(activityId: string) {
+    this.isloading = true;
     this.generatedActivityService.getCompleteGeneratedActivity(activityId).subscribe({
       next: (generatedActivity: GeneratedActivityModel) => {
         this.generatedActivity = generatedActivity;
-        console.log(this.generatedActivity);
         this.quantidade = generatedActivity.quantity;
         this.completeActivityArray = this.generatedActivity.completes || [];
         this.loadQuestion();
+        this.isloading = false;
       },
       error: (error) => {
-        console.error('Erro ao carregar atividade gerada:', error);
+        this.isloading = false;
+        this.error = true;
+        this.mensagemDeErro = 'Erro ao buscar Atividade';
+        setTimeout(() => {
+          this.error = false;
+          this.router.navigate(['/tabs/config-ia']);
+        }, 5000);
       },
       complete: () => {
-        console.log('Atividade gerada carregada com sucesso');
+        this.isloading = false;
       }
     });
   }
 
 
   loadCompleteActivityFromApi(tema: string, nivel: string, quantidade: number) {
+    this.isloading = true;
     this.completeService.createCompleteActivities(tema, nivel, quantidade).subscribe({
       next: (response: CreateCompleteOpenAiDto) => {
-        console.log('Complete activities fetched successfully:', response);
         this.createCompleteOpenAiDto = response;
         this.completeActivityArray = response.createCompleteDto;
         this.generatedActivity = response.createGeneratedActivityDto;
         this.loadQuestion();
+        this.isloading = false;
       },
       error: (error) => {
-        console.error('Error fetching complete activities:', error);
+        this.isloading = false;
+        this.error = true;
+        this.mensagemDeErro = 'Erro ao carregar Atividade:';
+        setTimeout(() => {
+          this.error = false;
+          this.router.navigate(['/tabs']);
+        }, 5000);
       },
       complete: () => {
-        console.log('Complete activities loaded successfully');
-
+        this.isloading = false;
       }
     });
   }
@@ -143,9 +158,21 @@ export class CompletePage implements OnInit {
         this.acertos,
         this.quantidade
       ).subscribe({
-          next: () => {console.log('Progresso registrado com sucesso')},
-          error: (error) => {console.log('Erro ao registrar progresso', error)},
-          complete: () => {console.log('Registro de progresso finalizado')}
+          next: () => {
+            this.isloading = false;
+          },
+          error: (error) => {
+            this.isloading = false;
+            this.error = true;
+            this.mensagemDeErro = 'Erro ao registrar progresso'
+            setTimeout(() => {
+              this.error = false;
+              this.router.navigate(['/tabs']);
+            }, 5000);
+          },
+          complete: () => {
+            this.isloading = false;
+          }
         }
       );
       this.isModalAcertosOpen = true;

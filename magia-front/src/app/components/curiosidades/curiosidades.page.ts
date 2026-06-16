@@ -65,13 +65,15 @@ export class CuriosidadesPage implements OnInit {
   }
 
   generateActivity(type: string){
+    const temaEscolhido = `(${this.newCuriosity.value.theme} - ${this.newCuriosity.value})` + ' ' + this.text + ' .' + 'Rule to generate the activity: use words that appear in the text before.'
+    console.log(temaEscolhido);
     if(type == TipoAtividade.Multipla_Escolha) {
-      this.routerToNavigate.navigate(['/multipla-escolha'], {queryParams: { tema: this.newCuriosity.value.theme}});
+      this.routerToNavigate.navigate(['/multipla-escolha'], {queryParams: { tema: temaEscolhido}});
     } else if(type == TipoAtividade.Completar) {
-      this.routerToNavigate.navigate(['/complete'], {queryParams: { tema: this.newCuriosity.value.theme}});
+      this.routerToNavigate.navigate(['/complete'], {queryParams: { tema: temaEscolhido}});
     } else if(type == TipoAtividade.Flashcards) {
       console.log('Iniciando atividade de Flashcards com os seguintes parâmetros:');
-      this.routerToNavigate.navigate(['/flashcards'], {queryParams: { tema: this.newCuriosity.value.theme}});
+      this.routerToNavigate.navigate(['/flashcards'], {queryParams: { tema: temaEscolhido}});
     }
   }
 

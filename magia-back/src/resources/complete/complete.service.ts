@@ -25,6 +25,14 @@ export class CompleteService {
   async createByOpenAI(theme: string, level: string, quantity: number, userId: string) {
     const prompt = this.returnPrompt(theme, level, quantity);
     const response = await this.openAiService.makeRequest(prompt);
+
+    const temaDeCuriosidade = theme.match(/\((.*?)\)/);
+    const temaResumido: string | null = temaDeCuriosidade ? temaDeCuriosidade[1] : null;
+
+    if (temaResumido) {
+      theme = temaResumido;
+    }
+
     const queryRunner  = this.dataSource.createQueryRunner();
 
     const mapped = {

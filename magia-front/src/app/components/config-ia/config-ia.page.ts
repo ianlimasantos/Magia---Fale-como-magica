@@ -4,9 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonToolbar } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoAtividade } from 'src/app/models/enums/tipo-atividade';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.prod';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-config-ia',
   templateUrl: './config-ia.page.html',
@@ -30,7 +28,11 @@ export class ConfigIaPage implements OnInit {
 
   niveis = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-  constructor(private router: ActivatedRoute) {}
+  constructor(private router: ActivatedRoute, private location: Location) {}
+
+  // voltar() {
+  //   this.location.back();
+  // }
 
   ngOnInit() {
     this.tipo = this.router.snapshot.queryParamMap.get('tipo') as TipoAtividade;

@@ -66,6 +66,7 @@
     </div>
 
     <div class="feedback-explanation">
+      Resposta correta: {{multiplaEscolha.correct_answer_es}}.
       {{ multiplaEscolha.explanation_pt }}
     </div>
 
@@ -83,9 +84,11 @@
 
 }
 
-<app-modal-acertos
-    [open]="isModalAcertosOpen"
-    [correctAnswers]="acertos"
-    [totalQuestions]="quantidade"
-  ></app-modal-acertos>
+  <app-modal-acertos
+      [open]="isModalAcertosOpen"
+      [correctAnswers]="acertos"
+      [totalQuestions]="quantidade"
+    ></app-modal-acertos>
+
+  <app-erro [error]="error" [errorMessage]="mensagemDeErro"></app-erro>
 </ion-content>

@@ -10,13 +10,14 @@ import { MultipleChoiceService } from 'src/app/services/multiple-choice-service'
 import { CreateMultiplaEscolhaOpenAiModel } from 'src/app/models/multiplaEscolha/create-multiple-choice-openAi';
 import { GeneratedActivityModel } from 'src/app/models/generated-activity/generated-activity-model';
 import { ModalAcertosComponent } from '../shared/modal-acertos/modal-acertos.component';
+import { ErroComponent } from '../shared/erro/erro.component';
 
 @Component({
   selector: 'app-multipla-escolha',
   templateUrl: './multipla-escolha.page.html',
   styleUrls: ['./multipla-escolha.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalAcertosComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalAcertosComponent, ErroComponent]
 })
 export class MultiplaEscolhaPage implements OnInit {
 
@@ -27,6 +28,7 @@ export class MultiplaEscolhaPage implements OnInit {
   isCorrect: boolean | null = null;
   isDisabled: boolean = false;
   selectedOption: string | null = null;
+  error: boolean = false;
 
   generatedActivity?: GeneratedActivityModel;
   index = 0;
@@ -37,6 +39,7 @@ export class MultiplaEscolhaPage implements OnInit {
   multiplaEscolha!: MultiplaEscolhaModel;
   multiplaEscolhaArray: MultiplaEscolhaModel[] = [];
   isModalAcertosOpen: boolean = false;
+  mensagemDeErro = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -71,7 +74,7 @@ export class MultiplaEscolhaPage implements OnInit {
         this.multiplaEscolha = this.multiplaEscolhaArray[this.counter];
       },
       error: (error) => {
-        console.error('Erro ao carregar atividade gerada:', error);
+        console.error('Erro ao carregar atividade gerada', error);
       },
       complete: () => {
         console.log('Atividade gerada carregada com sucesso');
@@ -90,10 +93,11 @@ export class MultiplaEscolhaPage implements OnInit {
       },
       error: (error: any) => {
         this.isloading = false;
-        //this.error = true;
+        this.error = true;
+        this.mensagemDeErro = error.error.message || 'Erro ao criar atividade';
         setTimeout(() => {
-          // this.error = false;
-          this.router.navigate(['/tabs/config-ia']);
+          this.error = false;
+          this.router.navigate(['/tabs']);
         }, 5000);
       },
       complete: () => {
@@ -127,16 +131,24 @@ export class MultiplaEscolhaPage implements OnInit {
         this.acertos,
         this.quantidade
       ).subscribe({
-          next: () => {console.log('Progresso registrado com sucesso')},
-          error: (error) => {console.log('Erro ao registrar progresso', error)},
+          next: () => {
+            this.isModalAcertosOpen = true;
+          },
+          error: (error) => {
+            this.isloading = false;
+            this.error = true;
+            this.mensagemDeErro = 'Erro ao registrar progresso'
+            setTimeout(() => {
+              this.error = false;
+              this.router.navigate(['/tabs']);
+            }, 5000);
+
+
+          },
           complete: () => {console.log('Registro de progresso finalizado')}
         }
       );
-      this.isModalAcertosOpen = true;
-      setTimeout(() => {
-        this.isModalAcertosOpen = false;
-        this.router.navigate(['/tabs']);
-      }, 5000);
+
     }
   }
 

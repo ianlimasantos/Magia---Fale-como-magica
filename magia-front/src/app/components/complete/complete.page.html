@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <label (click)="openModal()">X</label>
     <ion-title>Complete</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -72,6 +71,7 @@
     </div>
 
     <div class="feedback-explanation">
+      Resposta correta: {{completeActivity.correct_answer_es}}.
       {{ completeActivity.explanation_pt }}
     </div>
 
@@ -95,7 +95,7 @@
     [correctAnswers]="acertos"
     [totalQuestions]="quantidade"
   ></app-modal-acertos>
-
+<app-erro [error]="error" [errorMessage]="mensagemDeErro"></app-erro>
 <!-- <app-modal
   [isOpen]="isModalOpen"
   title="Deseja sair da atividade?"

@@ -28,6 +28,12 @@ export class FlashcardService {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const result = await this.openAiService.makeRequest(prompt);
+    const temaDeCuriosidade = theme.match(/\((.*?)\)/);
+    const temaResumido: string | null = temaDeCuriosidade ? temaDeCuriosidade[1] : null;
+
+    if (temaResumido) {
+      theme = temaResumido;
+    }
 
     try {
       CreateFlashcardOpenAiSchema.parse(result);

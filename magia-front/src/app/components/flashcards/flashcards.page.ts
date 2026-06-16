@@ -36,6 +36,7 @@ export class FlashcardsPage implements OnInit {
   isloading: boolean = false;
   isModalAcertosOpen = false;
   error: boolean = false;
+  mensagemDeErro = '';
 
   constructor(private route: ActivatedRoute,
     private flashcardService: FlashcardService,
@@ -62,6 +63,7 @@ export class FlashcardsPage implements OnInit {
 
 
   loadActivity(activityId: string) {
+    this.isloading = true;
     this.generatedActivityService.getGeneratedActivity(activityId).subscribe({
       next: (generatedActivity: GeneratedActivityModel) => {
         this.generatedActivity = generatedActivity;
@@ -70,10 +72,16 @@ export class FlashcardsPage implements OnInit {
         this.currentCard = this.flashcards[this.index];
       },
       error: (error) => {
-        console.error('Erro ao carregar atividade gerada:', error);
+        this.isloading = false;
+        this.error = true;
+        this.mensagemDeErro = 'Erro ao buscar flashcard:';
+        setTimeout(() => {
+          this.error = false;
+          this.router.navigate(['/tabs/config-ia']);
+        }, 5000);
       },
       complete: () => {
-        console.log('Atividade gerada carregada com sucesso');
+        this.isloading = false;
       }
     });
   }
@@ -82,39 +90,38 @@ export class FlashcardsPage implements OnInit {
     this.isloading = true;
     this.flashcardService.createFlashcards(tema, nivel, quantidade).subscribe({
       next: (generatedActivity: CreateFlashcardOpenAiModel) => {
-        console.log(generatedActivity);
         this.generatedActivity = generatedActivity.generatedActivity;
         this.flashcards = generatedActivity.flashcards;
         this.currentCard = this.flashcards[this.index];
       },
       error: (error: any) => {
         this.isloading = false;
+        this.mensagemDeErro = 'Erro ao criar flashcard:';
         this.error = true;
         setTimeout(() => {
           this.error = false;
           this.router.navigate(['/tabs/config-ia']);
-        }, 7000);
+        }, 5000);
       },
       complete: () => {
         this.isloading = false;
-        console.log("Flashcards criados com sucesso");
       }
     });
   }
 
-  getFlashcard(id: string) {
-    this.flashcardService.getFlashcard(id).subscribe({
-      next: (flashcards: FlashcardModel[]) => {
-        this.currentCard = flashcards[this.index];
-      },
-      error: (error: any) => {
-        console.error('Erro ao buscar flashcard:', error);
-      },
-      complete: () => {
-        console.log('Busca de flashcard concluída');
-      }
-    });
-  }
+  // getFlashcard(id: string) {
+  //   this.flashcardService.getFlashcard(id).subscribe({
+  //     next: (flashcards: FlashcardModel[]) => {
+  //       this.currentCard = flashcards[this.index];
+  //     },
+  //     error: (error: any) => {
+  //       console.error('Erro ao buscar flashcard:', error);
+  //     },
+  //     complete: () => {
+  //       console.log('Busca de flashcard concluída');
+  //     }
+  //   });
+  // }
 
   flipCard() {
     this.isFlipped = !this.isFlipped;
@@ -122,19 +129,29 @@ export class FlashcardsPage implements OnInit {
 
   next(){
 
-    console.log("teste");
-    console.log(this.generatedActivity);
     if ((this.index + 1) == this.flashcards.length ){
-      console.log(`Registrando progresso: ${this.flashcards.length}`);
+      this.isloading = true;
       this.generatedActivityService.registerProgress(
         this.generatedActivity?.id || '',
         this.generatedActivity?.userId|| '',
         this.acertos,
         this.quantidade
       ).subscribe({
-          next: () => {console.log('Progresso registrado com sucesso')},
-          error: (error) => {console.log('Erro ao registrar progresso', error)},
-          complete: () => {console.log('Registro de progresso finalizado')}
+          next: () => {
+            this.isloading = false;
+          },
+          error: (error) => {
+            this.isloading = false;
+            this.error = true;
+            this.mensagemDeErro = 'Erro ao registrar progresso'
+            setTimeout(() => {
+              this.error = false;
+              this.router.navigate(['/tabs']);
+            }, 5000);
+          },
+          complete: () => {
+            this.isloading = false;
+          }
         }
       );
       this.isModalAcertosOpen = true;
@@ -149,9 +166,6 @@ export class FlashcardsPage implements OnInit {
       this.isFlipped = false;
       this.currentCard = this.flashcards[this.index];
     }
-
-
-
   }
 
   async speak(word: string | undefined) {
