@@ -5,6 +5,7 @@ import { UpdateUserActivityProgressDto } from './dto/update-user_activity_progre
 import { UserActivityProgressHistoryDto } from './dto/user_activity_progress_historic.dto';
 import { CurrentUser } from '../auth/current-user/current-user.decorator';
 import { AuthGuard } from '../auth/auth.guard';
+import { GetUserProgressSixMonths } from './dto/get-user-progress-six-months.dto';
 
 @UseGuards(AuthGuard)
 @Controller('user-activity-progress')
@@ -24,6 +25,13 @@ export class UserActivityProgressController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userActivityProgressService.findOne(id);
+  }
+
+  @Get('sixMonths/:id')
+  async findHistoricSixMonths(
+    @Param('id') id: string,
+  ): Promise<GetUserProgressSixMonths[]> {
+    return await this.userActivityProgressService.findHistoricSixMonths(id);
   }
 
   @Get('type/:type')

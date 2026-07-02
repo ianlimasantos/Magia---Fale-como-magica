@@ -1,6 +1,6 @@
 import { GeneratedActivityEntity } from "src/resources/generated-activities/entities/generated-activity.entity";
 import { UserEntity } from "src/resources/user/user-entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user_activity_progress')
 export class UserActivityProgressEntity {
@@ -25,6 +25,9 @@ export class UserActivityProgressEntity {
 
   @Column()
   percentage: number; 
+
+  @CreateDateColumn({ default: () => 'CURRENT_TIME' })
+  created_at: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.userActivityProgresses)
   @JoinColumn({ name: 'userId' })

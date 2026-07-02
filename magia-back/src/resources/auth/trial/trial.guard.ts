@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { UserUsageEntity } from 'src/resources/user-usage/entities/user-usage.entity';
-import { UserUsageService } from 'src/resources/user-usage/user-usage.service';
+import { UserUsageEntity } from '../../../resources/user-usage/entities/user-usage.entity';
+import { UserUsageService } from '../../../resources/user-usage/user-usage.service';
 
 @Injectable()
 export class TrialGuard implements CanActivate {

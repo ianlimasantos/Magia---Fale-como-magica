@@ -7,6 +7,9 @@ import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user/user-model';
 import { UserService } from 'src/app/services/user-service';
+import Chart from 'chart.js/auto';
+import { UserActivityProgressHistoricService } from 'src/app/services/user-activity-progress-historic-service';
+import { UserHistoricSixMonthsModel } from 'src/app/models/userActivityProgress/user-progress-six-months-model';
 
 @Component({
   selector: 'app-perfil',
@@ -18,10 +21,13 @@ import { UserService } from 'src/app/services/user-service';
 export class PerfilPage implements OnInit {
 
   user?: UserModel;
+  data: UserHistoricSixMonthsModel[] = []
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService,
+    private userActivityProgressHistoricService: UserActivityProgressHistoricService
+  ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.userInfo();
   }
 
@@ -30,7 +36,7 @@ export class PerfilPage implements OnInit {
       this.userService.userInfo().subscribe({
         next: (result) => {
           this.user = result;
-          console.log(result);
+          this.carregarDashboard(this.user?.id);
         },
         error: (err) => {
           console.error(err);
@@ -98,4 +104,61 @@ export class PerfilPage implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  async carregarDashboard(userId: string | undefined){
+
+    if(!userId){
+      return;
+    }
+
+    await this.userActivityProgressHistoricService.findHistoricSixMonths(userId).subscribe({
+      next: (value) => {
+        this.data = value;
+        console.log(this.data);
+        const canvas = document.getElementById('acquisitions') as HTMLCanvasElement | null;
+        if(!canvas){
+          return;
+        }
+        new Chart(
+          canvas,
+          {
+            type: 'bar',
+            data: {
+              labels: this.data.map(x => `${x.data} - ${x.level}`),
+              datasets: [
+                {
+                  label: 'Quantidade',
+                  data: this.data.map(row => row.quantidade),
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(255, 205, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(153, 102, 255, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)'
+                  ],
+                }
+              ]
+            },
+            options: {
+            plugins: {
+              title: {
+                display: true,
+                text: 'Nível predominante por mês'
+              }
+            }
+          }
+          }
+        );
+      }
+    })
+
+  }
 }

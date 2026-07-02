@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { UserActivityProgressHistoryModel } from '../models/userActivityProgress/user-activity-progress-history-model';
 import { Observable } from 'rxjs';
+import { UserHistoricSixMonthsModel } from '../models/userActivityProgress/user-progress-six-months-model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +15,9 @@ export class UserActivityProgressHistoricService {
 
   getHistoricByType(type: string) : Observable<UserActivityProgressHistoryModel[]> {
     return this.httpClient.get<UserActivityProgressHistoryModel[]>(`${this.apiUrl}/user-activity-progress/type/${type}`);
+  }
+
+  findHistoricSixMonths(userId: string) : Observable<UserHistoricSixMonthsModel[]>{
+    return this.httpClient.get<UserHistoricSixMonthsModel[]>(`${this.apiUrl}/user-activity-progress/sixMonths/${userId}`);
   }
 }
