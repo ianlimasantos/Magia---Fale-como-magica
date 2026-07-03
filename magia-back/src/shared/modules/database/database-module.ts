@@ -9,28 +9,31 @@ import { CompleteEntity } from 'src/resources/complete/entities/complete.entity'
 import { MultipleChoiceOptionEntity } from 'src/resources/multiple-choice/entities/multiple-choice-option.entity';
 import { UserActivityProgressEntity } from 'src/resources/user_activity_progress/entities/user_activity_progress.entity';
 import { UserUsageEntity } from 'src/resources/user-usage/entities/user-usage.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mariadb',
-      host: 'localhost',
-      port: 3306,
-      username: 'magia_nest_app',
-      password: '88254389',
-      database: 'magia',
-      entities: [
-        UserEntity,
-        CuriosityEntity,
-        GeneratedActivityEntity,
-        FlashcardEntity,
-        MultipleChoiceEntity,
-        MultipleChoiceOptionEntity,
-        CompleteEntity,
-        UserActivityProgressEntity, 
-        UserUsageEntity
-      ],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'mysql',
+        host: config.get<string>('MYSQLHOST'),
+        port: Number(config.get('MYSQLPORT')),
+        username: config.get<string>('MYSQLUSER'),
+        password: config.get<string>('MYSQLPASSWORD'),
+        database: config.get<string>('MYSQLDATABASE'),
+        entities: [
+          UserEntity,
+          GeneratedActivityEntity,
+          FlashcardEntity,
+          MultipleChoiceEntity,
+          MultipleChoiceOptionEntity,
+          CompleteEntity,
+          UserActivityProgressEntity, 
+          UserUsageEntity
+        ],
+        synchronize: false,
+      })
     }),
   ],
   controllers: [],
