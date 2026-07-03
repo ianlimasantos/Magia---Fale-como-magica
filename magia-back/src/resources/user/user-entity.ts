@@ -37,10 +37,10 @@ export class UserEntity {
   @Column()
   trialEndsAt: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIME' })
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn({ default: () => 'CURRENT_TIME' })
+  @UpdateDateColumn()
   updated_at: Date;
 
   @OneToMany(() => UserActivityProgressEntity, (userActivityProgress) => userActivityProgress.user)

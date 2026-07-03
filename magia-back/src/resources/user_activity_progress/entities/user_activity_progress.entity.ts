@@ -26,7 +26,7 @@ export class UserActivityProgressEntity {
   @Column()
   percentage: number; 
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIME' })
+  @CreateDateColumn()
   created_at: Date;
 
   @ManyToOne(() => UserEntity, (user) => user.userActivityProgresses)
