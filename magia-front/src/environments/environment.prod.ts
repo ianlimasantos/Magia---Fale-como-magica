@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://192.168.1.40:3000'
+  apiUrl: 'https://magia-production-1706.up.railway.app/'
 };
