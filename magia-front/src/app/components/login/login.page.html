@@ -32,8 +32,22 @@
       <app-loading [loading]="isloading"></app-loading>
     }
 
-    <p>
+    <div class="mobile-warning">
+  <div class="mobile-warning__icon">📱</div>
+
+  <div class="mobile-warning__content">
+      <h3>Melhor experiência em dispositivos móveis</h3>
+      <p>
+        O <strong>Magia</strong> foi desenvolvido com foco em smartphones. Se
+        estiver acessando pelo computador, utilize o modo responsivo do navegador
+        (F12 → ícone de dispositivo móvel) para visualizar a interface como ela
+        foi projetada.
+      </p>
+    </div>
+  </div>
+
+    <!-- <p>
       <a [routerLink]="'/create-account'">Não tem conta? Clique aqui para criar!</a>
-    </p>
+    </p> -->
   </div>
 </ion-content>

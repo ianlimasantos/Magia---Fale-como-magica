@@ -45,10 +45,10 @@ export class LoginPage implements OnInit {
   }
 
   loginForm = new FormGroup({
-    email: new FormControl<string>('', {
+    email: new FormControl<string>('usuario.teste.magia@gmail.com', {
       nonNullable: true,
       validators: [Validators.required, Validators.email]}),
-    password: new FormControl<string>('', {
+    password: new FormControl<string>('ianlima', {
       nonNullable: true,
       validators: [Validators.required]
     })
