@@ -60,12 +60,12 @@ export class UserActivityProgressService {
         SELECT LEVEL as level, quantidade,  DATA as data
         FROM (
           SELECT LEVEL, COUNT(UAP.id) as quantidade, DATE_FORMAT(created_at, '%Y-%m') AS DATA, 
-            ROW_NUMBER() OVER (PARTITION BY DATE_FORMAT(created_at, '%Y-%m-01') ORDER BY COUNT(UAP.id) DESC) AS orden
+            ROW_NUMBER() OVER (PARTITION BY DATE_FORMAT(created_at, '%Y-%m') ORDER BY COUNT(UAP.id) DESC) AS orden
           FROM generated_activity AS G
           INNER JOIN user_activity_progress AS UAP
           ON (G.id = UAP.generatedActivityId)
           WHERE G.userId = ? && UAP.created_at >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)
-          GROUP BY G.LEVEL, DATE_FORMAT(created_at, '%Y-%m-01')
+          GROUP BY G.LEVEL, DATE_FORMAT(created_at, '%Y-%m')
         ) RANKING
         WHERE ORDEN = 1
         ORDER BY DATA ASC;

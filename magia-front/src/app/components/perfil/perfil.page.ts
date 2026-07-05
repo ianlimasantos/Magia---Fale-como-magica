@@ -104,13 +104,13 @@ export class PerfilPage implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  async carregarDashboard(userId: string | undefined){
+  carregarDashboard(userId: string | undefined){
 
     if(!userId){
       return;
     }
 
-    await this.userActivityProgressHistoricService.findHistoricSixMonths(userId).subscribe({
+    this.userActivityProgressHistoricService.findHistoricSixMonths(userId).subscribe({
       next: (value) => {
         this.data = value;
         console.log(this.data);
