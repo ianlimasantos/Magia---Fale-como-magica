@@ -32,7 +32,7 @@ import { ConfigService } from '@nestjs/config';
           UserActivityProgressEntity, 
           UserUsageEntity
         ],
-        synchronize: true,
+        synchronize: false,
       })
     }),
   ],

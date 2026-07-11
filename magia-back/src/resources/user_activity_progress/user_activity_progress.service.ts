@@ -36,7 +36,7 @@ export class UserActivityProgressService {
     const result: UserActivityProgressHistoryDto[] =
       await this.userActivityProgressRepository.query(
         `
-      SELECT GA.id as generatedActivityId, GA.theme, UAP.score, UAP.percentage, UAP.rights, UAP.quantity
+      SELECT GA.id as generatedActivityId, GA.theme, UAP.score, UAP.percentage, UAP.rights, UAP.quantity, GA.curiosity
       FROM generated_activity AS GA
       INNER JOIN user_activity_progress AS UAP
         ON GA.id = UAP.generatedActivityId

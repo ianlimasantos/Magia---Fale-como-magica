@@ -16,4 +16,7 @@ export class CreateGeneratedActivityDto {
 
   @Expose()
   quantity: number;
+
+  @Expose()
+  curiosity?: string;
 }

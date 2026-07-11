@@ -12,13 +12,14 @@ import { GeneratedActivityService } from 'src/app/services/generated-activity-se
 import { GeneratedActivityModel } from 'src/app/models/generated-activity/generated-activity-model';
 import { ModalAcertosComponent } from '../shared/modal-acertos/modal-acertos.component';
 import { ErroComponent } from '../shared/erro/erro.component';
+import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-complete',
   templateUrl: './complete.page.html',
   styleUrls: ['./complete.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent, ModalAcertosComponent, ErroComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalComponent, ModalAcertosComponent, ErroComponent, LoadingComponent]
 })
 export class CompletePage implements OnInit {
 

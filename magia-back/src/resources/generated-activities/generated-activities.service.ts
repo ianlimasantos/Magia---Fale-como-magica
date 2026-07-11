@@ -20,6 +20,7 @@ export class GeneratedActivitiesService {
     generatedActivityEntity.userId = createGeneratedActivityDto.userId;
     generatedActivityEntity.theme = createGeneratedActivityDto.theme;
     generatedActivityEntity.level = createGeneratedActivityDto.level;
+    generatedActivityEntity.curiosity = createGeneratedActivityDto.curiosity;
     return this.generatedActivityRepository.save(generatedActivityEntity);
   }
 
