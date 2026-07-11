@@ -9,7 +9,13 @@ async function bootstrap() {
   const corsOrigin = process.env.CORS_ORIGIN;
 
   app.enableCors({
-    origin: corsOrigin, 
+    origin: [
+      'http://localhost',
+      'http://localhost:8100',
+      'capacitor://localhost',
+      'http://192.168.1.40:8100',
+      corsOrigin,
+    ], 
     credentials: true
   });
 

@@ -6,4 +6,5 @@ export interface UserActivityProgressHistoryModel {
   percentage: number;
   rights: number;
   quantity: number;
+  curiosity?: string;
 }

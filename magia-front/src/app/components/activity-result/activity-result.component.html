@@ -4,6 +4,11 @@
 
     <div class="result-header">
       <h3>{{ userActivityProgress?.theme }}</h3>
+      @if(userActivityProgress?.curiosity){
+        <button class="curiosity-btn"   (click)="$event.stopPropagation(); showModalCuriosidade()">
+          &#10024; Reler Curiosidade
+        </button>
+      }
     </div>
 
     <div class="result-stats">
@@ -27,3 +32,49 @@
     </div>
   </div>
 </div>
+
+<ion-modal
+  [isOpen]="isModalCuriosidadeOpen"
+  cssClass="magic-modal">
+
+  <ng-template>
+    <ion-header class="magic-header">
+      <ion-toolbar>
+
+        <ion-title>
+          Curiosidade
+        </ion-title>
+
+          <button class="close-btn" (click)="closeModal()">
+            &times;
+          </button>
+
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="magic-content">
+
+      <div class="curiosity-card">
+        <p>{{ userActivityProgress?.curiosity }}</p>
+      </div>
+    </ion-content>
+  </ng-template>
+
+</ion-modal>
+
+
+<!-- <ion-modal [isOpen]="isModalCuriosidadeOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+          <button (click)="closeModal()">
+            Fechar
+          </button>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <p>{{ userActivityProgress?.curiosity }}</p>
+    </ion-content>
+  </ng-template>
+</ion-modal> -->

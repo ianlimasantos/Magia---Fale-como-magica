@@ -65,7 +65,7 @@ export class CuriosidadesPage implements OnInit {
   }
 
   generateActivity(type: string){
-    const temaEscolhido = `(${this.newCuriosity.value.theme} - ${this.newCuriosity.value})` + ' ' + this.text + ' .' + 'Rule to generate the activity: use words that appear in the text before.'
+    const temaEscolhido = `(${this.newCuriosity.value.theme} - ${this.newCuriosity.value.country})` + ' ' + this.text + ' .' + 'Rule to generate the activity: use words that appear in the text before.'
     console.log(temaEscolhido);
     if(type == TipoAtividade.Multipla_Escolha) {
       this.routerToNavigate.navigate(['/multipla-escolha'], {queryParams: { tema: temaEscolhido}});

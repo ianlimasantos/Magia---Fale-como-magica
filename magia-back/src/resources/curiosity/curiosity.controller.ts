@@ -26,13 +26,13 @@ export class CuriosityController {
 
       Requirements:
       - The fact must be historically, geographically, culturally, scientifically, or economically accurate.
-      - The output text MUST be in Brazilian Portuguese.
+      - The output text MUST be in Spanish.
       - Never invent information.
       - Prefer well-known and verifiable facts.
       - If confidence is low, choose a safer and more famous fact.
       - Mention the country naturally when relevant.
       - Minimun 500 characters
-      - Maximum 700 characters.
+      - Maximum 600 characters.
 
       Output:
       Return ONLY valid JSON.
@@ -48,7 +48,7 @@ export class CuriosityController {
       - Do not add explanations.
       - Do not add comments.
       - Do not add text before or after the JSON.
-      - The curiosity value must be a single sentence or short paragraph in Brazilian Portuguese.`;
+      - The curiosity value must be a single sentence or short paragraph in Spanish.`;
   }
   
 }

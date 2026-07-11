@@ -30,6 +30,7 @@ export class FlashcardService {
     const result = await this.openAiService.makeRequest(prompt);
     const temaDeCuriosidade = theme.match(/\((.*?)\)/);
     const temaResumido: string | null = temaDeCuriosidade ? temaDeCuriosidade[1] : null;
+    const cleanedText = temaDeCuriosidade?.input?.replace(/\.?\s*Rule to generate[\s\S]*$/i, '').trim() || '';
 
     if (temaResumido) {
       theme = temaResumido;
@@ -52,7 +53,8 @@ export class FlashcardService {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         quantity: quantity,
 
-        userId: userId
+        userId: userId,
+        curiosity: cleanedText
       },
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       flashcards: result.flashcards
@@ -70,6 +72,7 @@ export class FlashcardService {
       generatedActivityEntity.quantity = quantity;
       generatedActivityEntity.userId = userId;
       generatedActivityEntity.type = 'flashcard';
+      generatedActivityEntity.curiosity = cleanedText;
       await queryRunner.manager.save(generatedActivityEntity);
 
       response.generatedActivity.id = generatedActivityEntity.id;

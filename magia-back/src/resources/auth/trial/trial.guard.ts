@@ -17,17 +17,17 @@ export class TrialGuard implements CanActivate {
       throw new ForbiddenException("Período de teste expirado.");
     }
 
-    const userUsage = await this.userUsageService.findOne(userId);
+    // const userUsage = await this.userUsageService.findOne(userId);
 
-    if (userUsage && userUsage.requestsCount >= 3) {
-      throw new ForbiddenException("Você atingiu o limite diário de 3 gerações.");
-    }
+    // if (userUsage && userUsage.requestsCount >= 15) {
+    //   throw new ForbiddenException("Você atingiu o limite diário de 15 gerações.");
+    // }
 
-    if (userUsage) {
-      userUsage.requestsCount++;
-      await this.userUsageService.save(userUsage);
-      return true;
-    }
+    // if (userUsage) {
+    //   userUsage.requestsCount++;
+    //   await this.userUsageService.save(userUsage);
+    //   return true;
+    // }
 
     const newUserUsage = new UserUsageEntity();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

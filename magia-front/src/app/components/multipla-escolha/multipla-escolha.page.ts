@@ -11,13 +11,14 @@ import { CreateMultiplaEscolhaOpenAiModel } from 'src/app/models/multiplaEscolha
 import { GeneratedActivityModel } from 'src/app/models/generated-activity/generated-activity-model';
 import { ModalAcertosComponent } from '../shared/modal-acertos/modal-acertos.component';
 import { ErroComponent } from '../shared/erro/erro.component';
+import { LoadingComponent } from '../shared/loading/loading.component';
 
 @Component({
   selector: 'app-multipla-escolha',
   templateUrl: './multipla-escolha.page.html',
   styleUrls: ['./multipla-escolha.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalAcertosComponent, ErroComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ModalAcertosComponent, ErroComponent, LoadingComponent]
 })
 export class MultiplaEscolhaPage implements OnInit {
 
@@ -145,7 +146,13 @@ export class MultiplaEscolhaPage implements OnInit {
 
 
           },
-          complete: () => {console.log('Registro de progresso finalizado')}
+          complete: () => {
+            console.log('Registro de progresso finalizado')
+            setTimeout(() => {
+              this.isModalAcertosOpen = false;
+              this.router.navigate(['/tabs']);
+            }, 5000);
+          }
         }
       );
 

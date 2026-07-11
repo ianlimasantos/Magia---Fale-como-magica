@@ -6,4 +6,5 @@ export class UserActivityProgressHistoryDto {
   percentage: number;
   rights: number;
   quantity: number;
+  curiosity?: string;
 }
